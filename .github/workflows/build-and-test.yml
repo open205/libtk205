@@ -1,0 +1,73 @@
+name: Build and Test
+
+on: push
+
+jobs:
+  build-and-test:
+    name: Build
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+            config: Release
+            static_lib: ON
+            coverage: OFF
+          - os: windows-latest
+            config: Release
+            static_lib: ON
+            coverage: OFF
+          - os: macos-latest
+            config: Release
+            static_lib: ON
+            coverage: OFF
+          # - os: ubuntu-latest
+          #   config: Debug
+          #   static_lib: OFF
+          #   coverage: ON
+    defaults:
+      run:
+        shell: bash
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set Project Name
+        run: echo "REPOSITORY_NAME=$(echo '${{ github.repository }}' | awk -F '/' '{print $2}')" >> $GITHUB_ENV
+
+      - name: Create Build Directory
+        run: cmake -E make_directory ${{github.workspace}}/build
+
+      - name: Configure CMake
+        run: cmake -S . -B build -DCMAKE_BUILD_TYPE="${{ matrix.config }}" -D${{ env.REPOSITORY_NAME }}_BUILD_TESTING="ON" -D${{ env.REPOSITORY_NAME }}_STATIC_LIB="${{ matrix.static_lib }}" -D${{ env.REPOSITORY_NAME }}_COVERAGE="${{ matrix.coverage }}"
+
+      - name: Build
+        run: cmake --build build --config ${{ matrix.config }}
+
+      - name: Run basic tests
+        if: matrix.coverage == 'OFF' && matrix.os != 'windows-latest'
+        run: ctest --output-on-failure
+        working-directory: build
+
+      - name: Run basic tests Windows
+        if: matrix.coverage == 'OFF' && matrix.os == 'windows-latest'
+        run: ctest -C ${{matrix.config}} --output-on-failure
+        working-directory: build
+
+      # - name: Code Coverage Analysis
+      #   if: matrix.coverage == 'ON'
+      #   run: make gcov
+      #   working-directory: build
+
+      # - name: Upload Code Coverage Report (Unit)
+      #   if: matrix.coverage == 'ON'
+      #   uses: codecov/codecov-action@v2
+      #   with:
+      #     flags: unit
+
+      # - name: Upload Code Coverage Report (Integration)
+      #   if: matrix.coverage == 'ON'
+      #   uses: codecov/codecov-action@v2
+      #   with:
+      #     flags: integration
+

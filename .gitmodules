@@ -1,0 +1,9 @@
+[submodule "vendor/schema-205"]
+	path = vendor/schema-205
+	url = https://github.com/open205/schema-205
+[submodule "vendor/json"]
+	path = vendor/json
+	url = https://github.com/nlohmann/json.git
+[submodule "vendor/btwxt"]
+	path = vendor/btwxt
+	url = https://github.com/bigladder/btwxt.git
