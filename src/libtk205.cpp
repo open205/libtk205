@@ -94,22 +94,28 @@ namespace tk205 {
     }
 
     
-    RS0005_NS::RS0005 Load_RS0005(const char* input_file)
+    RS0007_NS::RS0007 Load_RS0007(const char* input_file)
     {
         auto j = Load_json(input_file);
-        return j.get<RS0005_NS::RS0005>();
+        return j.get<RS0007_NS::RS0007>();
+    }
+    
+    RS0002_NS::RS0002 Load_RS0002(const char* input_file)
+    {
+        auto j = Load_json(input_file);
+        return j.get<RS0002_NS::RS0002>();
+    }
+    
+    RS0001_NS::RS0001 Load_RS0001(const char* input_file)
+    {
+        auto j = Load_json(input_file);
+        return j.get<RS0001_NS::RS0001>();
     }
     
     RS0004_NS::RS0004 Load_RS0004(const char* input_file)
     {
         auto j = Load_json(input_file);
         return j.get<RS0004_NS::RS0004>();
-    }
-    
-    RS0007_NS::RS0007 Load_RS0007(const char* input_file)
-    {
-        auto j = Load_json(input_file);
-        return j.get<RS0007_NS::RS0007>();
     }
     
     RS0003_NS::RS0003 Load_RS0003(const char* input_file)
@@ -124,16 +130,10 @@ namespace tk205 {
         return j.get<RS0006_NS::RS0006>();
     }
     
-    RS0001_NS::RS0001 Load_RS0001(const char* input_file)
+    RS0005_NS::RS0005 Load_RS0005(const char* input_file)
     {
         auto j = Load_json(input_file);
-        return j.get<RS0001_NS::RS0001>();
-    }
-    
-    RS0002_NS::RS0002 Load_RS0002(const char* input_file)
-    {
-        auto j = Load_json(input_file);
-        return j.get<RS0002_NS::RS0002>();
+        return j.get<RS0005_NS::RS0005>();
     }
     
 }
