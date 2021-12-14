@@ -7,3 +7,6 @@
 [submodule "vendor/btwxt"]
 	path = vendor/btwxt
 	url = https://github.com/bigladder/btwxt.git
+[submodule "vendor/valijson"]
+	path = vendor/valijson
+	url = https://github.com/tristanpenman/valijson.git
