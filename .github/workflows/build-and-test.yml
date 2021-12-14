@@ -6,6 +6,7 @@ jobs:
   build-and-test:
     name: Build
     strategy:
+      fail-fast: false
       matrix:
         include:
           - os: ubuntu-latest

@@ -1,5 +1,4 @@
-
-cmake_minimum_required(3.20)
+cmake_minimum_required (VERSION 3.10)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 project(libtk205)
@@ -17,21 +16,8 @@ include(CTest)
 set(JSON_BuildTests OFF CACHE INTERNAL "")
 option( LIBTK205_BUILD_TESTING "Build libtk205 testing targets." ON )
 
-file(GLOB lib_headers "${PROJECT_SOURCE_DIR}/include/libtk205/*.h")
-file(GLOB lib_src "${PROJECT_SOURCE_DIR}/src/*.cpp")
-
-set (SOURCES "${lib_headers}"
-             "${lib_src}")
-
-add_library(libtk205 ${SOURCES})
-target_include_directories(libtk205 PUBLIC ${PROJECT_SOURCE_DIR}/include/libtk205)
-target_include_directories(libtk205 PUBLIC ${PROJECT_SOURCE_DIR}/vendor/btwxt/src)
-target_include_directories(libtk205 PUBLIC ${PROJECT_SOURCE_DIR}/vendor/json/single_include)
-target_include_directories(libtk205 PUBLIC ${PROJECT_SOURCE_DIR}/vendor/json/include)
-target_include_directories(libtk205 PUBLIC ${PROJECT_SOURCE_DIR}/vendor/valijson/include)
-
-# target_compile_features(libtk205 PUBLIC cxx_std_17)
-
+set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake" ${CMAKE_MODULE_PATH})
+add_subdirectory(src)
 add_subdirectory(vendor)
 
 if (LIBTK205_BUILD_TESTING)
