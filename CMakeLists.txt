@@ -12,7 +12,6 @@ if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
     "MinSizeRel" "RelWithDebInfo")
 endif()
 
-include(CTest)
 set(JSON_BuildTests OFF CACHE INTERNAL "")
 option( LIBTK205_BUILD_TESTING "Build libtk205 testing targets." ON )
 
