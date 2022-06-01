@@ -12,7 +12,6 @@ if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
     "MinSizeRel" "RelWithDebInfo")
 endif()
 
-include(CTest)
 set(JSON_BuildTests OFF CACHE INTERNAL "")
 option( LIBTK205_BUILD_TESTING "Build libtk205 testing targets." ON )
 
@@ -21,7 +20,7 @@ add_subdirectory(src)
 add_subdirectory(vendor)
 
 if (LIBTK205_BUILD_TESTING)
-  add_compile_definitions(TEST205_INPUT_EXAMPLES_DIR="${PROJECT_SOURCE_DIR}/vendor")
+  add_compile_definitions(TEST205_INPUT_EXAMPLES_DIR="${PROJECT_SOURCE_DIR}")
   enable_testing()
   add_subdirectory(test)
 endif()
