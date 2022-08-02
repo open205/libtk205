@@ -1,6 +1,6 @@
 #ifndef RS0006_H_
 #define RS0006_H_
-#include <ASHRAE205.h>
+#include <ashrae205.h>
 #include <string>
 #include <vector>
 #include <nlohmann/json.hpp>
@@ -14,7 +14,7 @@
 
 namespace tk205  {
 
-	namespace RS0006_NS  {
+	namespace rs0006_ns  {
 	
 		enum class CoolingMethod {
 			PASSIVE_COOLED,
@@ -31,7 +31,7 @@ namespace tk205  {
 		class ProductInformation  {
 		public:
 			std::string manufacturer;
-			ASHRAE205_NS::Pattern model_number;
+			ashrae205_ns::Pattern model_number;
 			bool manufacturer_is_set;
 			bool model_number_is_set;
 			const static std::string_view manufacturer_units;
@@ -43,15 +43,15 @@ namespace tk205  {
 		};
 		class Description  {
 		public:
-			RS0006_NS::ProductInformation product_information;
+			rs0006_ns::ProductInformation product_information;
 			bool product_information_is_set;
 			const static std::string_view product_information_units;
 			const static std::string_view product_information_description;
 			const static std::string_view product_information_name;
 		};
-		class GridVariables  : public grid_variables_base {
+		class GridVariables  : public GridVariablesBase {
 		public:
-			void Populate_performance_map (performance_map_base* performance_map) override;
+			void populate_performance_map (PerformanceMapBase* performance_map) override;
 			enum  {
 				output_power_index,
 				output_frequency_index,
@@ -68,9 +68,9 @@ namespace tk205  {
 			const static std::string_view output_power_name;
 			const static std::string_view output_frequency_name;
 		};
-		struct LookupVariables  : public lookup_variables_base {
+		struct LookupVariables  : public LookupVariablesBase {
 		
-			void Populate_performance_map (performance_map_base* performance_map) override;
+			void populate_performance_map (PerformanceMapBase* performance_map) override;
 			enum  {
 				efficiency_index,
 				index_count
@@ -84,11 +84,11 @@ namespace tk205  {
 		struct LookupVariablesStruct {
 			double efficiency;
 		};
-		class PerformanceMap  : public performance_map_base {
+		class PerformanceMap  : public PerformanceMapBase {
 		public:
-			void Initialize (const nlohmann::json& j) override;
-			RS0006_NS::GridVariables grid_variables;
-			RS0006_NS::LookupVariables lookup_variables;
+			void initialize (const nlohmann::json& j) override;
+			rs0006_ns::GridVariables grid_variables;
+			rs0006_ns::LookupVariables lookup_variables;
 			bool grid_variables_is_set;
 			bool lookup_variables_is_set;
 			const static std::string_view grid_variables_units;
@@ -97,15 +97,15 @@ namespace tk205  {
 			const static std::string_view lookup_variables_description;
 			const static std::string_view grid_variables_name;
 			const static std::string_view lookup_variables_name;
-			using performance_map_base::Calculate_performance;
-			LookupVariablesStruct Calculate_performance (double output_power, double output_frequency);
+			using PerformanceMapBase::calculate_performance;
+			LookupVariablesStruct calculate_performance (double output_power, double output_frequency);
 		};
 		class Performance  {
 		public:
 			double maximum_power;
 			double standby_power;
-			RS0006_NS::CoolingMethod cooling_method;
-			RS0006_NS::PerformanceMap performance_map;
+			rs0006_ns::CoolingMethod cooling_method;
+			rs0006_ns::PerformanceMap performance_map;
 			bool maximum_power_is_set;
 			bool standby_power_is_set;
 			bool cooling_method_is_set;
@@ -123,12 +123,12 @@ namespace tk205  {
 			const static std::string_view cooling_method_name;
 			const static std::string_view performance_map_name;
 		};
-		class RS0006  : public rs_instance_base {
+		class RS0006  : public RSInstanceBase {
 		public:
-			void Initialize (const nlohmann::json& j) override;
-			ASHRAE205_NS::Metadata metadata;
-			RS0006_NS::Description description;
-			RS0006_NS::Performance performance;
+			void initialize (const nlohmann::json& j) override;
+			ashrae205_ns::Metadata metadata;
+			rs0006_ns::Description description;
+			rs0006_ns::Performance performance;
 			bool metadata_is_set;
 			bool description_is_set;
 			bool performance_is_set;

@@ -1,8 +1,8 @@
 #ifndef RS0002_H_
 #define RS0002_H_
-#include <ASHRAE205.h>
-#include <RS0003.h>
-#include <RS0004.h>
+#include <ashrae205.h>
+#include <rs0003.h>
+#include <rs0004.h>
 #include <string>
 #include <vector>
 #include <nlohmann/json.hpp>
@@ -13,7 +13,7 @@
 
 namespace tk205  {
 
-	namespace RS0002_NS  {
+	namespace rs0002_ns  {
 	
 		enum class FanPosition {
 			BLOW_THROUGH,
@@ -74,7 +74,7 @@ namespace tk205  {
 		class ProductInformation  {
 		public:
 			std::string manufacturer;
-			ASHRAE205_NS::Pattern model_number;
+			ashrae205_ns::Pattern model_number;
 			bool manufacturer_is_set;
 			bool model_number_is_set;
 			const static std::string_view manufacturer_units;
@@ -87,9 +87,9 @@ namespace tk205  {
 		class RatingAHRI210240  {
 		public:
 			std::string certified_reference_number;
-			RS0002_NS::AHRI210240TestStandardYear test_standard_year;
+			rs0002_ns::AHRI210240TestStandardYear test_standard_year;
 			std::string rating_source;
-			RS0002_NS::AHRI210240CompressorStagingType staging_type;
+			rs0002_ns::AHRI210240CompressorStagingType staging_type;
 			double seer;
 			double eer_a_full;
 			double eer_b_full;
@@ -218,13 +218,13 @@ namespace tk205  {
 		class RatingAHRI340360  {
 		public:
 			std::string certified_reference_number;
-			RS0002_NS::AHRI340360TestStandardYear test_standard_year;
+			rs0002_ns::AHRI340360TestStandardYear test_standard_year;
 			std::string rating_source;
-			RS0002_NS::AHRI340360CapacityControlType capacity_control_type;
+			rs0002_ns::AHRI340360CapacityControlType capacity_control_type;
 			double ieer;
 			double eer;
 			double cooling_capacity;
-			std::vector<RS0002_NS::RatingAHRI340360CoolingPartLoadPoint> part_load_points;
+			std::vector<rs0002_ns::RatingAHRI340360CoolingPartLoadPoint> part_load_points;
 			bool rating_reproducible_from_performance_data;
 			bool certified_reference_number_is_set;
 			bool test_standard_year_is_set;
@@ -265,9 +265,9 @@ namespace tk205  {
 		};
 		class Description  {
 		public:
-			RS0002_NS::ProductInformation product_information;
-			RS0002_NS::RatingAHRI210240 rating_ahri_210_240;
-			RS0002_NS::RatingAHRI340360 rating_ahri_340_360;
+			rs0002_ns::ProductInformation product_information;
+			rs0002_ns::RatingAHRI210240 rating_ahri_210_240;
+			rs0002_ns::RatingAHRI340360 rating_ahri_340_360;
 			bool product_information_is_set;
 			bool rating_ahri_210_240_is_set;
 			bool rating_ahri_340_360_is_set;
@@ -284,9 +284,9 @@ namespace tk205  {
 		class Performance  {
 		public:
 			double standby_power;
-			RS0003_NS::RS0003 fan_representation;
-			RS0002_NS::FanPosition fan_position;
-			RS0004_NS::RS0004 dx_system_representation;
+			rs0003_ns::RS0003 fan_representation;
+			rs0002_ns::FanPosition fan_position;
+			rs0004_ns::RS0004 dx_system_representation;
 			bool standby_power_is_set;
 			bool fan_representation_is_set;
 			bool fan_position_is_set;
@@ -304,12 +304,12 @@ namespace tk205  {
 			const static std::string_view fan_position_name;
 			const static std::string_view dx_system_representation_name;
 		};
-		class RS0002  : public rs_instance_base {
+		class RS0002  : public RSInstanceBase {
 		public:
-			void Initialize (const nlohmann::json& j) override;
-			ASHRAE205_NS::Metadata metadata;
-			RS0002_NS::Description description;
-			RS0002_NS::Performance performance;
+			void initialize (const nlohmann::json& j) override;
+			ashrae205_ns::Metadata metadata;
+			rs0002_ns::Description description;
+			rs0002_ns::Performance performance;
 			bool metadata_is_set;
 			bool description_is_set;
 			bool performance_is_set;

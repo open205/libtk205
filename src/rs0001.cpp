@@ -1,16 +1,16 @@
-#include <RS0001.h>
+#include <rs0001.h>
 #include <loadobject_205.h>
 
 namespace tk205  {
 
-	namespace RS0001_NS  {
+	namespace rs0001_ns  {
 	
 		void from_json(const nlohmann::json& j, ProductInformation& x) {
 			A205_json_get<std::string>(j, "manufacturer", x.manufacturer, x.manufacturer_is_set, false);
-			A205_json_get<ASHRAE205_NS::Pattern>(j, "model_number", x.model_number, x.model_number_is_set, false);
+			A205_json_get<ashrae205_ns::Pattern>(j, "model_number", x.model_number, x.model_number_is_set, false);
 			A205_json_get<double>(j, "nominal_voltage", x.nominal_voltage, x.nominal_voltage_is_set, false);
 			A205_json_get<double>(j, "nominal_frequency", x.nominal_frequency, x.nominal_frequency_is_set, false);
-			A205_json_get<ASHRAE205_NS::CompressorType>(j, "compressor_type", x.compressor_type, x.compressor_type_is_set, false);
+			A205_json_get<ashrae205_ns::CompressorType>(j, "compressor_type", x.compressor_type, x.compressor_type_is_set, false);
 			A205_json_get<std::string>(j, "liquid_data_source", x.liquid_data_source, x.liquid_data_source_is_set, false);
 			A205_json_get<std::string>(j, "refrigerant", x.refrigerant, x.refrigerant_is_set, false);
 			A205_json_get<bool>(j, "hot_gas_bypass_installed", x.hot_gas_bypass_installed, x.hot_gas_bypass_installed_is_set, false);
@@ -158,13 +158,13 @@ namespace tk205  {
 
 		void from_json(const nlohmann::json& j, RatingAHRI550590& x) {
 			A205_json_get<std::string>(j, "certified_reference_number", x.certified_reference_number, x.certified_reference_number_is_set, true);
-			A205_json_get<RS0001_NS::AHRI550590TestStandardYear>(j, "test_standard_year", x.test_standard_year, x.test_standard_year_is_set, true);
+			A205_json_get<rs0001_ns::AHRI550590TestStandardYear>(j, "test_standard_year", x.test_standard_year, x.test_standard_year_is_set, true);
 			A205_json_get<std::string>(j, "rating_source", x.rating_source, x.rating_source_is_set, false);
 			A205_json_get<double>(j, "net_refrigerating_capacity", x.net_refrigerating_capacity, x.net_refrigerating_capacity_is_set, true);
 			A205_json_get<double>(j, "input_power", x.input_power, x.input_power_is_set, true);
 			A205_json_get<double>(j, "cop", x.cop, x.cop_is_set, true);
 			A205_json_get<double>(j, "part_load_value", x.part_load_value, x.part_load_value_is_set, true);
-			A205_json_get<std::vector<RS0001_NS::RatingAHRI550590PartLoadPoint>>(j, "part_load_rating_points", x.part_load_rating_points, x.part_load_rating_points_is_set, false);
+			A205_json_get<std::vector<rs0001_ns::RatingAHRI550590PartLoadPoint>>(j, "part_load_rating_points", x.part_load_rating_points, x.part_load_rating_points_is_set, false);
 			A205_json_get<double>(j, "full_load_evaporator_liquid_volumetric_flow_rate", x.full_load_evaporator_liquid_volumetric_flow_rate, x.full_load_evaporator_liquid_volumetric_flow_rate_is_set, true);
 			A205_json_get<double>(j, "full_load_evaporator_liquid_entering_temperature", x.full_load_evaporator_liquid_entering_temperature, x.full_load_evaporator_liquid_entering_temperature_is_set, true);
 			A205_json_get<double>(j, "full_load_evaporator_liquid_leaving_temperature", x.full_load_evaporator_liquid_leaving_temperature, x.full_load_evaporator_liquid_leaving_temperature_is_set, true);
@@ -386,13 +386,13 @@ namespace tk205  {
 
 		void from_json(const nlohmann::json& j, RatingAHRI551591& x) {
 			A205_json_get<std::string>(j, "certified_reference_number", x.certified_reference_number, x.certified_reference_number_is_set, true);
-			A205_json_get<RS0001_NS::AHRI551591TestStandardYear>(j, "test_standard_year", x.test_standard_year, x.test_standard_year_is_set, true);
+			A205_json_get<rs0001_ns::AHRI551591TestStandardYear>(j, "test_standard_year", x.test_standard_year, x.test_standard_year_is_set, true);
 			A205_json_get<std::string>(j, "rating_source", x.rating_source, x.rating_source_is_set, false);
 			A205_json_get<double>(j, "net_refrigerating_capacity", x.net_refrigerating_capacity, x.net_refrigerating_capacity_is_set, true);
 			A205_json_get<double>(j, "input_power", x.input_power, x.input_power_is_set, true);
 			A205_json_get<double>(j, "cop", x.cop, x.cop_is_set, true);
 			A205_json_get<double>(j, "part_load_value", x.part_load_value, x.part_load_value_is_set, true);
-			A205_json_get<std::vector<RS0001_NS::RatingAHRI551591PartLoadPoint>>(j, "part_load_rating_points", x.part_load_rating_points, x.part_load_rating_points_is_set, false);
+			A205_json_get<std::vector<rs0001_ns::RatingAHRI551591PartLoadPoint>>(j, "part_load_rating_points", x.part_load_rating_points, x.part_load_rating_points_is_set, false);
 			A205_json_get<double>(j, "full_load_evaporator_liquid_volumetric_flow_rate", x.full_load_evaporator_liquid_volumetric_flow_rate, x.full_load_evaporator_liquid_volumetric_flow_rate_is_set, true);
 			A205_json_get<double>(j, "full_load_evaporator_liquid_entering_temperature", x.full_load_evaporator_liquid_entering_temperature, x.full_load_evaporator_liquid_entering_temperature_is_set, true);
 			A205_json_get<double>(j, "full_load_evaporator_liquid_leaving_temperature", x.full_load_evaporator_liquid_leaving_temperature, x.full_load_evaporator_liquid_leaving_temperature_is_set, true);
@@ -520,9 +520,9 @@ namespace tk205  {
 		const std::string_view RatingAHRI551591::rating_reproducible_from_performance_data_name = "rating_reproducible_from_performance_data";
 
 		void from_json(const nlohmann::json& j, Description& x) {
-			A205_json_get<RS0001_NS::ProductInformation>(j, "product_information", x.product_information, x.product_information_is_set, false);
-			A205_json_get<RS0001_NS::RatingAHRI550590>(j, "rating_ahri_550_590", x.rating_ahri_550_590, x.rating_ahri_550_590_is_set, false);
-			A205_json_get<RS0001_NS::RatingAHRI551591>(j, "rating_ahri_551_591", x.rating_ahri_551_591, x.rating_ahri_551_591_is_set, false);
+			A205_json_get<rs0001_ns::ProductInformation>(j, "product_information", x.product_information, x.product_information_is_set, false);
+			A205_json_get<rs0001_ns::RatingAHRI550590>(j, "rating_ahri_550_590", x.rating_ahri_550_590, x.rating_ahri_550_590_is_set, false);
+			A205_json_get<rs0001_ns::RatingAHRI551591>(j, "rating_ahri_551_591", x.rating_ahri_551_591, x.rating_ahri_551_591_is_set, false);
 		}
 		const std::string_view Description::product_information_units = "";
 
@@ -549,13 +549,13 @@ namespace tk205  {
 			A205_json_get<std::vector<double>>(j, "condenser_liquid_entering_temperature", x.condenser_liquid_entering_temperature, x.condenser_liquid_entering_temperature_is_set, true);
 			A205_json_get<std::vector<int>>(j, "compressor_sequence_number", x.compressor_sequence_number, x.compressor_sequence_number_is_set, true);
 		}
-		void GridVariablesCooling::Populate_performance_map(performance_map_base* performance_map) {
-			Add_grid_axis(performance_map, evaporator_liquid_volumetric_flow_rate);
-			Add_grid_axis(performance_map, evaporator_liquid_leaving_temperature);
-			Add_grid_axis(performance_map, condenser_liquid_volumetric_flow_rate);
-			Add_grid_axis(performance_map, condenser_liquid_entering_temperature);
-			Add_grid_axis(performance_map, compressor_sequence_number);
-			performance_map->Finalize_grid();
+		void GridVariablesCooling::populate_performance_map(PerformanceMapBase* performance_map) {
+			add_grid_axis(performance_map, evaporator_liquid_volumetric_flow_rate);
+			add_grid_axis(performance_map, evaporator_liquid_leaving_temperature);
+			add_grid_axis(performance_map, condenser_liquid_volumetric_flow_rate);
+			add_grid_axis(performance_map, condenser_liquid_entering_temperature);
+			add_grid_axis(performance_map, compressor_sequence_number);
+			performance_map->finalize_grid();
 		}
 		const std::string_view GridVariablesCooling::evaporator_liquid_volumetric_flow_rate_units = "m3/s";
 
@@ -598,16 +598,16 @@ namespace tk205  {
 			A205_json_get<std::vector<double>>(j, "oil_cooler_heat", x.oil_cooler_heat, x.oil_cooler_heat_is_set, true);
 			A205_json_get<std::vector<double>>(j, "auxiliary_heat", x.auxiliary_heat, x.auxiliary_heat_is_set, true);
 		}
-		void LookupVariablesCooling::Populate_performance_map(performance_map_base* performance_map) {
-			Add_data_table(performance_map, input_power);
-			Add_data_table(performance_map, net_evaporator_capacity);
-			Add_data_table(performance_map, net_condenser_capacity);
-			Add_data_table(performance_map, evaporator_liquid_entering_temperature);
-			Add_data_table(performance_map, condenser_liquid_leaving_temperature);
-			Add_data_table(performance_map, evaporator_liquid_differential_pressure);
-			Add_data_table(performance_map, condenser_liquid_differential_pressure);
-			Add_data_table(performance_map, oil_cooler_heat);
-			Add_data_table(performance_map, auxiliary_heat);
+		void LookupVariablesCooling::populate_performance_map(PerformanceMapBase* performance_map) {
+			add_data_table(performance_map, input_power);
+			add_data_table(performance_map, net_evaporator_capacity);
+			add_data_table(performance_map, net_condenser_capacity);
+			add_data_table(performance_map, evaporator_liquid_entering_temperature);
+			add_data_table(performance_map, condenser_liquid_leaving_temperature);
+			add_data_table(performance_map, evaporator_liquid_differential_pressure);
+			add_data_table(performance_map, condenser_liquid_differential_pressure);
+			add_data_table(performance_map, oil_cooler_heat);
+			add_data_table(performance_map, auxiliary_heat);
 		}
 		const std::string_view LookupVariablesCooling::input_power_units = "W";
 
@@ -664,16 +664,16 @@ namespace tk205  {
 		const std::string_view LookupVariablesCooling::auxiliary_heat_name = "auxiliary_heat";
 
 		void from_json(const nlohmann::json& j, PerformanceMapCooling& x) {
-			A205_json_get<RS0001_NS::GridVariablesCooling>(j, "grid_variables", x.grid_variables, x.grid_variables_is_set, true);
-			x.grid_variables.Populate_performance_map(&x);
-			A205_json_get<RS0001_NS::LookupVariablesCooling>(j, "lookup_variables", x.lookup_variables, x.lookup_variables_is_set, true);
-			x.lookup_variables.Populate_performance_map(&x);
+			A205_json_get<rs0001_ns::GridVariablesCooling>(j, "grid_variables", x.grid_variables, x.grid_variables_is_set, true);
+			x.grid_variables.populate_performance_map(&x);
+			A205_json_get<rs0001_ns::LookupVariablesCooling>(j, "lookup_variables", x.lookup_variables, x.lookup_variables_is_set, true);
+			x.lookup_variables.populate_performance_map(&x);
 		}
-		void PerformanceMapCooling::Initialize(const nlohmann::json& j) {
-			A205_json_get<RS0001_NS::GridVariablesCooling>(j, "grid_variables", grid_variables, grid_variables_is_set, true);
-			grid_variables.Populate_performance_map(this);
-			A205_json_get<RS0001_NS::LookupVariablesCooling>(j, "lookup_variables", lookup_variables, lookup_variables_is_set, true);
-			lookup_variables.Populate_performance_map(this);
+		void PerformanceMapCooling::initialize(const nlohmann::json& j) {
+			A205_json_get<rs0001_ns::GridVariablesCooling>(j, "grid_variables", grid_variables, grid_variables_is_set, true);
+			grid_variables.populate_performance_map(this);
+			A205_json_get<rs0001_ns::LookupVariablesCooling>(j, "lookup_variables", lookup_variables, lookup_variables_is_set, true);
+			lookup_variables.populate_performance_map(this);
 		}
 		const std::string_view PerformanceMapCooling::grid_variables_units = "";
 
@@ -687,18 +687,18 @@ namespace tk205  {
 
 		const std::string_view PerformanceMapCooling::lookup_variables_name = "lookup_variables";
 
-		LookupVariablesCoolingStruct PerformanceMapCooling::Calculate_performance(double evaporator_liquid_volumetric_flow_rate, double evaporator_liquid_leaving_temperature, double condenser_liquid_volumetric_flow_rate, double condenser_liquid_entering_temperature, double compressor_sequence_number) {
+		LookupVariablesCoolingStruct PerformanceMapCooling::calculate_performance(double evaporator_liquid_volumetric_flow_rate, double evaporator_liquid_leaving_temperature, double condenser_liquid_volumetric_flow_rate, double condenser_liquid_entering_temperature, double compressor_sequence_number) {
 			std::vector<double> target {evaporator_liquid_volumetric_flow_rate, evaporator_liquid_leaving_temperature, condenser_liquid_volumetric_flow_rate, condenser_liquid_entering_temperature, compressor_sequence_number};
-			auto v = performance_map_base::Calculate_performance(target);
+			auto v = PerformanceMapBase::calculate_performance(target);
 			LookupVariablesCoolingStruct s {v[0], v[1], v[2], v[3], v[4], v[5], v[6], v[7], v[8], };
 			return s;
 		}
 		void from_json(const nlohmann::json& j, GridVariablesStandby& x) {
 			A205_json_get<std::vector<double>>(j, "environment_dry_bulb_temperature", x.environment_dry_bulb_temperature, x.environment_dry_bulb_temperature_is_set, true);
 		}
-		void GridVariablesStandby::Populate_performance_map(performance_map_base* performance_map) {
-			Add_grid_axis(performance_map, environment_dry_bulb_temperature);
-			performance_map->Finalize_grid();
+		void GridVariablesStandby::populate_performance_map(PerformanceMapBase* performance_map) {
+			add_grid_axis(performance_map, environment_dry_bulb_temperature);
+			performance_map->finalize_grid();
 		}
 		const std::string_view GridVariablesStandby::environment_dry_bulb_temperature_units = "K";
 
@@ -709,8 +709,8 @@ namespace tk205  {
 		void from_json(const nlohmann::json& j, LookupVariablesStandby& x) {
 			A205_json_get<std::vector<double>>(j, "input_power", x.input_power, x.input_power_is_set, true);
 		}
-		void LookupVariablesStandby::Populate_performance_map(performance_map_base* performance_map) {
-			Add_data_table(performance_map, input_power);
+		void LookupVariablesStandby::populate_performance_map(PerformanceMapBase* performance_map) {
+			add_data_table(performance_map, input_power);
 		}
 		const std::string_view LookupVariablesStandby::input_power_units = "W";
 
@@ -719,16 +719,16 @@ namespace tk205  {
 		const std::string_view LookupVariablesStandby::input_power_name = "input_power";
 
 		void from_json(const nlohmann::json& j, PerformanceMapStandby& x) {
-			A205_json_get<RS0001_NS::GridVariablesStandby>(j, "grid_variables", x.grid_variables, x.grid_variables_is_set, true);
-			x.grid_variables.Populate_performance_map(&x);
-			A205_json_get<RS0001_NS::LookupVariablesStandby>(j, "lookup_variables", x.lookup_variables, x.lookup_variables_is_set, true);
-			x.lookup_variables.Populate_performance_map(&x);
+			A205_json_get<rs0001_ns::GridVariablesStandby>(j, "grid_variables", x.grid_variables, x.grid_variables_is_set, true);
+			x.grid_variables.populate_performance_map(&x);
+			A205_json_get<rs0001_ns::LookupVariablesStandby>(j, "lookup_variables", x.lookup_variables, x.lookup_variables_is_set, true);
+			x.lookup_variables.populate_performance_map(&x);
 		}
-		void PerformanceMapStandby::Initialize(const nlohmann::json& j) {
-			A205_json_get<RS0001_NS::GridVariablesStandby>(j, "grid_variables", grid_variables, grid_variables_is_set, true);
-			grid_variables.Populate_performance_map(this);
-			A205_json_get<RS0001_NS::LookupVariablesStandby>(j, "lookup_variables", lookup_variables, lookup_variables_is_set, true);
-			lookup_variables.Populate_performance_map(this);
+		void PerformanceMapStandby::initialize(const nlohmann::json& j) {
+			A205_json_get<rs0001_ns::GridVariablesStandby>(j, "grid_variables", grid_variables, grid_variables_is_set, true);
+			grid_variables.populate_performance_map(this);
+			A205_json_get<rs0001_ns::LookupVariablesStandby>(j, "lookup_variables", lookup_variables, lookup_variables_is_set, true);
+			lookup_variables.populate_performance_map(this);
 		}
 		const std::string_view PerformanceMapStandby::grid_variables_units = "";
 
@@ -742,22 +742,22 @@ namespace tk205  {
 
 		const std::string_view PerformanceMapStandby::lookup_variables_name = "lookup_variables";
 
-		LookupVariablesStandbyStruct PerformanceMapStandby::Calculate_performance(double environment_dry_bulb_temperature) {
+		LookupVariablesStandbyStruct PerformanceMapStandby::calculate_performance(double environment_dry_bulb_temperature) {
 			std::vector<double> target {environment_dry_bulb_temperature};
-			auto v = performance_map_base::Calculate_performance(target);
+			auto v = PerformanceMapBase::calculate_performance(target);
 			LookupVariablesStandbyStruct s {v[0], };
 			return s;
 		}
 		void from_json(const nlohmann::json& j, Performance& x) {
-			A205_json_get<ASHRAE205_NS::LiquidMixture>(j, "evaporator_liquid_type", x.evaporator_liquid_type, x.evaporator_liquid_type_is_set, true);
-			A205_json_get<ASHRAE205_NS::LiquidMixture>(j, "condenser_liquid_type", x.condenser_liquid_type, x.condenser_liquid_type_is_set, true);
+			A205_json_get<ashrae205_ns::LiquidMixture>(j, "evaporator_liquid_type", x.evaporator_liquid_type, x.evaporator_liquid_type_is_set, true);
+			A205_json_get<ashrae205_ns::LiquidMixture>(j, "condenser_liquid_type", x.condenser_liquid_type, x.condenser_liquid_type_is_set, true);
 			A205_json_get<double>(j, "evaporator_fouling_factor", x.evaporator_fouling_factor, x.evaporator_fouling_factor_is_set, true);
 			A205_json_get<double>(j, "condenser_fouling_factor", x.condenser_fouling_factor, x.condenser_fouling_factor_is_set, true);
-			A205_json_get<ASHRAE205_NS::CompressorSpeedControlType>(j, "compressor_speed_control_type", x.compressor_speed_control_type, x.compressor_speed_control_type_is_set, true);
+			A205_json_get<ashrae205_ns::CompressorSpeedControlType>(j, "compressor_speed_control_type", x.compressor_speed_control_type, x.compressor_speed_control_type_is_set, true);
 			A205_json_get<double>(j, "maximum_power", x.maximum_power, x.maximum_power_is_set, false);
 			A205_json_get<double>(j, "cycling_degradation_coefficient", x.cycling_degradation_coefficient, x.cycling_degradation_coefficient_is_set, true);
-			A205_json_get<RS0001_NS::PerformanceMapCooling>(j, "performance_map_cooling", x.performance_map_cooling, x.performance_map_cooling_is_set, true);
-			A205_json_get<RS0001_NS::PerformanceMapStandby>(j, "performance_map_standby", x.performance_map_standby, x.performance_map_standby_is_set, true);
+			A205_json_get<rs0001_ns::PerformanceMapCooling>(j, "performance_map_cooling", x.performance_map_cooling, x.performance_map_cooling_is_set, true);
+			A205_json_get<rs0001_ns::PerformanceMapStandby>(j, "performance_map_standby", x.performance_map_standby, x.performance_map_standby_is_set, true);
 		}
 		const std::string_view Performance::evaporator_liquid_type_units = "";
 
@@ -813,10 +813,15 @@ namespace tk205  {
 
 		const std::string_view Performance::performance_map_standby_name = "performance_map_standby";
 
-		void RS0001::Initialize(const nlohmann::json& j) {
-			A205_json_get<ASHRAE205_NS::Metadata>(j, "metadata", metadata, metadata_is_set, true);
-			A205_json_get<RS0001_NS::Description>(j, "description", description, description_is_set, false);
-			A205_json_get<RS0001_NS::Performance>(j, "performance", performance, performance_is_set, true);
+		void from_json(const nlohmann::json& j, RS0001& x) {
+			A205_json_get<ashrae205_ns::Metadata>(j, "metadata", x.metadata, x.metadata_is_set, true);
+			A205_json_get<rs0001_ns::Description>(j, "description", x.description, x.description_is_set, false);
+			A205_json_get<rs0001_ns::Performance>(j, "performance", x.performance, x.performance_is_set, true);
+		}
+		void RS0001::initialize(const nlohmann::json& j) {
+			A205_json_get<ashrae205_ns::Metadata>(j, "metadata", metadata, metadata_is_set, true);
+			A205_json_get<rs0001_ns::Description>(j, "description", description, description_is_set, false);
+			A205_json_get<rs0001_ns::Performance>(j, "performance", performance, performance_is_set, true);
 		}
 		const std::string_view RS0001::metadata_units = "";
 
@@ -836,9 +841,6 @@ namespace tk205  {
 
 		const std::string_view RS0001::performance_name = "performance";
 
-		void from_json(const nlohmann::json& j, RS0001& x) {
-			x.Initialize(j);
-		}
 	}
 }
 

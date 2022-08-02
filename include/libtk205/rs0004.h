@@ -1,6 +1,6 @@
 #ifndef RS0004_H_
 #define RS0004_H_
-#include <ASHRAE205.h>
+#include <ashrae205.h>
 #include <string>
 #include <vector>
 #include <nlohmann/json.hpp>
@@ -14,16 +14,16 @@
 
 namespace tk205  {
 
-	namespace RS0004_NS  {
+	namespace rs0004_ns  {
 	
 		class ProductInformation  {
 		public:
 			std::string outdoor_unit_manufacturer;
-			ASHRAE205_NS::Pattern outdoor_unit_model_number;
+			ashrae205_ns::Pattern outdoor_unit_model_number;
 			std::string indoor_unit_manufacturer;
-			ASHRAE205_NS::Pattern indoor_unit_model_number;
+			ashrae205_ns::Pattern indoor_unit_model_number;
 			std::string refrigerant;
-			ASHRAE205_NS::CompressorType compressor_type;
+			ashrae205_ns::CompressorType compressor_type;
 			bool outdoor_unit_manufacturer_is_set;
 			bool outdoor_unit_model_number_is_set;
 			bool indoor_unit_manufacturer_is_set;
@@ -51,15 +51,15 @@ namespace tk205  {
 		};
 		class Description  {
 		public:
-			RS0004_NS::ProductInformation product_information;
+			rs0004_ns::ProductInformation product_information;
 			bool product_information_is_set;
 			const static std::string_view product_information_units;
 			const static std::string_view product_information_description;
 			const static std::string_view product_information_name;
 		};
-		class GridVariablesCooling  : public grid_variables_base {
+		class GridVariablesCooling  : public GridVariablesBase {
 		public:
-			void Populate_performance_map (performance_map_base* performance_map) override;
+			void populate_performance_map (PerformanceMapBase* performance_map) override;
 			enum  {
 				outdoor_coil_entering_dry_bulb_temperature_index,
 				indoor_coil_entering_relative_humidity_index,
@@ -100,9 +100,9 @@ namespace tk205  {
 			const static std::string_view compressor_sequence_number_name;
 			const static std::string_view ambient_absolute_air_pressure_name;
 		};
-		struct LookupVariablesCooling  : public lookup_variables_base {
+		struct LookupVariablesCooling  : public LookupVariablesBase {
 		
-			void Populate_performance_map (performance_map_base* performance_map) override;
+			void populate_performance_map (PerformanceMapBase* performance_map) override;
 			enum  {
 				gross_total_capacity_index,
 				gross_sensible_capacity_index,
@@ -130,11 +130,11 @@ namespace tk205  {
 			double gross_sensible_capacity;
 			double gross_power;
 		};
-		class PerformanceMapCooling  : public performance_map_base {
+		class PerformanceMapCooling  : public PerformanceMapBase {
 		public:
-			void Initialize (const nlohmann::json& j) override;
-			RS0004_NS::GridVariablesCooling grid_variables;
-			RS0004_NS::LookupVariablesCooling lookup_variables;
+			void initialize (const nlohmann::json& j) override;
+			rs0004_ns::GridVariablesCooling grid_variables;
+			rs0004_ns::LookupVariablesCooling lookup_variables;
 			bool grid_variables_is_set;
 			bool lookup_variables_is_set;
 			const static std::string_view grid_variables_units;
@@ -143,12 +143,12 @@ namespace tk205  {
 			const static std::string_view lookup_variables_description;
 			const static std::string_view grid_variables_name;
 			const static std::string_view lookup_variables_name;
-			using performance_map_base::Calculate_performance;
-			LookupVariablesCoolingStruct Calculate_performance (double outdoor_coil_entering_dry_bulb_temperature, double indoor_coil_entering_relative_humidity, double indoor_coil_entering_dry_bulb_temperature, double indoor_coil_air_mass_flow_rate, double compressor_sequence_number, double ambient_absolute_air_pressure);
+			using PerformanceMapBase::calculate_performance;
+			LookupVariablesCoolingStruct calculate_performance (double outdoor_coil_entering_dry_bulb_temperature, double indoor_coil_entering_relative_humidity, double indoor_coil_entering_dry_bulb_temperature, double indoor_coil_air_mass_flow_rate, double compressor_sequence_number, double ambient_absolute_air_pressure);
 		};
-		class GridVariablesStandby  : public grid_variables_base {
+		class GridVariablesStandby  : public GridVariablesBase {
 		public:
-			void Populate_performance_map (performance_map_base* performance_map) override;
+			void populate_performance_map (PerformanceMapBase* performance_map) override;
 			enum  {
 				outdoor_coil_environment_dry_bulb_temperature_index,
 				index_count
@@ -159,9 +159,9 @@ namespace tk205  {
 			const static std::string_view outdoor_coil_environment_dry_bulb_temperature_description;
 			const static std::string_view outdoor_coil_environment_dry_bulb_temperature_name;
 		};
-		struct LookupVariablesStandby  : public lookup_variables_base {
+		struct LookupVariablesStandby  : public LookupVariablesBase {
 		
-			void Populate_performance_map (performance_map_base* performance_map) override;
+			void populate_performance_map (PerformanceMapBase* performance_map) override;
 			enum  {
 				gross_power_index,
 				index_count
@@ -175,11 +175,11 @@ namespace tk205  {
 		struct LookupVariablesStandbyStruct {
 			double gross_power;
 		};
-		class PerformanceMapStandby  : public performance_map_base {
+		class PerformanceMapStandby  : public PerformanceMapBase {
 		public:
-			void Initialize (const nlohmann::json& j) override;
-			RS0004_NS::GridVariablesStandby grid_variables;
-			RS0004_NS::LookupVariablesStandby lookup_variables;
+			void initialize (const nlohmann::json& j) override;
+			rs0004_ns::GridVariablesStandby grid_variables;
+			rs0004_ns::LookupVariablesStandby lookup_variables;
 			bool grid_variables_is_set;
 			bool lookup_variables_is_set;
 			const static std::string_view grid_variables_units;
@@ -188,15 +188,15 @@ namespace tk205  {
 			const static std::string_view lookup_variables_description;
 			const static std::string_view grid_variables_name;
 			const static std::string_view lookup_variables_name;
-			using performance_map_base::Calculate_performance;
-			LookupVariablesStandbyStruct Calculate_performance (double outdoor_coil_environment_dry_bulb_temperature);
+			using PerformanceMapBase::calculate_performance;
+			LookupVariablesStandbyStruct calculate_performance (double outdoor_coil_environment_dry_bulb_temperature);
 		};
 		class Performance  {
 		public:
-			ASHRAE205_NS::CompressorSpeedControlType compressor_speed_control_type;
+			ashrae205_ns::CompressorSpeedControlType compressor_speed_control_type;
 			double cycling_degradation_coefficient;
-			RS0004_NS::PerformanceMapCooling performance_map_cooling;
-			RS0004_NS::PerformanceMapStandby performance_map_standby;
+			rs0004_ns::PerformanceMapCooling performance_map_cooling;
+			rs0004_ns::PerformanceMapStandby performance_map_standby;
 			bool compressor_speed_control_type_is_set;
 			bool cycling_degradation_coefficient_is_set;
 			bool performance_map_cooling_is_set;
@@ -214,12 +214,12 @@ namespace tk205  {
 			const static std::string_view performance_map_cooling_name;
 			const static std::string_view performance_map_standby_name;
 		};
-		class RS0004  : public rs_instance_base {
+		class RS0004  : public RSInstanceBase {
 		public:
-			void Initialize (const nlohmann::json& j) override;
-			ASHRAE205_NS::Metadata metadata;
-			RS0004_NS::Description description;
-			RS0004_NS::Performance performance;
+			void initialize (const nlohmann::json& j) override;
+			ashrae205_ns::Metadata metadata;
+			rs0004_ns::Description description;
+			rs0004_ns::Performance performance;
 			bool metadata_is_set;
 			bool description_is_set;
 			bool performance_is_set;

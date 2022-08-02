@@ -1,13 +1,13 @@
-#include <RS0002.h>
+#include <rs0002.h>
 #include <loadobject_205.h>
 
 namespace tk205  {
 
-	namespace RS0002_NS  {
+	namespace rs0002_ns  {
 	
 		void from_json(const nlohmann::json& j, ProductInformation& x) {
 			A205_json_get<std::string>(j, "manufacturer", x.manufacturer, x.manufacturer_is_set, false);
-			A205_json_get<ASHRAE205_NS::Pattern>(j, "model_number", x.model_number, x.model_number_is_set, false);
+			A205_json_get<ashrae205_ns::Pattern>(j, "model_number", x.model_number, x.model_number_is_set, false);
 		}
 		const std::string_view ProductInformation::manufacturer_units = "";
 
@@ -23,9 +23,9 @@ namespace tk205  {
 
 		void from_json(const nlohmann::json& j, RatingAHRI210240& x) {
 			A205_json_get<std::string>(j, "certified_reference_number", x.certified_reference_number, x.certified_reference_number_is_set, true);
-			A205_json_get<RS0002_NS::AHRI210240TestStandardYear>(j, "test_standard_year", x.test_standard_year, x.test_standard_year_is_set, true);
+			A205_json_get<rs0002_ns::AHRI210240TestStandardYear>(j, "test_standard_year", x.test_standard_year, x.test_standard_year_is_set, true);
 			A205_json_get<std::string>(j, "rating_source", x.rating_source, x.rating_source_is_set, false);
-			A205_json_get<RS0002_NS::AHRI210240CompressorStagingType>(j, "staging_type", x.staging_type, x.staging_type_is_set, true);
+			A205_json_get<rs0002_ns::AHRI210240CompressorStagingType>(j, "staging_type", x.staging_type, x.staging_type_is_set, true);
 			A205_json_get<double>(j, "seer", x.seer, x.seer_is_set, true);
 			A205_json_get<double>(j, "eer_a_full", x.eer_a_full, x.eer_a_full_is_set, true);
 			A205_json_get<double>(j, "eer_b_full", x.eer_b_full, x.eer_b_full_is_set, true);
@@ -202,13 +202,13 @@ namespace tk205  {
 
 		void from_json(const nlohmann::json& j, RatingAHRI340360& x) {
 			A205_json_get<std::string>(j, "certified_reference_number", x.certified_reference_number, x.certified_reference_number_is_set, true);
-			A205_json_get<RS0002_NS::AHRI340360TestStandardYear>(j, "test_standard_year", x.test_standard_year, x.test_standard_year_is_set, true);
+			A205_json_get<rs0002_ns::AHRI340360TestStandardYear>(j, "test_standard_year", x.test_standard_year, x.test_standard_year_is_set, true);
 			A205_json_get<std::string>(j, "rating_source", x.rating_source, x.rating_source_is_set, false);
-			A205_json_get<RS0002_NS::AHRI340360CapacityControlType>(j, "capacity_control_type", x.capacity_control_type, x.capacity_control_type_is_set, true);
+			A205_json_get<rs0002_ns::AHRI340360CapacityControlType>(j, "capacity_control_type", x.capacity_control_type, x.capacity_control_type_is_set, true);
 			A205_json_get<double>(j, "ieer", x.ieer, x.ieer_is_set, true);
 			A205_json_get<double>(j, "eer", x.eer, x.eer_is_set, true);
 			A205_json_get<double>(j, "cooling_capacity", x.cooling_capacity, x.cooling_capacity_is_set, true);
-			A205_json_get<std::vector<RS0002_NS::RatingAHRI340360CoolingPartLoadPoint>>(j, "part_load_points", x.part_load_points, x.part_load_points_is_set, false);
+			A205_json_get<std::vector<rs0002_ns::RatingAHRI340360CoolingPartLoadPoint>>(j, "part_load_points", x.part_load_points, x.part_load_points_is_set, false);
 			A205_json_get<bool>(j, "rating_reproducible_from_performance_data", x.rating_reproducible_from_performance_data, x.rating_reproducible_from_performance_data_is_set, true);
 		}
 		const std::string_view RatingAHRI340360::certified_reference_number_units = "";
@@ -266,9 +266,9 @@ namespace tk205  {
 		const std::string_view RatingAHRI340360::rating_reproducible_from_performance_data_name = "rating_reproducible_from_performance_data";
 
 		void from_json(const nlohmann::json& j, Description& x) {
-			A205_json_get<RS0002_NS::ProductInformation>(j, "product_information", x.product_information, x.product_information_is_set, false);
-			A205_json_get<RS0002_NS::RatingAHRI210240>(j, "rating_ahri_210_240", x.rating_ahri_210_240, x.rating_ahri_210_240_is_set, false);
-			A205_json_get<RS0002_NS::RatingAHRI340360>(j, "rating_ahri_340_360", x.rating_ahri_340_360, x.rating_ahri_340_360_is_set, false);
+			A205_json_get<rs0002_ns::ProductInformation>(j, "product_information", x.product_information, x.product_information_is_set, false);
+			A205_json_get<rs0002_ns::RatingAHRI210240>(j, "rating_ahri_210_240", x.rating_ahri_210_240, x.rating_ahri_210_240_is_set, false);
+			A205_json_get<rs0002_ns::RatingAHRI340360>(j, "rating_ahri_340_360", x.rating_ahri_340_360, x.rating_ahri_340_360_is_set, false);
 		}
 		const std::string_view Description::product_information_units = "";
 
@@ -290,9 +290,9 @@ namespace tk205  {
 
 		void from_json(const nlohmann::json& j, Performance& x) {
 			A205_json_get<double>(j, "standby_power", x.standby_power, x.standby_power_is_set, true);
-			A205_json_get<RS0003_NS::RS0003>(j, "fan_representation", x.fan_representation, x.fan_representation_is_set, false);
-			A205_json_get<RS0002_NS::FanPosition>(j, "fan_position", x.fan_position, x.fan_position_is_set, true);
-			A205_json_get<RS0004_NS::RS0004>(j, "dx_system_representation", x.dx_system_representation, x.dx_system_representation_is_set, false);
+			A205_json_get<rs0003_ns::RS0003>(j, "fan_representation", x.fan_representation, x.fan_representation_is_set, false);
+			A205_json_get<rs0002_ns::FanPosition>(j, "fan_position", x.fan_position, x.fan_position_is_set, true);
+			A205_json_get<rs0004_ns::RS0004>(j, "dx_system_representation", x.dx_system_representation, x.dx_system_representation_is_set, false);
 		}
 		const std::string_view Performance::standby_power_units = "W";
 
@@ -318,10 +318,15 @@ namespace tk205  {
 
 		const std::string_view Performance::dx_system_representation_name = "dx_system_representation";
 
-		void RS0002::Initialize(const nlohmann::json& j) {
-			A205_json_get<ASHRAE205_NS::Metadata>(j, "metadata", metadata, metadata_is_set, true);
-			A205_json_get<RS0002_NS::Description>(j, "description", description, description_is_set, false);
-			A205_json_get<RS0002_NS::Performance>(j, "performance", performance, performance_is_set, true);
+		void from_json(const nlohmann::json& j, RS0002& x) {
+			A205_json_get<ashrae205_ns::Metadata>(j, "metadata", x.metadata, x.metadata_is_set, true);
+			A205_json_get<rs0002_ns::Description>(j, "description", x.description, x.description_is_set, false);
+			A205_json_get<rs0002_ns::Performance>(j, "performance", x.performance, x.performance_is_set, true);
+		}
+		void RS0002::initialize(const nlohmann::json& j) {
+			A205_json_get<ashrae205_ns::Metadata>(j, "metadata", metadata, metadata_is_set, true);
+			A205_json_get<rs0002_ns::Description>(j, "description", description, description_is_set, false);
+			A205_json_get<rs0002_ns::Performance>(j, "performance", performance, performance_is_set, true);
 		}
 		const std::string_view RS0002::metadata_units = "";
 
@@ -341,9 +346,6 @@ namespace tk205  {
 
 		const std::string_view RS0002::performance_name = "performance";
 
-		void from_json(const nlohmann::json& j, RS0002& x) {
-			x.Initialize(j);
-		}
 	}
 }
 

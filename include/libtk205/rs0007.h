@@ -1,6 +1,6 @@
 #ifndef RS0007_H_
 #define RS0007_H_
-#include <ASHRAE205.h>
+#include <ashrae205.h>
 #include <string>
 #include <vector>
 #include <nlohmann/json.hpp>
@@ -14,7 +14,7 @@
 
 namespace tk205  {
 
-	namespace RS0007_NS  {
+	namespace rs0007_ns  {
 	
 		enum class DriveType {
 			V_BELT,
@@ -35,8 +35,8 @@ namespace tk205  {
 		class ProductInformation  {
 		public:
 			std::string manufacturer;
-			ASHRAE205_NS::Pattern model_number;
-			RS0007_NS::DriveType drive_type;
+			ashrae205_ns::Pattern model_number;
+			rs0007_ns::DriveType drive_type;
 			bool manufacturer_is_set;
 			bool model_number_is_set;
 			bool drive_type_is_set;
@@ -52,15 +52,15 @@ namespace tk205  {
 		};
 		class Description  {
 		public:
-			RS0007_NS::ProductInformation product_information;
+			rs0007_ns::ProductInformation product_information;
 			bool product_information_is_set;
 			const static std::string_view product_information_units;
 			const static std::string_view product_information_description;
 			const static std::string_view product_information_name;
 		};
-		class GridVariables  : public grid_variables_base {
+		class GridVariables  : public GridVariablesBase {
 		public:
-			void Populate_performance_map (performance_map_base* performance_map) override;
+			void populate_performance_map (PerformanceMapBase* performance_map) override;
 			enum  {
 				output_power_index,
 				index_count
@@ -71,9 +71,9 @@ namespace tk205  {
 			const static std::string_view output_power_description;
 			const static std::string_view output_power_name;
 		};
-		struct LookupVariables  : public lookup_variables_base {
+		struct LookupVariables  : public LookupVariablesBase {
 		
-			void Populate_performance_map (performance_map_base* performance_map) override;
+			void populate_performance_map (PerformanceMapBase* performance_map) override;
 			enum  {
 				efficiency_index,
 				index_count
@@ -87,11 +87,11 @@ namespace tk205  {
 		struct LookupVariablesStruct {
 			double efficiency;
 		};
-		class PerformanceMap  : public performance_map_base {
+		class PerformanceMap  : public PerformanceMapBase {
 		public:
-			void Initialize (const nlohmann::json& j) override;
-			RS0007_NS::GridVariables grid_variables;
-			RS0007_NS::LookupVariables lookup_variables;
+			void initialize (const nlohmann::json& j) override;
+			rs0007_ns::GridVariables grid_variables;
+			rs0007_ns::LookupVariables lookup_variables;
 			bool grid_variables_is_set;
 			bool lookup_variables_is_set;
 			const static std::string_view grid_variables_units;
@@ -100,13 +100,13 @@ namespace tk205  {
 			const static std::string_view lookup_variables_description;
 			const static std::string_view grid_variables_name;
 			const static std::string_view lookup_variables_name;
-			using performance_map_base::Calculate_performance;
-			LookupVariablesStruct Calculate_performance (double output_power);
+			using PerformanceMapBase::calculate_performance;
+			LookupVariablesStruct calculate_performance (double output_power);
 		};
 		class Performance  {
 		public:
 			double speed_ratio;
-			RS0007_NS::PerformanceMap performance_map;
+			rs0007_ns::PerformanceMap performance_map;
 			bool speed_ratio_is_set;
 			bool performance_map_is_set;
 			const static std::string_view speed_ratio_units;
@@ -116,12 +116,12 @@ namespace tk205  {
 			const static std::string_view speed_ratio_name;
 			const static std::string_view performance_map_name;
 		};
-		class RS0007  : public rs_instance_base {
+		class RS0007  : public RSInstanceBase {
 		public:
-			void Initialize (const nlohmann::json& j) override;
-			ASHRAE205_NS::Metadata metadata;
-			RS0007_NS::Description description;
-			RS0007_NS::Performance performance;
+			void initialize (const nlohmann::json& j) override;
+			ashrae205_ns::Metadata metadata;
+			rs0007_ns::Description description;
+			rs0007_ns::Performance performance;
 			bool metadata_is_set;
 			bool description_is_set;
 			bool performance_is_set;

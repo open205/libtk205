@@ -1,8 +1,8 @@
 #ifndef RS0003_H_
 #define RS0003_H_
-#include <ASHRAE205.h>
-#include <RS0005.h>
-#include <RS0007.h>
+#include <ashrae205.h>
+#include <rs0005.h>
+#include <rs0007.h>
 #include <string>
 #include <vector>
 #include <nlohmann/json.hpp>
@@ -16,7 +16,7 @@
 
 namespace tk205  {
 
-	namespace RS0003_NS  {
+	namespace rs0003_ns  {
 	
 		enum class OperationSpeedControlType {
 			DISCRETE,
@@ -77,8 +77,8 @@ namespace tk205  {
 		class ProductInformation  {
 		public:
 			std::string manufacturer;
-			ASHRAE205_NS::Pattern model_number;
-			RS0003_NS::ImpellerType impeller_type;
+			ashrae205_ns::Pattern model_number;
+			rs0003_ns::ImpellerType impeller_type;
 			int number_of_impellers;
 			bool manufacturer_is_set;
 			bool model_number_is_set;
@@ -99,7 +99,7 @@ namespace tk205  {
 		};
 		class Description  {
 		public:
-			RS0003_NS::ProductInformation product_information;
+			rs0003_ns::ProductInformation product_information;
 			bool product_information_is_set;
 			const static std::string_view product_information_units;
 			const static std::string_view product_information_description;
@@ -107,9 +107,9 @@ namespace tk205  {
 		};
 		class AssemblyComponent  {
 		public:
-			RS0003_NS::ComponentType component_type;
+			rs0003_ns::ComponentType component_type;
 			std::string component_description;
-			ASHRAE205_NS::UUID component_id;
+			ashrae205_ns::UUID component_id;
 			double wet_pressure_difference;
 			bool component_type_is_set;
 			bool component_description_is_set;
@@ -145,16 +145,16 @@ namespace tk205  {
 		public:
 			double nominal_standard_air_volumetric_flow_rate;
 			bool is_enclosed;
-			std::vector<RS0003_NS::AssemblyComponent> assembly_components;
+			std::vector<rs0003_ns::AssemblyComponent> assembly_components;
 			double heat_loss_fraction;
 			double maximum_impeller_rotational_speed;
 			double minimum_impeller_rotational_speed;
-			RS0003_NS::SystemCurve stability_curve;
-			RS0003_NS::OperationSpeedControlType operation_speed_control_type;
-			RS0003_NS::InstallationSpeedControlType installation_speed_control_type;
-			RS0005_NS::RS0005 motor_representation;
-			RS0007_NS::RS0007 mechanical_drive_representation;
-			std::unique_ptr<performance_map_base> performance_map;
+			rs0003_ns::SystemCurve stability_curve;
+			rs0003_ns::OperationSpeedControlType operation_speed_control_type;
+			rs0003_ns::InstallationSpeedControlType installation_speed_control_type;
+			rs0005_ns::RS0005 motor_representation;
+			rs0007_ns::RS0007 mechanical_drive_representation;
+			std::unique_ptr<PerformanceMapBase> performance_map;
 			bool nominal_standard_air_volumetric_flow_rate_is_set;
 			bool is_enclosed_is_set;
 			bool assembly_components_is_set;
@@ -204,12 +204,12 @@ namespace tk205  {
 			const static std::string_view mechanical_drive_representation_name;
 			const static std::string_view performance_map_name;
 		};
-		class RS0003  : public rs_instance_base {
+		class RS0003  : public RSInstanceBase {
 		public:
-			void Initialize (const nlohmann::json& j) override;
-			ASHRAE205_NS::Metadata metadata;
-			RS0003_NS::Description description;
-			RS0003_NS::Performance performance;
+			void initialize (const nlohmann::json& j) override;
+			ashrae205_ns::Metadata metadata;
+			rs0003_ns::Description description;
+			rs0003_ns::Performance performance;
 			bool metadata_is_set;
 			bool description_is_set;
 			bool performance_is_set;
@@ -223,9 +223,9 @@ namespace tk205  {
 			const static std::string_view description_name;
 			const static std::string_view performance_name;
 		};
-		class GridVariablesContinuous  : public grid_variables_base {
+		class GridVariablesContinuous  : public GridVariablesBase {
 		public:
-			void Populate_performance_map (performance_map_base* performance_map) override;
+			void populate_performance_map (PerformanceMapBase* performance_map) override;
 			enum  {
 				standard_air_volumetric_flow_rate_index,
 				static_pressure_difference_index,
@@ -242,9 +242,9 @@ namespace tk205  {
 			const static std::string_view standard_air_volumetric_flow_rate_name;
 			const static std::string_view static_pressure_difference_name;
 		};
-		struct LookupVariablesContinuous  : public lookup_variables_base {
+		struct LookupVariablesContinuous  : public LookupVariablesBase {
 		
-			void Populate_performance_map (performance_map_base* performance_map) override;
+			void populate_performance_map (PerformanceMapBase* performance_map) override;
 			enum  {
 				impeller_rotational_speed_index,
 				shaft_power_index,
@@ -265,11 +265,11 @@ namespace tk205  {
 			double impeller_rotational_speed;
 			double shaft_power;
 		};
-		class PerformanceMapContinuous  : public performance_map_base {
+		class PerformanceMapContinuous  : public PerformanceMapBase {
 		public:
-			void Initialize (const nlohmann::json& j) override;
-			RS0003_NS::GridVariablesContinuous grid_variables;
-			RS0003_NS::LookupVariablesContinuous lookup_variables;
+			void initialize (const nlohmann::json& j) override;
+			rs0003_ns::GridVariablesContinuous grid_variables;
+			rs0003_ns::LookupVariablesContinuous lookup_variables;
 			bool grid_variables_is_set;
 			bool lookup_variables_is_set;
 			const static std::string_view grid_variables_units;
@@ -278,12 +278,12 @@ namespace tk205  {
 			const static std::string_view lookup_variables_description;
 			const static std::string_view grid_variables_name;
 			const static std::string_view lookup_variables_name;
-			using performance_map_base::Calculate_performance;
-			LookupVariablesContinuousStruct Calculate_performance (double standard_air_volumetric_flow_rate, double static_pressure_difference);
+			using PerformanceMapBase::calculate_performance;
+			LookupVariablesContinuousStruct calculate_performance (double standard_air_volumetric_flow_rate, double static_pressure_difference);
 		};
-		class GridVariablesDiscrete  : public grid_variables_base {
+		class GridVariablesDiscrete  : public GridVariablesBase {
 		public:
-			void Populate_performance_map (performance_map_base* performance_map) override;
+			void populate_performance_map (PerformanceMapBase* performance_map) override;
 			enum  {
 				speed_number_index,
 				static_pressure_difference_index,
@@ -300,9 +300,9 @@ namespace tk205  {
 			const static std::string_view speed_number_name;
 			const static std::string_view static_pressure_difference_name;
 		};
-		struct LookupVariablesDiscrete  : public lookup_variables_base {
+		struct LookupVariablesDiscrete  : public LookupVariablesBase {
 		
-			void Populate_performance_map (performance_map_base* performance_map) override;
+			void populate_performance_map (PerformanceMapBase* performance_map) override;
 			enum  {
 				standard_air_volumetric_flow_rate_index,
 				shaft_power_index,
@@ -330,11 +330,11 @@ namespace tk205  {
 			double shaft_power;
 			double impeller_rotational_speed;
 		};
-		class PerformanceMapDiscrete  : public performance_map_base {
+		class PerformanceMapDiscrete  : public PerformanceMapBase {
 		public:
-			void Initialize (const nlohmann::json& j) override;
-			RS0003_NS::GridVariablesDiscrete grid_variables;
-			RS0003_NS::LookupVariablesDiscrete lookup_variables;
+			void initialize (const nlohmann::json& j) override;
+			rs0003_ns::GridVariablesDiscrete grid_variables;
+			rs0003_ns::LookupVariablesDiscrete lookup_variables;
 			bool grid_variables_is_set;
 			bool lookup_variables_is_set;
 			const static std::string_view grid_variables_units;
@@ -343,8 +343,8 @@ namespace tk205  {
 			const static std::string_view lookup_variables_description;
 			const static std::string_view grid_variables_name;
 			const static std::string_view lookup_variables_name;
-			using performance_map_base::Calculate_performance;
-			LookupVariablesDiscreteStruct Calculate_performance (double speed_number, double static_pressure_difference);
+			using PerformanceMapBase::calculate_performance;
+			LookupVariablesDiscreteStruct calculate_performance (double speed_number, double static_pressure_difference);
 		};
 		NLOHMANN_JSON_SERIALIZE_ENUM (OperationSpeedControlType, {
 			{OperationSpeedControlType::UNKNOWN, "UNKNOWN"},

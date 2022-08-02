@@ -9,7 +9,7 @@
 
 namespace tk205  {
 
-	namespace ASHRAE205_NS  {
+	namespace ashrae205_ns  {
 	
 		typedef std::string UUID;
 		typedef std::string Date;
@@ -107,11 +107,11 @@ namespace tk205  {
 		class Metadata  {
 		public:
 			std::string data_model;
-			ASHRAE205_NS::SchemaType schema;
-			ASHRAE205_NS::Version schema_version;
-			ASHRAE205_NS::UUID id;
+			ashrae205_ns::SchemaType schema;
+			ashrae205_ns::Version schema_version;
+			ashrae205_ns::UUID id;
 			std::string description;
-			ASHRAE205_NS::Timestamp data_timestamp;
+			ashrae205_ns::Timestamp data_timestamp;
 			int data_version;
 			std::string data_source;
 			std::string disclaimer;
@@ -159,7 +159,7 @@ namespace tk205  {
 		};
 		class LiquidComponent  {
 		public:
-			ASHRAE205_NS::LiquidConstituent liquid_constituent;
+			ashrae205_ns::LiquidConstituent liquid_constituent;
 			double concentration;
 			bool liquid_constituent_is_set;
 			bool concentration_is_set;
@@ -172,8 +172,8 @@ namespace tk205  {
 		};
 		class LiquidMixture  {
 		public:
-			std::vector<ASHRAE205_NS::LiquidComponent> liquid_components;
-			ASHRAE205_NS::ConcentrationType concentration_type;
+			std::vector<ashrae205_ns::LiquidComponent> liquid_components;
+			ashrae205_ns::ConcentrationType concentration_type;
 			bool liquid_components_is_set;
 			bool concentration_type_is_set;
 			const static std::string_view liquid_components_units;
