@@ -10,7 +10,7 @@ namespace tk205 {
    class RS0003Factory : public RSInstanceFactory
    {
       public:
-         std::unique_ptr<RSInstanceBase> create_instance(const char* RS_instance_file) const override;
+         std::shared_ptr<RSInstanceBase> create_instance(const char* RS_instance_file) const override;
    };
 }
 

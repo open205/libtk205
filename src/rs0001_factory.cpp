@@ -6,9 +6,9 @@
 
 using namespace tk205;
 
-std::unique_ptr<RSInstanceBase> RS0001Factory::create_instance(const char* RS_instance_file) const
+std::shared_ptr<RSInstanceBase> RS0001Factory::create_instance(const char* RS_instance_file) const
 {
-    auto p_rs = std::make_unique<rs0001_ns::RS0001>();
+    auto p_rs = std::make_shared<rs0001_ns::RS0001>();
     auto j = tk205::load_json(RS_instance_file);
     if (j["metadata"]["schema"] == "RS0001")
     {
