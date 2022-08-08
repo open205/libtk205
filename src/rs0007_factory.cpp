@@ -14,5 +14,9 @@ std::shared_ptr<RSInstanceBase> RS0007Factory::create_instance(const char* RS_in
     {
         p_rs->initialize(j);
     }
+    else
+    {
+       p_rs = nullptr;
+    }
     return p_rs;
 }
