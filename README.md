@@ -46,11 +46,47 @@ Testing the library is possible using
 Example Usage
 -------------
 
-The client is responsible for the allocation and management of pointer(s) to representation(s). A representation pointer may be a direct subclass pointer, as in `std::shared_ptr<tk205::rs0001_ns::RS0001> Representation`, or a pointer to the base class `tk205::RSInstanceBase`.*libtk205* uses a factory pattern to create and populate instances of a representation, which can be assigned to this pointer.
+*libtk205* uses a factory pattern to create and populate instances of a representation. The client is responsible for the allocation and lifetime management of pointers to representations. For example, using an ASHRAE205 representation file chiller.cbor, one might create an RS0001 object as follows:
+```
+// Header.h
+#include "rs0001.h"
+std::shared_ptr<tk205::rs0001_ns::RS0001> representation;
+```
+```
+// Impl.cpp
+#include "rs0001_factory.h"
+using namespace tk205;
+representation = std::dynamic_pointer_cast<rs0001_ns::RS0001>(RSInstanceFactory::create("RS0001", "chiller.cbor"));
+```
+or, to utilize the representation base class,
+```
+// Header.h
+#include "rs_instance_base.h"
+std::shared_ptr<tk205::RSInstanceBase> representation;
+```
+```
+#include "rs0001_factory.h"
+using namespace tk205;
+representation = RSInstanceFactory::create("RS0001", "chiller.cbor");
+```
 
-Once the instance is created, any of its public members are available through the pointer interface. Critically, the `calculate_performance` overloaded function returns the equipment performance at a particular set of grid variables. See ASHRAE 205 for details.
+Once the instance is created, any of its public members are available through the pointer interface; see unit test files for implementation examples. Critically, the `calculate_performance` overloaded function returns the equipment performance at a particular set of grid variables:
+```
+representation->performance.performance_map_cooling.calculate_performance(0.0755, 280.0, 0.0957, 295.0, 0.5);
+```
+See the ASHRAE205 standard for details about equipment parameterization.
 
 The client may optionally register a callback function that handles libtk205 errors (strings) in the preferred way:
 
-`void tk205ErrorHandler(tk205::MsgSeverity message_type, const std::string &message, void *context_ptr);`
+```
+void Display_message(tk205::MsgSeverity severity, const std::string &message, void *ctx)
+{
+    if (severity == tk205::MsgSeverity::ERR_205)
+    {
+      std::cout << "ERROR: " << message << std::endl;
+    }
+}
+
+tk205::set_error_handler(Display_message, nullptr);
+```
 
