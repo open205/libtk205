@@ -5,6 +5,14 @@ namespace tk205  {
 
 	namespace ashrae205_ns  {
 	
+		void from_json(const nlohmann::json& j, Schema& x) {
+		}
+		const std::string_view Schema::schema_title = "ASHRAE 205";
+
+		const std::string_view Schema::schema_version = "1.0.0";
+
+		const std::string_view Schema::schema_description = "Base schema for ASHRAE 205 representations";
+
 		void from_json(const nlohmann::json& j, Metadata& x) {
 			a205_json_get<std::string>(j, "data_model", x.data_model, x.data_model_is_set, true);
 			a205_json_get<ashrae205_ns::SchemaType>(j, "schema", x.schema, x.schema_is_set, true);

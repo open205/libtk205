@@ -28,6 +28,12 @@ namespace tk205  {
 			{CoolingMethod::ACTIVE_LIQUID_COOLED, {"ACTIVE_LIQUID_COOLED", "Active Liquid Cooled", "Drive is cooled using forced liquid convection, transferring heat to the liquid"}},
 			{CoolingMethod::UNKNOWN, {"UNKNOWN", "None","None"}}
 		};
+		class Schema  {
+		public:
+			const static std::string_view schema_title;
+			const static std::string_view schema_version;
+			const static std::string_view schema_description;
+		};
 		class ProductInformation  {
 		public:
 			std::string manufacturer;

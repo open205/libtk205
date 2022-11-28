@@ -5,6 +5,14 @@ namespace tk205  {
 
 	namespace rs0003_ns  {
 	
+		void from_json(const nlohmann::json& j, Schema& x) {
+		}
+		const std::string_view Schema::schema_title = "Fan Assembly";
+
+		const std::string_view Schema::schema_version = "1.0.0";
+
+		const std::string_view Schema::schema_description = "Schema for ASHRAE 205 annex RS0003: Fan Assembly";
+
 		void from_json(const nlohmann::json& j, ProductInformation& x) {
 			a205_json_get<std::string>(j, "manufacturer", x.manufacturer, x.manufacturer_is_set, false);
 			a205_json_get<ashrae205_ns::Pattern>(j, "model_number", x.model_number, x.model_number_is_set, false);
@@ -98,17 +106,17 @@ namespace tk205  {
 			a205_json_get<double>(j, "maximum_impeller_rotational_speed", x.maximum_impeller_rotational_speed, x.maximum_impeller_rotational_speed_is_set, true);
 			a205_json_get<double>(j, "minimum_impeller_rotational_speed", x.minimum_impeller_rotational_speed, x.minimum_impeller_rotational_speed_is_set, true);
 			a205_json_get<rs0003_ns::SystemCurve>(j, "stability_curve", x.stability_curve, x.stability_curve_is_set, false);
-			a205_json_get<rs0003_ns::OperationSpeedControlType>(j, "operation_speed_control_type", x.operation_speed_control_type, x.operation_speed_control_type_is_set, true);
+			a205_json_get<ashrae205_ns::SpeedControlType>(j, "operation_speed_control_type", x.operation_speed_control_type, x.operation_speed_control_type_is_set, true);
 			a205_json_get<rs0003_ns::InstallationSpeedControlType>(j, "installation_speed_control_type", x.installation_speed_control_type, x.installation_speed_control_type_is_set, true);
 			a205_json_get<rs0005_ns::RS0005>(j, "motor_representation", x.motor_representation, x.motor_representation_is_set, false);
 			a205_json_get<rs0007_ns::RS0007>(j, "mechanical_drive_representation", x.mechanical_drive_representation, x.mechanical_drive_representation_is_set, false);
-			if (x.operation_speed_control_type == OperationSpeedControlType::CONTINUOUS) {
+			if (x.operation_speed_control_type == ashrae205_ns::SpeedControlType::CONTINUOUS) {
 				x.performance_map = std::make_unique<rs0003_ns::PerformanceMapContinuous>();
 				if (x.performance_map) {
 					x.performance_map->initialize(j.at("performance_map"));
 				}
 			}
-			if (x.operation_speed_control_type == OperationSpeedControlType::DISCRETE) {
+			if (x.operation_speed_control_type == ashrae205_ns::SpeedControlType::DISCRETE) {
 				x.performance_map = std::make_unique<rs0003_ns::PerformanceMapDiscrete>();
 				if (x.performance_map) {
 					x.performance_map->initialize(j.at("performance_map"));

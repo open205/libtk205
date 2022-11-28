@@ -12,7 +12,7 @@ std::shared_ptr<RSInstanceBase> RS0001Factory::create_instance(const char* RS_in
     auto p_rs = std::make_shared<rs0001_ns::RS0001>();
     auto j = tk205::load_json(RS_instance_file);
     std::string schema_version = j["metadata"]["schema_version"];
-    if (SchemVer(schema_version.c_str()) > SchemVer("0.2.1"))
+    if (SchemVer(schema_version.c_str()) > SchemVer(std::string(rs0001_ns::Schema::schema_version).c_str()))
     {
         p_rs = nullptr;
         std::ostringstream oss;

@@ -5,6 +5,14 @@ namespace tk205  {
 
 	namespace rs0001_ns  {
 	
+		void from_json(const nlohmann::json& j, Schema& x) {
+		}
+		const std::string_view Schema::schema_title = "Liquid-Cooled Chiller";
+
+		const std::string_view Schema::schema_version = "1.0.0";
+
+		const std::string_view Schema::schema_description = "Schema for ASHRAE 205 annex RS0001: Liquid-Cooled Chiller";
+
 		void from_json(const nlohmann::json& j, ProductInformation& x) {
 			a205_json_get<std::string>(j, "manufacturer", x.manufacturer, x.manufacturer_is_set, false);
 			a205_json_get<ashrae205_ns::Pattern>(j, "model_number", x.model_number, x.model_number_is_set, false);
@@ -175,7 +183,8 @@ namespace tk205  {
 			a205_json_get<double>(j, "full_load_condenser_liquid_leaving_temperature", x.full_load_condenser_liquid_leaving_temperature, x.full_load_condenser_liquid_leaving_temperature_is_set, true);
 			a205_json_get<double>(j, "full_load_condenser_liquid_differential_pressure", x.full_load_condenser_liquid_differential_pressure, x.full_load_condenser_liquid_differential_pressure_is_set, true);
 			a205_json_get<double>(j, "full_load_condenser_fouling_factor", x.full_load_condenser_fouling_factor, x.full_load_condenser_fouling_factor_is_set, true);
-			a205_json_get<bool>(j, "rating_reproducible_from_performance_data", x.rating_reproducible_from_performance_data, x.rating_reproducible_from_performance_data_is_set, true);
+			a205_json_get<bool>(j, "rating_recalculatable_from_performance_data", x.rating_recalculatable_from_performance_data, x.rating_recalculatable_from_performance_data_is_set, true);
+			a205_json_get<std::string>(j, "rating_recalculatable_explanation", x.rating_recalculatable_explanation, x.rating_recalculatable_explanation_is_set, false);
 		}
 		const std::string_view RatingAHRI550590::certified_reference_number_units = "";
 
@@ -213,7 +222,9 @@ namespace tk205  {
 
 		const std::string_view RatingAHRI550590::full_load_condenser_fouling_factor_units = "h-ft2-F/Btu";
 
-		const std::string_view RatingAHRI550590::rating_reproducible_from_performance_data_units = "";
+		const std::string_view RatingAHRI550590::rating_recalculatable_from_performance_data_units = "";
+
+		const std::string_view RatingAHRI550590::rating_recalculatable_explanation_units = "";
 
 		const std::string_view RatingAHRI550590::certified_reference_number_description = "AHRI certified reference number";
 
@@ -251,7 +262,9 @@ namespace tk205  {
 
 		const std::string_view RatingAHRI550590::full_load_condenser_fouling_factor_description = "Factor of heat transfer inhibition due to condenser heat exchanger fouling layer at the full load design rating conditions";
 
-		const std::string_view RatingAHRI550590::rating_reproducible_from_performance_data_description = "Whether this rating can be reproduced using the performance data in the representation";
+		const std::string_view RatingAHRI550590::rating_recalculatable_from_performance_data_description = "Whether this rating can be recalculated using the performance data in the representation";
+
+		const std::string_view RatingAHRI550590::rating_recalculatable_explanation_description = "An explanation of the value for `rating_recalculatable_from_performance_data`";
 
 		const std::string_view RatingAHRI550590::certified_reference_number_name = "certified_reference_number";
 
@@ -289,7 +302,9 @@ namespace tk205  {
 
 		const std::string_view RatingAHRI550590::full_load_condenser_fouling_factor_name = "full_load_condenser_fouling_factor";
 
-		const std::string_view RatingAHRI550590::rating_reproducible_from_performance_data_name = "rating_reproducible_from_performance_data";
+		const std::string_view RatingAHRI550590::rating_recalculatable_from_performance_data_name = "rating_recalculatable_from_performance_data";
+
+		const std::string_view RatingAHRI550590::rating_recalculatable_explanation_name = "rating_recalculatable_explanation";
 
 		void from_json(const nlohmann::json& j, RatingAHRI551591PartLoadPoint& x) {
 			a205_json_get<double>(j, "percent_full_load_capacity", x.percent_full_load_capacity, x.percent_full_load_capacity_is_set, true);
@@ -403,7 +418,8 @@ namespace tk205  {
 			a205_json_get<double>(j, "full_load_condenser_liquid_leaving_temperature", x.full_load_condenser_liquid_leaving_temperature, x.full_load_condenser_liquid_leaving_temperature_is_set, true);
 			a205_json_get<double>(j, "full_load_condenser_liquid_differential_pressure", x.full_load_condenser_liquid_differential_pressure, x.full_load_condenser_liquid_differential_pressure_is_set, true);
 			a205_json_get<double>(j, "full_load_condenser_fouling_factor", x.full_load_condenser_fouling_factor, x.full_load_condenser_fouling_factor_is_set, true);
-			a205_json_get<bool>(j, "rating_reproducible_from_performance_data", x.rating_reproducible_from_performance_data, x.rating_reproducible_from_performance_data_is_set, true);
+			a205_json_get<bool>(j, "rating_recalculatable_from_performance_data", x.rating_recalculatable_from_performance_data, x.rating_recalculatable_from_performance_data_is_set, true);
+			a205_json_get<std::string>(j, "rating_recalculatable_explanation", x.rating_recalculatable_explanation, x.rating_recalculatable_explanation_is_set, false);
 		}
 		const std::string_view RatingAHRI551591::certified_reference_number_units = "";
 
@@ -441,7 +457,9 @@ namespace tk205  {
 
 		const std::string_view RatingAHRI551591::full_load_condenser_fouling_factor_units = "m2-K/kW";
 
-		const std::string_view RatingAHRI551591::rating_reproducible_from_performance_data_units = "";
+		const std::string_view RatingAHRI551591::rating_recalculatable_from_performance_data_units = "";
+
+		const std::string_view RatingAHRI551591::rating_recalculatable_explanation_units = "";
 
 		const std::string_view RatingAHRI551591::certified_reference_number_description = "AHRI certified reference number";
 
@@ -479,7 +497,9 @@ namespace tk205  {
 
 		const std::string_view RatingAHRI551591::full_load_condenser_fouling_factor_description = "Factor of heat transfer inhibition due to condenser heat exchanger fouling layer at the full load design rating conditions";
 
-		const std::string_view RatingAHRI551591::rating_reproducible_from_performance_data_description = "Whether this rating can be reproduced using the performance data in the representation";
+		const std::string_view RatingAHRI551591::rating_recalculatable_from_performance_data_description = "Whether this rating can be recalculated using the performance data in the representation";
+
+		const std::string_view RatingAHRI551591::rating_recalculatable_explanation_description = "An explanation of the value for `rating_recalculatable_from_performance_data`";
 
 		const std::string_view RatingAHRI551591::certified_reference_number_name = "certified_reference_number";
 
@@ -517,7 +537,9 @@ namespace tk205  {
 
 		const std::string_view RatingAHRI551591::full_load_condenser_fouling_factor_name = "full_load_condenser_fouling_factor";
 
-		const std::string_view RatingAHRI551591::rating_reproducible_from_performance_data_name = "rating_reproducible_from_performance_data";
+		const std::string_view RatingAHRI551591::rating_recalculatable_from_performance_data_name = "rating_recalculatable_from_performance_data";
+
+		const std::string_view RatingAHRI551591::rating_recalculatable_explanation_name = "rating_recalculatable_explanation";
 
 		void from_json(const nlohmann::json& j, Description& x) {
 			a205_json_get<rs0001_ns::ProductInformation>(j, "product_information", x.product_information, x.product_information_is_set, false);
@@ -753,7 +775,7 @@ namespace tk205  {
 			a205_json_get<ashrae205_ns::LiquidMixture>(j, "condenser_liquid_type", x.condenser_liquid_type, x.condenser_liquid_type_is_set, true);
 			a205_json_get<double>(j, "evaporator_fouling_factor", x.evaporator_fouling_factor, x.evaporator_fouling_factor_is_set, true);
 			a205_json_get<double>(j, "condenser_fouling_factor", x.condenser_fouling_factor, x.condenser_fouling_factor_is_set, true);
-			a205_json_get<ashrae205_ns::CompressorSpeedControlType>(j, "compressor_speed_control_type", x.compressor_speed_control_type, x.compressor_speed_control_type_is_set, true);
+			a205_json_get<ashrae205_ns::SpeedControlType>(j, "compressor_speed_control_type", x.compressor_speed_control_type, x.compressor_speed_control_type_is_set, true);
 			a205_json_get<double>(j, "maximum_power", x.maximum_power, x.maximum_power_is_set, false);
 			a205_json_get<double>(j, "cycling_degradation_coefficient", x.cycling_degradation_coefficient, x.cycling_degradation_coefficient_is_set, true);
 			a205_json_get<rs0001_ns::PerformanceMapCooling>(j, "performance_map_cooling", x.performance_map_cooling, x.performance_map_cooling_is_set, true);

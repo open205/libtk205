@@ -5,6 +5,14 @@ namespace tk205  {
 
 	namespace rs0004_ns  {
 	
+		void from_json(const nlohmann::json& j, Schema& x) {
+		}
+		const std::string_view Schema::schema_title = "Air-to-Air Direct Expansion Refrigerant System";
+
+		const std::string_view Schema::schema_version = "1.0.0";
+
+		const std::string_view Schema::schema_description = "Schema for ASHRAE 205 annex RS0004: Air-to-Air Direct Expansion Refrigerant System";
+
 		void from_json(const nlohmann::json& j, ProductInformation& x) {
 			a205_json_get<std::string>(j, "outdoor_unit_manufacturer", x.outdoor_unit_manufacturer, x.outdoor_unit_manufacturer_is_set, false);
 			a205_json_get<ashrae205_ns::Pattern>(j, "outdoor_unit_model_number", x.outdoor_unit_model_number, x.outdoor_unit_model_number_is_set, false);
@@ -225,7 +233,7 @@ namespace tk205  {
 			return s;
 		}
 		void from_json(const nlohmann::json& j, Performance& x) {
-			a205_json_get<ashrae205_ns::CompressorSpeedControlType>(j, "compressor_speed_control_type", x.compressor_speed_control_type, x.compressor_speed_control_type_is_set, true);
+			a205_json_get<ashrae205_ns::SpeedControlType>(j, "compressor_speed_control_type", x.compressor_speed_control_type, x.compressor_speed_control_type_is_set, true);
 			a205_json_get<double>(j, "cycling_degradation_coefficient", x.cycling_degradation_coefficient, x.cycling_degradation_coefficient_is_set, true);
 			a205_json_get<rs0004_ns::PerformanceMapCooling>(j, "performance_map_cooling", x.performance_map_cooling, x.performance_map_cooling_is_set, true);
 			a205_json_get<rs0004_ns::PerformanceMapStandby>(j, "performance_map_standby", x.performance_map_standby, x.performance_map_standby_is_set, true);

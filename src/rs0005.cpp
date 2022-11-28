@@ -5,6 +5,14 @@ namespace tk205  {
 
 	namespace rs0005_ns  {
 	
+		void from_json(const nlohmann::json& j, Schema& x) {
+		}
+		const std::string_view Schema::schema_title = "Motor";
+
+		const std::string_view Schema::schema_version = "1.0.0";
+
+		const std::string_view Schema::schema_description = "Schema for ASHRAE 205 annex RS0005: Motor";
+
 		void from_json(const nlohmann::json& j, ProductInformation& x) {
 			a205_json_get<std::string>(j, "manufacturer", x.manufacturer, x.manufacturer_is_set, false);
 			a205_json_get<ashrae205_ns::Pattern>(j, "model_number", x.model_number, x.model_number_is_set, false);

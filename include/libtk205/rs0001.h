@@ -34,13 +34,21 @@ namespace tk205  {
 			SI_2015,
 			SI_2015_ADDENDUM_1,
 			SI_2018,
+			SI_2020,
 			UNKNOWN
 		};
 		const static std::unordered_map<AHRI551591TestStandardYear, enum_info> AHRI551591TestStandardYear_info {
 			{AHRI551591TestStandardYear::SI_2015, {"SI_2015", "AHRI 551/591 2015", "Ratings and design points defined using SI unit version of the standard, 2015 edition[@AHRI5512015]"}},
 			{AHRI551591TestStandardYear::SI_2015_ADDENDUM_1, {"SI_2015_ADDENDUM_1", "AHRI 551/591 2015 Addendum 1", "Ratings and design points defined using SI unit version of the standard, 2015 edition with Addendum 1[@AHRI551A12015]"}},
 			{AHRI551591TestStandardYear::SI_2018, {"SI_2018", "AHRI 551/591 2018", "Ratings and design points defined using SI unit version of the standard, 2018 edition[@AHRI5512018]"}},
+			{AHRI551591TestStandardYear::SI_2020, {"SI_2020", "AHRI 551/591 2020", "Ratings and design points defined using SI unit version of the standard, 2020 edition[@AHRI5512020]"}},
 			{AHRI551591TestStandardYear::UNKNOWN, {"UNKNOWN", "None","None"}}
+		};
+		class Schema  {
+		public:
+			const static std::string_view schema_title;
+			const static std::string_view schema_version;
+			const static std::string_view schema_description;
 		};
 		class ProductInformation  {
 		public:
@@ -173,7 +181,8 @@ namespace tk205  {
 			double full_load_condenser_liquid_leaving_temperature;
 			double full_load_condenser_liquid_differential_pressure;
 			double full_load_condenser_fouling_factor;
-			bool rating_reproducible_from_performance_data;
+			bool rating_recalculatable_from_performance_data;
+			std::string rating_recalculatable_explanation;
 			bool certified_reference_number_is_set;
 			bool test_standard_year_is_set;
 			bool rating_source_is_set;
@@ -192,7 +201,8 @@ namespace tk205  {
 			bool full_load_condenser_liquid_leaving_temperature_is_set;
 			bool full_load_condenser_liquid_differential_pressure_is_set;
 			bool full_load_condenser_fouling_factor_is_set;
-			bool rating_reproducible_from_performance_data_is_set;
+			bool rating_recalculatable_from_performance_data_is_set;
+			bool rating_recalculatable_explanation_is_set;
 			const static std::string_view certified_reference_number_units;
 			const static std::string_view test_standard_year_units;
 			const static std::string_view rating_source_units;
@@ -211,7 +221,8 @@ namespace tk205  {
 			const static std::string_view full_load_condenser_liquid_leaving_temperature_units;
 			const static std::string_view full_load_condenser_liquid_differential_pressure_units;
 			const static std::string_view full_load_condenser_fouling_factor_units;
-			const static std::string_view rating_reproducible_from_performance_data_units;
+			const static std::string_view rating_recalculatable_from_performance_data_units;
+			const static std::string_view rating_recalculatable_explanation_units;
 			const static std::string_view certified_reference_number_description;
 			const static std::string_view test_standard_year_description;
 			const static std::string_view rating_source_description;
@@ -230,7 +241,8 @@ namespace tk205  {
 			const static std::string_view full_load_condenser_liquid_leaving_temperature_description;
 			const static std::string_view full_load_condenser_liquid_differential_pressure_description;
 			const static std::string_view full_load_condenser_fouling_factor_description;
-			const static std::string_view rating_reproducible_from_performance_data_description;
+			const static std::string_view rating_recalculatable_from_performance_data_description;
+			const static std::string_view rating_recalculatable_explanation_description;
 			const static std::string_view certified_reference_number_name;
 			const static std::string_view test_standard_year_name;
 			const static std::string_view rating_source_name;
@@ -249,7 +261,8 @@ namespace tk205  {
 			const static std::string_view full_load_condenser_liquid_leaving_temperature_name;
 			const static std::string_view full_load_condenser_liquid_differential_pressure_name;
 			const static std::string_view full_load_condenser_fouling_factor_name;
-			const static std::string_view rating_reproducible_from_performance_data_name;
+			const static std::string_view rating_recalculatable_from_performance_data_name;
+			const static std::string_view rating_recalculatable_explanation_name;
 		};
 		class RatingAHRI551591PartLoadPoint  {
 		public:
@@ -339,7 +352,8 @@ namespace tk205  {
 			double full_load_condenser_liquid_leaving_temperature;
 			double full_load_condenser_liquid_differential_pressure;
 			double full_load_condenser_fouling_factor;
-			bool rating_reproducible_from_performance_data;
+			bool rating_recalculatable_from_performance_data;
+			std::string rating_recalculatable_explanation;
 			bool certified_reference_number_is_set;
 			bool test_standard_year_is_set;
 			bool rating_source_is_set;
@@ -358,7 +372,8 @@ namespace tk205  {
 			bool full_load_condenser_liquid_leaving_temperature_is_set;
 			bool full_load_condenser_liquid_differential_pressure_is_set;
 			bool full_load_condenser_fouling_factor_is_set;
-			bool rating_reproducible_from_performance_data_is_set;
+			bool rating_recalculatable_from_performance_data_is_set;
+			bool rating_recalculatable_explanation_is_set;
 			const static std::string_view certified_reference_number_units;
 			const static std::string_view test_standard_year_units;
 			const static std::string_view rating_source_units;
@@ -377,7 +392,8 @@ namespace tk205  {
 			const static std::string_view full_load_condenser_liquid_leaving_temperature_units;
 			const static std::string_view full_load_condenser_liquid_differential_pressure_units;
 			const static std::string_view full_load_condenser_fouling_factor_units;
-			const static std::string_view rating_reproducible_from_performance_data_units;
+			const static std::string_view rating_recalculatable_from_performance_data_units;
+			const static std::string_view rating_recalculatable_explanation_units;
 			const static std::string_view certified_reference_number_description;
 			const static std::string_view test_standard_year_description;
 			const static std::string_view rating_source_description;
@@ -396,7 +412,8 @@ namespace tk205  {
 			const static std::string_view full_load_condenser_liquid_leaving_temperature_description;
 			const static std::string_view full_load_condenser_liquid_differential_pressure_description;
 			const static std::string_view full_load_condenser_fouling_factor_description;
-			const static std::string_view rating_reproducible_from_performance_data_description;
+			const static std::string_view rating_recalculatable_from_performance_data_description;
+			const static std::string_view rating_recalculatable_explanation_description;
 			const static std::string_view certified_reference_number_name;
 			const static std::string_view test_standard_year_name;
 			const static std::string_view rating_source_name;
@@ -415,7 +432,8 @@ namespace tk205  {
 			const static std::string_view full_load_condenser_liquid_leaving_temperature_name;
 			const static std::string_view full_load_condenser_liquid_differential_pressure_name;
 			const static std::string_view full_load_condenser_fouling_factor_name;
-			const static std::string_view rating_reproducible_from_performance_data_name;
+			const static std::string_view rating_recalculatable_from_performance_data_name;
+			const static std::string_view rating_recalculatable_explanation_name;
 		};
 		class Description  {
 		public:
@@ -611,7 +629,7 @@ namespace tk205  {
 			ashrae205_ns::LiquidMixture condenser_liquid_type;
 			double evaporator_fouling_factor;
 			double condenser_fouling_factor;
-			ashrae205_ns::CompressorSpeedControlType compressor_speed_control_type;
+			ashrae205_ns::SpeedControlType compressor_speed_control_type;
 			double maximum_power;
 			double cycling_degradation_coefficient;
 			rs0001_ns::PerformanceMapCooling performance_map_cooling;
@@ -684,6 +702,7 @@ namespace tk205  {
 			{AHRI551591TestStandardYear::SI_2015, "SI_2015"},
 			{AHRI551591TestStandardYear::SI_2015_ADDENDUM_1, "SI_2015_ADDENDUM_1"},
 			{AHRI551591TestStandardYear::SI_2018, "SI_2018"},
+			{AHRI551591TestStandardYear::SI_2020, "SI_2020"},
 		})
 		void from_json (const nlohmann::json& j, RS0001& x);
 		void from_json (const nlohmann::json& j, Description& x);

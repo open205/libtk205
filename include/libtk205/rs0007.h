@@ -32,6 +32,12 @@ namespace tk205  {
 			{DriveType::CHAIN, {"CHAIN", "Chain", "Chain"}},
 			{DriveType::UNKNOWN, {"UNKNOWN", "None","None"}}
 		};
+		class Schema  {
+		public:
+			const static std::string_view schema_title;
+			const static std::string_view schema_version;
+			const static std::string_view schema_description;
+		};
 		class ProductInformation  {
 		public:
 			std::string manufacturer;

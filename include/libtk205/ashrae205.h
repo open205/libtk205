@@ -31,7 +31,7 @@ namespace tk205  {
 			{SchemaType::RS0001, {"RS0001", "RS0001", "Liquid-Cooled Chiller"}},
 			{SchemaType::RS0002, {"RS0002", "RS0002", "Unitary Cooling Air-Conditioning Equipment"}},
 			{SchemaType::RS0003, {"RS0003", "RS0003", "Fan Assembly"}},
-			{SchemaType::RS0004, {"RS0004", "RS0004", "Air-to-Air Direct Expansion Refrigerant Coil System"}},
+			{SchemaType::RS0004, {"RS0004", "RS0004", "Air-to-Air Direct Expansion Refrigerant System"}},
 			{SchemaType::RS0005, {"RS0005", "RS0005", "Motor"}},
 			{SchemaType::RS0006, {"RS0006", "RS0006", "Electronic Motor Drive"}},
 			{SchemaType::RS0007, {"RS0007", "RS0007", "Mechanical Drive"}},
@@ -53,15 +53,15 @@ namespace tk205  {
 			{CompressorType::SCROLL, {"SCROLL", "Scroll", "Scroll compressor"}},
 			{CompressorType::UNKNOWN, {"UNKNOWN", "None","None"}}
 		};
-		enum class CompressorSpeedControlType {
+		enum class SpeedControlType {
 			DISCRETE,
 			CONTINUOUS,
 			UNKNOWN
 		};
-		const static std::unordered_map<CompressorSpeedControlType, enum_info> CompressorSpeedControlType_info {
-			{CompressorSpeedControlType::DISCRETE, {"DISCRETE", "Discrete", "Compressor loading is controlled by cycling between one or more discrete stages"}},
-			{CompressorSpeedControlType::CONTINUOUS, {"CONTINUOUS", "Continuous", "Compressor loading is controlled by continuously varying the speed of the compressor"}},
-			{CompressorSpeedControlType::UNKNOWN, {"UNKNOWN", "None","None"}}
+		const static std::unordered_map<SpeedControlType, enum_info> SpeedControlType_info {
+			{SpeedControlType::DISCRETE, {"DISCRETE", "Discrete", "Loading is controlled by cycling between one or more discrete stages"}},
+			{SpeedControlType::CONTINUOUS, {"CONTINUOUS", "Continuous", "Loading is controlled by continuously varying the speed"}},
+			{SpeedControlType::UNKNOWN, {"UNKNOWN", "None","None"}}
 		};
 		enum class CondenserType {
 			AIR,
@@ -104,6 +104,12 @@ namespace tk205  {
 			{ConcentrationType::BY_VOLUME, {"BY_VOLUME", "By Volume", "Concentration is defined as a fraction of total liquid mixture volume"}},
 			{ConcentrationType::BY_MASS, {"BY_MASS", "By Mass", "Concentration is defined as a fraction of total liquid mixture mass"}},
 			{ConcentrationType::UNKNOWN, {"UNKNOWN", "None","None"}}
+		};
+		class Schema  {
+		public:
+			const static std::string_view schema_title;
+			const static std::string_view schema_version;
+			const static std::string_view schema_description;
 		};
 		class Metadata  : public RSInstanceBase {
 		public:
@@ -205,10 +211,10 @@ namespace tk205  {
 			{CompressorType::ROTARY, "ROTARY"},
 			{CompressorType::SCROLL, "SCROLL"},
 		})
-		NLOHMANN_JSON_SERIALIZE_ENUM (CompressorSpeedControlType, {
-			{CompressorSpeedControlType::UNKNOWN, "UNKNOWN"},
-			{CompressorSpeedControlType::DISCRETE, "DISCRETE"},
-			{CompressorSpeedControlType::CONTINUOUS, "CONTINUOUS"},
+		NLOHMANN_JSON_SERIALIZE_ENUM (SpeedControlType, {
+			{SpeedControlType::UNKNOWN, "UNKNOWN"},
+			{SpeedControlType::DISCRETE, "DISCRETE"},
+			{SpeedControlType::CONTINUOUS, "CONTINUOUS"},
 		})
 		NLOHMANN_JSON_SERIALIZE_ENUM (CondenserType, {
 			{CondenserType::UNKNOWN, "UNKNOWN"},

@@ -16,6 +16,12 @@ namespace tk205  {
 
 	namespace rs0004_ns  {
 	
+		class Schema  {
+		public:
+			const static std::string_view schema_title;
+			const static std::string_view schema_version;
+			const static std::string_view schema_description;
+		};
 		class ProductInformation  {
 		public:
 			std::string outdoor_unit_manufacturer;
@@ -193,7 +199,7 @@ namespace tk205  {
 		};
 		class Performance  {
 		public:
-			ashrae205_ns::CompressorSpeedControlType compressor_speed_control_type;
+			ashrae205_ns::SpeedControlType compressor_speed_control_type;
 			double cycling_degradation_coefficient;
 			rs0004_ns::PerformanceMapCooling performance_map_cooling;
 			rs0004_ns::PerformanceMapStandby performance_map_standby;
