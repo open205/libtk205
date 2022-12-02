@@ -8,17 +8,17 @@
 
 namespace tk205 {
 
-    enum class msg_severity : unsigned int {
+    enum class MsgSeverity : unsigned int {
         DEBUG_205, 
         INFO_205, 
         WARN_205, 
         ERR_205
     };
 
-    using msg_handler = std::function<void(msg_severity, const std::string &, void *)>;
+    using msg_handler = std::function<void(MsgSeverity, const std::string &, void *)>;
 
-    void Set_error_handler(msg_handler handler);
-    void Show_message(msg_severity severity, const std::string& message);
+    void set_error_handler(msg_handler handler, void *caller_info);
+    void show_message(MsgSeverity severity, const std::string& message);
 }
 
 

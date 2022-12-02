@@ -1,13 +1,21 @@
-#include <RS0006.h>
+#include <rs0006.h>
 #include <loadobject_205.h>
 
 namespace tk205  {
 
-	namespace RS0006_NS  {
+	namespace rs0006_ns  {
 	
+		void from_json(const nlohmann::json& j, Schema& x) {
+		}
+		const std::string_view Schema::schema_title = "Electronic Motor Drive";
+
+		const std::string_view Schema::schema_version = "1.0.0";
+
+		const std::string_view Schema::schema_description = "Schema for ASHRAE 205 annex RS0006: Electronic Motor Drive";
+
 		void from_json(const nlohmann::json& j, ProductInformation& x) {
-			A205_json_get<std::string>(j, "manufacturer", x.manufacturer, x.manufacturer_is_set, false);
-			A205_json_get<ASHRAE205_NS::Pattern>(j, "model_number", x.model_number, x.model_number_is_set, false);
+			a205_json_get<std::string>(j, "manufacturer", x.manufacturer, x.manufacturer_is_set, false);
+			a205_json_get<ashrae205_ns::Pattern>(j, "model_number", x.model_number, x.model_number_is_set, false);
 		}
 		const std::string_view ProductInformation::manufacturer_units = "";
 
@@ -22,7 +30,7 @@ namespace tk205  {
 		const std::string_view ProductInformation::model_number_name = "model_number";
 
 		void from_json(const nlohmann::json& j, Description& x) {
-			A205_json_get<RS0006_NS::ProductInformation>(j, "product_information", x.product_information, x.product_information_is_set, false);
+			a205_json_get<rs0006_ns::ProductInformation>(j, "product_information", x.product_information, x.product_information_is_set, false);
 		}
 		const std::string_view Description::product_information_units = "";
 
@@ -31,13 +39,13 @@ namespace tk205  {
 		const std::string_view Description::product_information_name = "product_information";
 
 		void from_json(const nlohmann::json& j, GridVariables& x) {
-			A205_json_get<std::vector<double>>(j, "output_power", x.output_power, x.output_power_is_set, true);
-			A205_json_get<std::vector<double>>(j, "output_frequency", x.output_frequency, x.output_frequency_is_set, true);
+			a205_json_get<std::vector<double>>(j, "output_power", x.output_power, x.output_power_is_set, true);
+			a205_json_get<std::vector<double>>(j, "output_frequency", x.output_frequency, x.output_frequency_is_set, true);
 		}
-		void GridVariables::Populate_performance_map(performance_map_base* performance_map) {
-			Add_grid_axis(performance_map, output_power);
-			Add_grid_axis(performance_map, output_frequency);
-			performance_map->Finalize_grid();
+		void GridVariables::populate_performance_map(PerformanceMapBase* performance_map) {
+			add_grid_axis(performance_map, output_power);
+			add_grid_axis(performance_map, output_frequency);
+			performance_map->finalize_grid();
 		}
 		const std::string_view GridVariables::output_power_units = "W";
 
@@ -52,10 +60,10 @@ namespace tk205  {
 		const std::string_view GridVariables::output_frequency_name = "output_frequency";
 
 		void from_json(const nlohmann::json& j, LookupVariables& x) {
-			A205_json_get<std::vector<double>>(j, "efficiency", x.efficiency, x.efficiency_is_set, true);
+			a205_json_get<std::vector<double>>(j, "efficiency", x.efficiency, x.efficiency_is_set, true);
 		}
-		void LookupVariables::Populate_performance_map(performance_map_base* performance_map) {
-			Add_data_table(performance_map, efficiency);
+		void LookupVariables::populate_performance_map(PerformanceMapBase* performance_map) {
+			add_data_table(performance_map, efficiency);
 		}
 		const std::string_view LookupVariables::efficiency_units = "-";
 
@@ -64,16 +72,16 @@ namespace tk205  {
 		const std::string_view LookupVariables::efficiency_name = "efficiency";
 
 		void from_json(const nlohmann::json& j, PerformanceMap& x) {
-			A205_json_get<RS0006_NS::GridVariables>(j, "grid_variables", x.grid_variables, x.grid_variables_is_set, true);
-			x.grid_variables.Populate_performance_map(&x);
-			A205_json_get<RS0006_NS::LookupVariables>(j, "lookup_variables", x.lookup_variables, x.lookup_variables_is_set, true);
-			x.lookup_variables.Populate_performance_map(&x);
+			a205_json_get<rs0006_ns::GridVariables>(j, "grid_variables", x.grid_variables, x.grid_variables_is_set, true);
+			x.grid_variables.populate_performance_map(&x);
+			a205_json_get<rs0006_ns::LookupVariables>(j, "lookup_variables", x.lookup_variables, x.lookup_variables_is_set, true);
+			x.lookup_variables.populate_performance_map(&x);
 		}
-		void PerformanceMap::Initialize(const nlohmann::json& j) {
-			A205_json_get<RS0006_NS::GridVariables>(j, "grid_variables", grid_variables, grid_variables_is_set, true);
-			grid_variables.Populate_performance_map(this);
-			A205_json_get<RS0006_NS::LookupVariables>(j, "lookup_variables", lookup_variables, lookup_variables_is_set, true);
-			lookup_variables.Populate_performance_map(this);
+		void PerformanceMap::initialize(const nlohmann::json& j) {
+			a205_json_get<rs0006_ns::GridVariables>(j, "grid_variables", grid_variables, grid_variables_is_set, true);
+			grid_variables.populate_performance_map(this);
+			a205_json_get<rs0006_ns::LookupVariables>(j, "lookup_variables", lookup_variables, lookup_variables_is_set, true);
+			lookup_variables.populate_performance_map(this);
 		}
 		const std::string_view PerformanceMap::grid_variables_units = "";
 
@@ -87,17 +95,17 @@ namespace tk205  {
 
 		const std::string_view PerformanceMap::lookup_variables_name = "lookup_variables";
 
-		LookupVariablesStruct PerformanceMap::Calculate_performance(double output_power, double output_frequency) {
+		LookupVariablesStruct PerformanceMap::calculate_performance(double output_power, double output_frequency, Btwxt::Method performance_interpolation_method ) {
 			std::vector<double> target {output_power, output_frequency};
-			auto v = performance_map_base::Calculate_performance(target);
+			auto v = PerformanceMapBase::calculate_performance(target, performance_interpolation_method);
 			LookupVariablesStruct s {v[0], };
 			return s;
 		}
 		void from_json(const nlohmann::json& j, Performance& x) {
-			A205_json_get<double>(j, "maximum_power", x.maximum_power, x.maximum_power_is_set, true);
-			A205_json_get<double>(j, "standby_power", x.standby_power, x.standby_power_is_set, true);
-			A205_json_get<RS0006_NS::CoolingMethod>(j, "cooling_method", x.cooling_method, x.cooling_method_is_set, true);
-			A205_json_get<RS0006_NS::PerformanceMap>(j, "performance_map", x.performance_map, x.performance_map_is_set, true);
+			a205_json_get<double>(j, "maximum_power", x.maximum_power, x.maximum_power_is_set, true);
+			a205_json_get<double>(j, "standby_power", x.standby_power, x.standby_power_is_set, true);
+			a205_json_get<rs0006_ns::CoolingMethod>(j, "cooling_method", x.cooling_method, x.cooling_method_is_set, true);
+			a205_json_get<rs0006_ns::PerformanceMap>(j, "performance_map", x.performance_map, x.performance_map_is_set, true);
 		}
 		const std::string_view Performance::maximum_power_units = "W";
 
@@ -123,10 +131,15 @@ namespace tk205  {
 
 		const std::string_view Performance::performance_map_name = "performance_map";
 
-		void RS0006::Initialize(const nlohmann::json& j) {
-			A205_json_get<ASHRAE205_NS::Metadata>(j, "metadata", metadata, metadata_is_set, true);
-			A205_json_get<RS0006_NS::Description>(j, "description", description, description_is_set, false);
-			A205_json_get<RS0006_NS::Performance>(j, "performance", performance, performance_is_set, true);
+		void from_json(const nlohmann::json& j, RS0006& x) {
+			a205_json_get<ashrae205_ns::Metadata>(j, "metadata", x.metadata, x.metadata_is_set, true);
+			a205_json_get<rs0006_ns::Description>(j, "description", x.description, x.description_is_set, false);
+			a205_json_get<rs0006_ns::Performance>(j, "performance", x.performance, x.performance_is_set, true);
+		}
+		void RS0006::initialize(const nlohmann::json& j) {
+			a205_json_get<ashrae205_ns::Metadata>(j, "metadata", metadata, metadata_is_set, true);
+			a205_json_get<rs0006_ns::Description>(j, "description", description, description_is_set, false);
+			a205_json_get<rs0006_ns::Performance>(j, "performance", performance, performance_is_set, true);
 		}
 		const std::string_view RS0006::metadata_units = "";
 
@@ -146,9 +159,6 @@ namespace tk205  {
 
 		const std::string_view RS0006::performance_name = "performance";
 
-		void from_json(const nlohmann::json& j, RS0006& x) {
-			x.Initialize(j);
-		}
 	}
 }
 

@@ -21,7 +21,7 @@ add_subdirectory(src)
 add_subdirectory(vendor)
 
 if (LIBTK205_BUILD_TESTING)
-  add_compile_definitions(TEST205_INPUT_EXAMPLES_DIR="${PROJECT_SOURCE_DIR}/vendor")
+  add_compile_definitions(TEST205_INPUT_EXAMPLES_DIR="${PROJECT_SOURCE_DIR}")
   enable_testing()
   add_subdirectory(test)
 endif()

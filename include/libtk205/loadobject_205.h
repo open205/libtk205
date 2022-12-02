@@ -7,7 +7,7 @@
 namespace tk205 {
 
     template<class T>
-    void A205_json_get(nlohmann::json j, const char *subnode, T& a205_object, bool& object_is_set, bool required = false)
+    void a205_json_get(nlohmann::json j, const char *subnode, T& a205_object, bool& object_is_set, bool required = false)
     {
 		try 
         {
@@ -19,7 +19,7 @@ namespace tk205 {
             object_is_set = false;
             if (required)
             {
-                Show_message(msg_severity::WARN_205, ex.what());
+                show_message(MsgSeverity::WARN_205, ex.what());
             }
         }
     }

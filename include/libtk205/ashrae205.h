@@ -4,12 +4,13 @@
 #include <vector>
 #include <nlohmann/json.hpp>
 #include <typeinfo_205.h>
+#include <rs_instance_base.h>
 
 /// @note  This class has been auto-generated. Local changes will not be saved!
 
 namespace tk205  {
 
-	namespace ASHRAE205_NS  {
+	namespace ashrae205_ns  {
 	
 		typedef std::string UUID;
 		typedef std::string Date;
@@ -30,7 +31,7 @@ namespace tk205  {
 			{SchemaType::RS0001, {"RS0001", "RS0001", "Liquid-Cooled Chiller"}},
 			{SchemaType::RS0002, {"RS0002", "RS0002", "Unitary Cooling Air-Conditioning Equipment"}},
 			{SchemaType::RS0003, {"RS0003", "RS0003", "Fan Assembly"}},
-			{SchemaType::RS0004, {"RS0004", "RS0004", "Air-to-Air Direct Expansion Refrigerant Coil System"}},
+			{SchemaType::RS0004, {"RS0004", "RS0004", "Air-to-Air Direct Expansion Refrigerant System"}},
 			{SchemaType::RS0005, {"RS0005", "RS0005", "Motor"}},
 			{SchemaType::RS0006, {"RS0006", "RS0006", "Electronic Motor Drive"}},
 			{SchemaType::RS0007, {"RS0007", "RS0007", "Mechanical Drive"}},
@@ -52,15 +53,15 @@ namespace tk205  {
 			{CompressorType::SCROLL, {"SCROLL", "Scroll", "Scroll compressor"}},
 			{CompressorType::UNKNOWN, {"UNKNOWN", "None","None"}}
 		};
-		enum class CompressorSpeedControlType {
+		enum class SpeedControlType {
 			DISCRETE,
 			CONTINUOUS,
 			UNKNOWN
 		};
-		const static std::unordered_map<CompressorSpeedControlType, enum_info> CompressorSpeedControlType_info {
-			{CompressorSpeedControlType::DISCRETE, {"DISCRETE", "Discrete", "Compressor loading is controlled by cycling between one or more discrete stages"}},
-			{CompressorSpeedControlType::CONTINUOUS, {"CONTINUOUS", "Continuous", "Compressor loading is controlled by continuously varying the speed of the compressor"}},
-			{CompressorSpeedControlType::UNKNOWN, {"UNKNOWN", "None","None"}}
+		const static std::unordered_map<SpeedControlType, enum_info> SpeedControlType_info {
+			{SpeedControlType::DISCRETE, {"DISCRETE", "Discrete", "Loading is controlled by cycling between one or more discrete stages"}},
+			{SpeedControlType::CONTINUOUS, {"CONTINUOUS", "Continuous", "Loading is controlled by continuously varying the speed"}},
+			{SpeedControlType::UNKNOWN, {"UNKNOWN", "None","None"}}
 		};
 		enum class CondenserType {
 			AIR,
@@ -104,14 +105,21 @@ namespace tk205  {
 			{ConcentrationType::BY_MASS, {"BY_MASS", "By Mass", "Concentration is defined as a fraction of total liquid mixture mass"}},
 			{ConcentrationType::UNKNOWN, {"UNKNOWN", "None","None"}}
 		};
-		class Metadata  {
+		class Schema  {
 		public:
+			const static std::string_view schema_title;
+			const static std::string_view schema_version;
+			const static std::string_view schema_description;
+		};
+		class Metadata  : public RSInstanceBase {
+		public:
+			void initialize (const nlohmann::json& j) override;
 			std::string data_model;
-			ASHRAE205_NS::SchemaType schema;
-			ASHRAE205_NS::Version schema_version;
-			ASHRAE205_NS::UUID id;
+			ashrae205_ns::SchemaType schema;
+			ashrae205_ns::Version schema_version;
+			ashrae205_ns::UUID id;
 			std::string description;
-			ASHRAE205_NS::Timestamp data_timestamp;
+			ashrae205_ns::Timestamp data_timestamp;
 			int data_version;
 			std::string data_source;
 			std::string disclaimer;
@@ -157,9 +165,10 @@ namespace tk205  {
 			const static std::string_view disclaimer_name;
 			const static std::string_view notes_name;
 		};
-		class LiquidComponent  {
+		class LiquidComponent  : public RSInstanceBase {
 		public:
-			ASHRAE205_NS::LiquidConstituent liquid_constituent;
+			void initialize (const nlohmann::json& j) override;
+			ashrae205_ns::LiquidConstituent liquid_constituent;
 			double concentration;
 			bool liquid_constituent_is_set;
 			bool concentration_is_set;
@@ -170,10 +179,11 @@ namespace tk205  {
 			const static std::string_view liquid_constituent_name;
 			const static std::string_view concentration_name;
 		};
-		class LiquidMixture  {
+		class LiquidMixture  : public RSInstanceBase {
 		public:
-			std::vector<ASHRAE205_NS::LiquidComponent> liquid_components;
-			ASHRAE205_NS::ConcentrationType concentration_type;
+			void initialize (const nlohmann::json& j) override;
+			std::vector<ashrae205_ns::LiquidComponent> liquid_components;
+			ashrae205_ns::ConcentrationType concentration_type;
 			bool liquid_components_is_set;
 			bool concentration_type_is_set;
 			const static std::string_view liquid_components_units;
@@ -201,10 +211,10 @@ namespace tk205  {
 			{CompressorType::ROTARY, "ROTARY"},
 			{CompressorType::SCROLL, "SCROLL"},
 		})
-		NLOHMANN_JSON_SERIALIZE_ENUM (CompressorSpeedControlType, {
-			{CompressorSpeedControlType::UNKNOWN, "UNKNOWN"},
-			{CompressorSpeedControlType::DISCRETE, "DISCRETE"},
-			{CompressorSpeedControlType::CONTINUOUS, "CONTINUOUS"},
+		NLOHMANN_JSON_SERIALIZE_ENUM (SpeedControlType, {
+			{SpeedControlType::UNKNOWN, "UNKNOWN"},
+			{SpeedControlType::DISCRETE, "DISCRETE"},
+			{SpeedControlType::CONTINUOUS, "CONTINUOUS"},
 		})
 		NLOHMANN_JSON_SERIALIZE_ENUM (CondenserType, {
 			{CondenserType::UNKNOWN, "UNKNOWN"},
