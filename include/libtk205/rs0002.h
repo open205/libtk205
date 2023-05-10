@@ -7,6 +7,7 @@
 #include <vector>
 #include <nlohmann/json.hpp>
 #include <typeinfo_205.h>
+#include <courierr/courierr.h>
 #include <rs_instance_base.h>
 
 /// @note  This class has been auto-generated. Local changes will not be saved!
@@ -345,6 +346,7 @@ namespace tk205  {
 		class RS0002  : public RSInstanceBase {
 		public:
 			void initialize (const nlohmann::json& j) override;
+			static std::shared_ptr<Courierr::Courierr> logger;
 			ashrae205_ns::Metadata metadata;
 			rs0002_ns::Description description;
 			rs0002_ns::Performance performance;
