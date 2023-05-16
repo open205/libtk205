@@ -4,3 +4,6 @@
 [submodule "vendor/btwxt"]
 	path = vendor/btwxt
 	url = https://github.com/bigladder/btwxt.git
+[submodule "vendor/courierr"]
+	path = vendor/courierr
+	url = https://github.com/bigladder/courierr.git
