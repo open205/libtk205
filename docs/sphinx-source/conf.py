@@ -43,4 +43,4 @@ html_theme_options = {
 html_static_path = ['_static']
 breathe_default_project = project
 # set up breathe_projects here, or using -D on CMake sphinx make command line
-breathe_projects = {"libtk205_RTD_docs" : "../../build/docs/xml"}
+#breathe_projects = {"libtk205_RTD_docs" : "../../build/docs/xml"}
