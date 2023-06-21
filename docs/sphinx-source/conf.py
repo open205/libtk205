@@ -8,7 +8,7 @@
 
 # pylint: disable=C0103
 
-project = 'libtk205_RTD_docs'
+project = 'libtk205'
 copyright = '2023, Big Ladder Software' # pylint: disable=redefined-builtin
 author = 'Big Ladder Software'
 release = '2023'
@@ -42,5 +42,6 @@ html_theme_options = {
 }
 html_static_path = ['_static']
 breathe_default_project = project
-# set up breathe_projects here, or using -D on CMake sphinx make command line
-#breathe_projects = {"libtk205_RTD_docs" : "../../build/docs/xml"}
+breathe_default_members = ('members', 'undoc-members')
+# set up breathe_projects here, or using -D on sphinx-build command line
+#breathe_projects = {"libtk205" : "../../build/docs/xml"}

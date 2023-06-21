@@ -35,4 +35,6 @@ endif()
 # look for Doxygen package
 find_package(Doxygen)
 
-add_subdirectory(docs)
+if (${PROJECT_NAME}_BUILD_DOCUMENTATION)
+  add_subdirectory(docs)
+endif()
