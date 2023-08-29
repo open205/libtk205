@@ -50,7 +50,7 @@ TEST_F(RS0001Fixture, Calculate_performance_cooling_3)
 {
     auto rs = dynamic_cast<rs0001_ns::RS0001 *>(rs_.get());
     EXPECT_TRUE(rs != nullptr);
-    auto result = rs->performance.performance_map_cooling.calculate_performance(0.0755, 280.0, 0.0957, 295.0, 0.5, Btwxt::Method::linear).condenser_liquid_leaving_temperature;
+    auto result = rs->performance.performance_map_cooling.calculate_performance(0.0755, 280.0, 0.0957, 295.0, 0.5, Btwxt::InterpolationMethod::linear).condenser_liquid_leaving_temperature;
     EXPECT_NEAR(result, 296.03, 0.001);
 }
 
@@ -59,8 +59,8 @@ TEST_F(ASHRAEChillerFixture, Calculate_performance_cubic)
     auto rs = dynamic_cast<rs0001_ns::RS0001 *>(rs_.get());
     EXPECT_TRUE(rs != nullptr);
     std::vector<double> target {0.00565, 280.0, 0.00845, 297.0, 1.5}; //NOLINT : Magic numbers necessary!
-    auto result1 = rs->performance.performance_map_cooling.calculate_performance(target, Btwxt::Method::linear);
-    auto result2 = rs->performance.performance_map_cooling.calculate_performance(target, Btwxt::Method::cubic);
+    auto result1 = rs->performance.performance_map_cooling.calculate_performance(target, Btwxt::InterpolationMethod::linear);
+    auto result2 = rs->performance.performance_map_cooling.calculate_performance(target, Btwxt::InterpolationMethod::cubic);
     EXPECT_NE(result1, result2);
 }
 
