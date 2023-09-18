@@ -19,6 +19,11 @@ TEST_F(RS0001UnsupportedFixture, Verify_schema_version)
     EXPECT_TRUE(rs == nullptr);
 }
 
+TEST_F(RS0001Fixture, Check_logger)
+{
+    EXPECT_TRUE(ashrae205_ns::Ashrae205::logger != nullptr);
+}
+
 TEST_F(RS0001Fixture, Check_is_set)
 {
     auto rs = dynamic_cast<rs0001_ns::RS0001 *>(rs_.get());
