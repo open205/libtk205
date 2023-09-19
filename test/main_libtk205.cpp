@@ -21,7 +21,7 @@ TEST_F(RS0001UnsupportedFixture, Verify_schema_version)
 
 TEST_F(RS0001Fixture, Check_logger)
 {
-    EXPECT_TRUE(ashrae205_ns::Ashrae205::logger != nullptr);
+    EXPECT_TRUE(ashrae205_ns::ASHRAE205::logger != nullptr);
 }
 
 TEST_F(RS0001Fixture, Check_is_set)
