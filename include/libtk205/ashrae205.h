@@ -111,7 +111,7 @@ namespace tk205  {
 			const static std::string_view schema_version;
 			const static std::string_view schema_description;
 		};
-		class Ashrae205  {
+		class ASHRAE205  {
 		public:
 			static std::shared_ptr<Courierr::Courierr> logger;
 		};
