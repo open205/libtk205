@@ -7,6 +7,7 @@
 #include <vector>
 #include <nlohmann/json.hpp>
 #include <typeinfo_205.h>
+#include <courierr/courierr.h>
 #include <rs_instance_base.h>
 #include <performance_map_base.h>
 #include <grid_variables_base.h>
@@ -203,6 +204,7 @@ namespace tk205  {
 		class RS0003  : public RSInstanceBase {
 		public:
 			void initialize (const nlohmann::json& j) override;
+			static std::shared_ptr<Courierr::Courierr> logger;
 			ashrae205_ns::Metadata metadata;
 			rs0003_ns::Description description;
 			rs0003_ns::Performance performance;
@@ -275,7 +277,7 @@ namespace tk205  {
 			const static std::string_view grid_variables_name;
 			const static std::string_view lookup_variables_name;
 			using PerformanceMapBase::calculate_performance;
-			LookupVariablesContinuousStruct calculate_performance (double standard_air_volumetric_flow_rate, double static_pressure_difference, Btwxt::Method performance_interpolation_method = Btwxt::Method::LINEAR);
+			LookupVariablesContinuousStruct calculate_performance (double standard_air_volumetric_flow_rate, double static_pressure_difference, Btwxt::InterpolationMethod performance_interpolation_method = Btwxt::InterpolationMethod::linear);
 		};
 		class GridVariablesDiscrete  : public GridVariablesBase {
 		public:
@@ -340,7 +342,7 @@ namespace tk205  {
 			const static std::string_view grid_variables_name;
 			const static std::string_view lookup_variables_name;
 			using PerformanceMapBase::calculate_performance;
-			LookupVariablesDiscreteStruct calculate_performance (double speed_number, double static_pressure_difference, Btwxt::Method performance_interpolation_method = Btwxt::Method::LINEAR);
+			LookupVariablesDiscreteStruct calculate_performance (double speed_number, double static_pressure_difference, Btwxt::InterpolationMethod performance_interpolation_method = Btwxt::InterpolationMethod::linear);
 		};
 		NLOHMANN_JSON_SERIALIZE_ENUM (InstallationSpeedControlType, {
 			{InstallationSpeedControlType::UNKNOWN, "UNKNOWN"},

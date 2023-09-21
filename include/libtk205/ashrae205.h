@@ -4,7 +4,7 @@
 #include <vector>
 #include <nlohmann/json.hpp>
 #include <typeinfo_205.h>
-#include <rs_instance_base.h>
+#include <courierr/courierr.h>
 
 /// @note  This class has been auto-generated. Local changes will not be saved!
 
@@ -111,9 +111,12 @@ namespace tk205  {
 			const static std::string_view schema_version;
 			const static std::string_view schema_description;
 		};
-		class Metadata  : public RSInstanceBase {
+		class ASHRAE205  {
 		public:
-			void initialize (const nlohmann::json& j) override;
+			static std::shared_ptr<Courierr::Courierr> logger;
+		};
+		class Metadata  {
+		public:
 			std::string data_model;
 			ashrae205_ns::SchemaType schema;
 			ashrae205_ns::Version schema_version;
@@ -165,9 +168,8 @@ namespace tk205  {
 			const static std::string_view disclaimer_name;
 			const static std::string_view notes_name;
 		};
-		class LiquidComponent  : public RSInstanceBase {
+		class LiquidComponent  {
 		public:
-			void initialize (const nlohmann::json& j) override;
 			ashrae205_ns::LiquidConstituent liquid_constituent;
 			double concentration;
 			bool liquid_constituent_is_set;
@@ -179,9 +181,8 @@ namespace tk205  {
 			const static std::string_view liquid_constituent_name;
 			const static std::string_view concentration_name;
 		};
-		class LiquidMixture  : public RSInstanceBase {
+		class LiquidMixture  {
 		public:
-			void initialize (const nlohmann::json& j) override;
 			std::vector<ashrae205_ns::LiquidComponent> liquid_components;
 			ashrae205_ns::ConcentrationType concentration_type;
 			bool liquid_components_is_set;

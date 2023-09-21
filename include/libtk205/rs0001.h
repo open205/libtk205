@@ -5,6 +5,7 @@
 #include <vector>
 #include <nlohmann/json.hpp>
 #include <typeinfo_205.h>
+#include <courierr/courierr.h>
 #include <rs_instance_base.h>
 #include <performance_map_base.h>
 #include <grid_variables_base.h>
@@ -576,7 +577,7 @@ namespace tk205  {
 			const static std::string_view grid_variables_name;
 			const static std::string_view lookup_variables_name;
 			using PerformanceMapBase::calculate_performance;
-			LookupVariablesCoolingStruct calculate_performance (double evaporator_liquid_volumetric_flow_rate, double evaporator_liquid_leaving_temperature, double condenser_liquid_volumetric_flow_rate, double condenser_liquid_entering_temperature, double compressor_sequence_number, Btwxt::Method performance_interpolation_method = Btwxt::Method::LINEAR);
+			LookupVariablesCoolingStruct calculate_performance (double evaporator_liquid_volumetric_flow_rate, double evaporator_liquid_leaving_temperature, double condenser_liquid_volumetric_flow_rate, double condenser_liquid_entering_temperature, double compressor_sequence_number, Btwxt::InterpolationMethod performance_interpolation_method = Btwxt::InterpolationMethod::linear);
 		};
 		class GridVariablesStandby  : public GridVariablesBase {
 		public:
@@ -621,7 +622,7 @@ namespace tk205  {
 			const static std::string_view grid_variables_name;
 			const static std::string_view lookup_variables_name;
 			using PerformanceMapBase::calculate_performance;
-			LookupVariablesStandbyStruct calculate_performance (double environment_dry_bulb_temperature, Btwxt::Method performance_interpolation_method = Btwxt::Method::LINEAR);
+			LookupVariablesStandbyStruct calculate_performance (double environment_dry_bulb_temperature, Btwxt::InterpolationMethod performance_interpolation_method = Btwxt::InterpolationMethod::linear);
 		};
 		class Performance  {
 		public:
@@ -674,6 +675,7 @@ namespace tk205  {
 		class RS0001  : public RSInstanceBase {
 		public:
 			void initialize (const nlohmann::json& j) override;
+			static std::shared_ptr<Courierr::Courierr> logger;
 			ashrae205_ns::Metadata metadata;
 			rs0001_ns::Description description;
 			rs0001_ns::Performance performance;
