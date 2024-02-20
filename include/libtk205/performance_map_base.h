@@ -88,8 +88,6 @@ public:
         return btwxt->get_values_at_target(target);
     }
 
-    inline std::shared_ptr<Courierr::Courierr> get_logger() { return btwxt->get_logger(); }
-
 private:
     std::unique_ptr<Btwxt::RegularGridInterpolator> btwxt;
     std::vector<std::vector<double>> grid_axes;
