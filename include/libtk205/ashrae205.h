@@ -105,6 +105,16 @@ namespace tk205  {
 			{ConcentrationType::BY_MASS, {"BY_MASS", "By Mass", "Concentration is defined as a fraction of total liquid mixture mass"}},
 			{ConcentrationType::UNKNOWN, {"UNKNOWN", "None","None"}}
 		};
+		enum class OperationState {
+			NORMAL,
+			STANDBY,
+			UNKNOWN
+		};
+		const static std::unordered_map<OperationState, enum_info> OperationState_info {
+			{OperationState::NORMAL, {"NORMAL", "Normal", "Indicates that the equipment is in normal operating state"}},
+			{OperationState::STANDBY, {"STANDBY", "Standby", "Indicates that the equipment is in standby operating state"}},
+			{OperationState::UNKNOWN, {"UNKNOWN", "None","None"}}
+		};
 		class Schema  {
 		public:
 			const static std::string_view schema_title;
@@ -194,6 +204,19 @@ namespace tk205  {
 			const static std::string_view liquid_components_name;
 			const static std::string_view concentration_type_name;
 		};
+		class Scaling  {
+		public:
+			double minimum;
+			double maximum;
+			bool minimum_is_set;
+			bool maximum_is_set;
+			const static std::string_view minimum_units;
+			const static std::string_view maximum_units;
+			const static std::string_view minimum_description;
+			const static std::string_view maximum_description;
+			const static std::string_view minimum_name;
+			const static std::string_view maximum_name;
+		};
 		NLOHMANN_JSON_SERIALIZE_ENUM (SchemaType, {
 			{SchemaType::UNKNOWN, "UNKNOWN"},
 			{SchemaType::RS0001, "RS0001"},
@@ -238,9 +261,15 @@ namespace tk205  {
 			{ConcentrationType::BY_VOLUME, "BY_VOLUME"},
 			{ConcentrationType::BY_MASS, "BY_MASS"},
 		})
+		NLOHMANN_JSON_SERIALIZE_ENUM (OperationState, {
+			{OperationState::UNKNOWN, "UNKNOWN"},
+			{OperationState::NORMAL, "NORMAL"},
+			{OperationState::STANDBY, "STANDBY"},
+		})
 		void from_json (const nlohmann::json& j, Metadata& x);
 		void from_json (const nlohmann::json& j, LiquidMixture& x);
 		void from_json (const nlohmann::json& j, LiquidComponent& x);
+		void from_json (const nlohmann::json& j, Scaling& x);
 	}
 }
 #endif

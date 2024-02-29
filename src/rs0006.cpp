@@ -7,7 +7,7 @@ namespace tk205  {
 	
 		const std::string_view Schema::schema_title = "Electronic Motor Drive";
 
-		const std::string_view Schema::schema_version = "1.0.0";
+		const std::string_view Schema::schema_version = "2.0.0";
 
 		const std::string_view Schema::schema_description = "Schema for ASHRAE 205 annex RS0006: Electronic Motor Drive";
 
@@ -59,15 +59,23 @@ namespace tk205  {
 
 		void from_json(const nlohmann::json& j, LookupVariables& x) {
 			a205_json_get<std::vector<double>>(j, *RS0006::logger, "efficiency", x.efficiency, x.efficiency_is_set, true);
+			a205_json_get<std::vector<ashrae205_ns::OperationState>>(j, *RS0006::logger, "operation_state", x.operation_state, x.operation_state_is_set, true);
 		}
 		void LookupVariables::populate_performance_map(PerformanceMapBase* performance_map) {
 			add_data_table(performance_map, efficiency);
+			add_data_table(performance_map, operation_state);
 		}
 		const std::string_view LookupVariables::efficiency_units = "-";
 
+		const std::string_view LookupVariables::operation_state_units = "-";
+
 		const std::string_view LookupVariables::efficiency_description = "Efficiency of drive";
 
+		const std::string_view LookupVariables::operation_state_description = "The operation state at the operating conditions";
+
 		const std::string_view LookupVariables::efficiency_name = "efficiency";
+
+		const std::string_view LookupVariables::operation_state_name = "operation_state";
 
 		void from_json(const nlohmann::json& j, PerformanceMap& x) {
 			a205_json_get<rs0006_ns::GridVariables>(j, *RS0006::logger, "grid_variables", x.grid_variables, x.grid_variables_is_set, true);
@@ -96,13 +104,14 @@ namespace tk205  {
 		LookupVariablesStruct PerformanceMap::calculate_performance(double output_power, double output_frequency, Btwxt::InterpolationMethod performance_interpolation_method ) {
 			std::vector<double> target {output_power, output_frequency};
 			auto v = PerformanceMapBase::calculate_performance(target, performance_interpolation_method);
-			LookupVariablesStruct s {v[0], };
+			LookupVariablesStruct s {v[0], v[1], };
 			return s;
 		}
 		void from_json(const nlohmann::json& j, Performance& x) {
 			a205_json_get<double>(j, *RS0006::logger, "maximum_power", x.maximum_power, x.maximum_power_is_set, true);
 			a205_json_get<double>(j, *RS0006::logger, "standby_power", x.standby_power, x.standby_power_is_set, true);
 			a205_json_get<rs0006_ns::CoolingMethod>(j, *RS0006::logger, "cooling_method", x.cooling_method, x.cooling_method_is_set, true);
+			a205_json_get<ashrae205_ns::Scaling>(j, *RS0006::logger, "scaling", x.scaling, x.scaling_is_set, false);
 			a205_json_get<rs0006_ns::PerformanceMap>(j, *RS0006::logger, "performance_map", x.performance_map, x.performance_map_is_set, true);
 		}
 		const std::string_view Performance::maximum_power_units = "W";
@@ -110,6 +119,8 @@ namespace tk205  {
 		const std::string_view Performance::standby_power_units = "W";
 
 		const std::string_view Performance::cooling_method_units = "";
+
+		const std::string_view Performance::scaling_units = "";
 
 		const std::string_view Performance::performance_map_units = "";
 
@@ -119,6 +130,8 @@ namespace tk205  {
 
 		const std::string_view Performance::cooling_method_description = "Method used to cool the drive";
 
+		const std::string_view Performance::scaling_description = "Specifies the range the performance data can be scaled to represent different capacity equipment";
+
 		const std::string_view Performance::performance_map_description = "Data group describing drive performance when operating";
 
 		const std::string_view Performance::maximum_power_name = "maximum_power";
@@ -126,6 +139,8 @@ namespace tk205  {
 		const std::string_view Performance::standby_power_name = "standby_power";
 
 		const std::string_view Performance::cooling_method_name = "cooling_method";
+
+		const std::string_view Performance::scaling_name = "scaling";
 
 		const std::string_view Performance::performance_map_name = "performance_map";
 

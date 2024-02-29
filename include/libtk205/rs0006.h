@@ -80,16 +80,23 @@ namespace tk205  {
 			void populate_performance_map (PerformanceMapBase* performance_map) override;
 			enum  {
 				efficiency_index,
+				operation_state_index,
 				index_count
 			};
 			std::vector<double> efficiency;
+			std::vector<ashrae205_ns::OperationState> operation_state;
 			bool efficiency_is_set;
+			bool operation_state_is_set;
 			const static std::string_view efficiency_units;
+			const static std::string_view operation_state_units;
 			const static std::string_view efficiency_description;
+			const static std::string_view operation_state_description;
 			const static std::string_view efficiency_name;
+			const static std::string_view operation_state_name;
 		};
 		struct LookupVariablesStruct {
 			double efficiency;
+			double operation_state;
 		};
 		class PerformanceMap  : public PerformanceMapBase {
 		public:
@@ -112,22 +119,27 @@ namespace tk205  {
 			double maximum_power;
 			double standby_power;
 			rs0006_ns::CoolingMethod cooling_method;
+			ashrae205_ns::Scaling scaling;
 			rs0006_ns::PerformanceMap performance_map;
 			bool maximum_power_is_set;
 			bool standby_power_is_set;
 			bool cooling_method_is_set;
+			bool scaling_is_set;
 			bool performance_map_is_set;
 			const static std::string_view maximum_power_units;
 			const static std::string_view standby_power_units;
 			const static std::string_view cooling_method_units;
+			const static std::string_view scaling_units;
 			const static std::string_view performance_map_units;
 			const static std::string_view maximum_power_description;
 			const static std::string_view standby_power_description;
 			const static std::string_view cooling_method_description;
+			const static std::string_view scaling_description;
 			const static std::string_view performance_map_description;
 			const static std::string_view maximum_power_name;
 			const static std::string_view standby_power_name;
 			const static std::string_view cooling_method_name;
+			const static std::string_view scaling_name;
 			const static std::string_view performance_map_name;
 		};
 		class RS0006  : public RSInstanceBase {

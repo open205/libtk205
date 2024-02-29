@@ -114,28 +114,35 @@ namespace tk205  {
 				gross_total_capacity_index,
 				gross_sensible_capacity_index,
 				gross_power_index,
+				operation_state_index,
 				index_count
 			};
 			std::vector<double> gross_total_capacity;
 			std::vector<double> gross_sensible_capacity;
 			std::vector<double> gross_power;
+			std::vector<ashrae205_ns::OperationState> operation_state;
 			bool gross_total_capacity_is_set;
 			bool gross_sensible_capacity_is_set;
 			bool gross_power_is_set;
+			bool operation_state_is_set;
 			const static std::string_view gross_total_capacity_units;
 			const static std::string_view gross_sensible_capacity_units;
 			const static std::string_view gross_power_units;
+			const static std::string_view operation_state_units;
 			const static std::string_view gross_total_capacity_description;
 			const static std::string_view gross_sensible_capacity_description;
 			const static std::string_view gross_power_description;
+			const static std::string_view operation_state_description;
 			const static std::string_view gross_total_capacity_name;
 			const static std::string_view gross_sensible_capacity_name;
 			const static std::string_view gross_power_name;
+			const static std::string_view operation_state_name;
 		};
 		struct LookupVariablesCoolingStruct {
 			double gross_total_capacity;
 			double gross_sensible_capacity;
 			double gross_power;
+			double operation_state;
 		};
 		class PerformanceMapCooling  : public PerformanceMapBase {
 		public:
@@ -202,22 +209,27 @@ namespace tk205  {
 		public:
 			ashrae205_ns::SpeedControlType compressor_speed_control_type;
 			double cycling_degradation_coefficient;
+			ashrae205_ns::Scaling scaling;
 			rs0004_ns::PerformanceMapCooling performance_map_cooling;
 			rs0004_ns::PerformanceMapStandby performance_map_standby;
 			bool compressor_speed_control_type_is_set;
 			bool cycling_degradation_coefficient_is_set;
+			bool scaling_is_set;
 			bool performance_map_cooling_is_set;
 			bool performance_map_standby_is_set;
 			const static std::string_view compressor_speed_control_type_units;
 			const static std::string_view cycling_degradation_coefficient_units;
+			const static std::string_view scaling_units;
 			const static std::string_view performance_map_cooling_units;
 			const static std::string_view performance_map_standby_units;
 			const static std::string_view compressor_speed_control_type_description;
 			const static std::string_view cycling_degradation_coefficient_description;
+			const static std::string_view scaling_description;
 			const static std::string_view performance_map_cooling_description;
 			const static std::string_view performance_map_standby_description;
 			const static std::string_view compressor_speed_control_type_name;
 			const static std::string_view cycling_degradation_coefficient_name;
+			const static std::string_view scaling_name;
 			const static std::string_view performance_map_cooling_name;
 			const static std::string_view performance_map_standby_name;
 		};

@@ -7,7 +7,7 @@ namespace tk205  {
 	
 		const std::string_view Schema::schema_title = "Mechanical Drive";
 
-		const std::string_view Schema::schema_version = "1.0.0";
+		const std::string_view Schema::schema_version = "2.0.0";
 
 		const std::string_view Schema::schema_description = "Schema for ASHRAE 205 annex RS0007: Mechanical Drive";
 
@@ -58,15 +58,23 @@ namespace tk205  {
 
 		void from_json(const nlohmann::json& j, LookupVariables& x) {
 			a205_json_get<std::vector<double>>(j, *RS0007::logger, "efficiency", x.efficiency, x.efficiency_is_set, true);
+			a205_json_get<std::vector<ashrae205_ns::OperationState>>(j, *RS0007::logger, "operation_state", x.operation_state, x.operation_state_is_set, true);
 		}
 		void LookupVariables::populate_performance_map(PerformanceMapBase* performance_map) {
 			add_data_table(performance_map, efficiency);
+			add_data_table(performance_map, operation_state);
 		}
 		const std::string_view LookupVariables::efficiency_units = "-";
 
+		const std::string_view LookupVariables::operation_state_units = "-";
+
 		const std::string_view LookupVariables::efficiency_description = "Efficiency of drive";
 
+		const std::string_view LookupVariables::operation_state_description = "The operation state at the operating conditions";
+
 		const std::string_view LookupVariables::efficiency_name = "efficiency";
+
+		const std::string_view LookupVariables::operation_state_name = "operation_state";
 
 		void from_json(const nlohmann::json& j, PerformanceMap& x) {
 			a205_json_get<rs0007_ns::GridVariables>(j, *RS0007::logger, "grid_variables", x.grid_variables, x.grid_variables_is_set, true);
@@ -95,22 +103,29 @@ namespace tk205  {
 		LookupVariablesStruct PerformanceMap::calculate_performance(double output_power, Btwxt::InterpolationMethod performance_interpolation_method ) {
 			std::vector<double> target {output_power};
 			auto v = PerformanceMapBase::calculate_performance(target, performance_interpolation_method);
-			LookupVariablesStruct s {v[0], };
+			LookupVariablesStruct s {v[0], v[1], };
 			return s;
 		}
 		void from_json(const nlohmann::json& j, Performance& x) {
 			a205_json_get<double>(j, *RS0007::logger, "speed_ratio", x.speed_ratio, x.speed_ratio_is_set, true);
+			a205_json_get<ashrae205_ns::Scaling>(j, *RS0007::logger, "scaling", x.scaling, x.scaling_is_set, false);
 			a205_json_get<rs0007_ns::PerformanceMap>(j, *RS0007::logger, "performance_map", x.performance_map, x.performance_map_is_set, true);
 		}
 		const std::string_view Performance::speed_ratio_units = "-";
+
+		const std::string_view Performance::scaling_units = "";
 
 		const std::string_view Performance::performance_map_units = "";
 
 		const std::string_view Performance::speed_ratio_description = "Ratio of input shaft speed to output shaft speed";
 
+		const std::string_view Performance::scaling_description = "Specifies the range the performance data can be scaled to represent different capacity equipment";
+
 		const std::string_view Performance::performance_map_description = "Data group describing drive performance when operating";
 
 		const std::string_view Performance::speed_ratio_name = "speed_ratio";
+
+		const std::string_view Performance::scaling_name = "scaling";
 
 		const std::string_view Performance::performance_map_name = "performance_map";
 

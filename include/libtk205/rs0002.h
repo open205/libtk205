@@ -33,9 +33,9 @@ namespace tk205  {
 			UNKNOWN
 		};
 		const static std::unordered_map<AHRI210240TestStandardYear, enum_info> AHRI210240TestStandardYear_info {
-			{AHRI210240TestStandardYear::IP_2008, {"IP_2008", "2008", "Rating is based on 2008 AHRI standard[@AHRI2102008]"}},
-			{AHRI210240TestStandardYear::IP_2017, {"IP_2017", "2017", "Rating is based on 2017 AHRI standard[@AHRI2102017]"}},
-			{AHRI210240TestStandardYear::IP_2023, {"IP_2023", "2023", "Rating is based on 2023 AHRI standard[@AHRI2102023]"}},
+			{AHRI210240TestStandardYear::IP_2008, {"IP_2008", "2008", "Ratings defined using IP unit version of the standard, 2008 edition.[@AHRI2102008]"}},
+			{AHRI210240TestStandardYear::IP_2017, {"IP_2017", "2017", "Ratings defined using IP unit version of the standard, 2017 edition.[@AHRI2102017]"}},
+			{AHRI210240TestStandardYear::IP_2023, {"IP_2023", "2023", "Ratings defined using IP unit version of the standard, 2023 edition.[@AHRI2102023]"}},
 			{AHRI210240TestStandardYear::UNKNOWN, {"UNKNOWN", "None","None"}}
 		};
 		enum class AHRI210240CompressorStagingType {
@@ -54,12 +54,14 @@ namespace tk205  {
 			IP_2007,
 			IP_2015,
 			IP_2019,
+			IP_2022,
 			UNKNOWN
 		};
 		const static std::unordered_map<AHRI340360TestStandardYear, enum_info> AHRI340360TestStandardYear_info {
-			{AHRI340360TestStandardYear::IP_2007, {"IP_2007", "2007", "Rating is based on 2007 AHRI standard[@AHRI3402007]"}},
-			{AHRI340360TestStandardYear::IP_2015, {"IP_2015", "2015", "Rating is based on 2015 AHRI standard[@AHRI3402015]"}},
-			{AHRI340360TestStandardYear::IP_2019, {"IP_2019", "2019", "Rating is based on 2019 AHRI standard[@AHRI3402019]"}},
+			{AHRI340360TestStandardYear::IP_2007, {"IP_2007", "2007", "Ratings defined using IP unit version of the standard, 2007 edition.[@AHRI3402007]"}},
+			{AHRI340360TestStandardYear::IP_2015, {"IP_2015", "2015", "Ratings defined using IP unit version of the standard, 2015 edition.[@AHRI3402015]"}},
+			{AHRI340360TestStandardYear::IP_2019, {"IP_2019", "2019", "Ratings defined using IP unit version of the standard, 2019 edition.[@AHRI3402019]"}},
+			{AHRI340360TestStandardYear::IP_2022, {"IP_2022", "2022", "Ratings defined using IP unit version of the standard, 2022 edition.[@AHRI3402022]"}},
 			{AHRI340360TestStandardYear::UNKNOWN, {"UNKNOWN", "None","None"}}
 		};
 		enum class AHRI340360CapacityControlType {
@@ -100,154 +102,46 @@ namespace tk205  {
 			std::string rating_source;
 			rs0002_ns::AHRI210240CompressorStagingType staging_type;
 			double seer;
-			double eer_a_full;
-			double eer_b_full;
-			double cooling_a_full_capacity;
-			double cooling_b_full_capacity;
-			double cooling_b_low_capacity;
-			double cooling_f_low_capacity;
-			double cooling_g_low_capacity;
-			double cooling_i_low_capacity;
-			double cooling_a_full_power;
-			double cooling_b_full_power;
-			double cooling_b_low_power;
-			double cooling_f_low_power;
-			double cooling_g_low_power;
-			double cooling_i_low_power;
-			double cooling_full_fan_power;
-			double cooling_full_air_volumetric_flow_rate;
-			double cooling_low_fan_power;
-			double cooling_low_air_volumetric_flow_rate;
-			bool rating_recalculatable_from_performance_data;
-			std::string rating_recalculatable_explanation;
+			double seer2;
+			double eer;
+			double eer2;
+			double cooling_capacity;
 			bool certified_reference_number_is_set;
 			bool test_standard_year_is_set;
 			bool rating_source_is_set;
 			bool staging_type_is_set;
 			bool seer_is_set;
-			bool eer_a_full_is_set;
-			bool eer_b_full_is_set;
-			bool cooling_a_full_capacity_is_set;
-			bool cooling_b_full_capacity_is_set;
-			bool cooling_b_low_capacity_is_set;
-			bool cooling_f_low_capacity_is_set;
-			bool cooling_g_low_capacity_is_set;
-			bool cooling_i_low_capacity_is_set;
-			bool cooling_a_full_power_is_set;
-			bool cooling_b_full_power_is_set;
-			bool cooling_b_low_power_is_set;
-			bool cooling_f_low_power_is_set;
-			bool cooling_g_low_power_is_set;
-			bool cooling_i_low_power_is_set;
-			bool cooling_full_fan_power_is_set;
-			bool cooling_full_air_volumetric_flow_rate_is_set;
-			bool cooling_low_fan_power_is_set;
-			bool cooling_low_air_volumetric_flow_rate_is_set;
-			bool rating_recalculatable_from_performance_data_is_set;
-			bool rating_recalculatable_explanation_is_set;
+			bool seer2_is_set;
+			bool eer_is_set;
+			bool eer2_is_set;
+			bool cooling_capacity_is_set;
 			const static std::string_view certified_reference_number_units;
 			const static std::string_view test_standard_year_units;
 			const static std::string_view rating_source_units;
 			const static std::string_view staging_type_units;
 			const static std::string_view seer_units;
-			const static std::string_view eer_a_full_units;
-			const static std::string_view eer_b_full_units;
-			const static std::string_view cooling_a_full_capacity_units;
-			const static std::string_view cooling_b_full_capacity_units;
-			const static std::string_view cooling_b_low_capacity_units;
-			const static std::string_view cooling_f_low_capacity_units;
-			const static std::string_view cooling_g_low_capacity_units;
-			const static std::string_view cooling_i_low_capacity_units;
-			const static std::string_view cooling_a_full_power_units;
-			const static std::string_view cooling_b_full_power_units;
-			const static std::string_view cooling_b_low_power_units;
-			const static std::string_view cooling_f_low_power_units;
-			const static std::string_view cooling_g_low_power_units;
-			const static std::string_view cooling_i_low_power_units;
-			const static std::string_view cooling_full_fan_power_units;
-			const static std::string_view cooling_full_air_volumetric_flow_rate_units;
-			const static std::string_view cooling_low_fan_power_units;
-			const static std::string_view cooling_low_air_volumetric_flow_rate_units;
-			const static std::string_view rating_recalculatable_from_performance_data_units;
-			const static std::string_view rating_recalculatable_explanation_units;
+			const static std::string_view seer2_units;
+			const static std::string_view eer_units;
+			const static std::string_view eer2_units;
+			const static std::string_view cooling_capacity_units;
 			const static std::string_view certified_reference_number_description;
 			const static std::string_view test_standard_year_description;
 			const static std::string_view rating_source_description;
 			const static std::string_view staging_type_description;
 			const static std::string_view seer_description;
-			const static std::string_view eer_a_full_description;
-			const static std::string_view eer_b_full_description;
-			const static std::string_view cooling_a_full_capacity_description;
-			const static std::string_view cooling_b_full_capacity_description;
-			const static std::string_view cooling_b_low_capacity_description;
-			const static std::string_view cooling_f_low_capacity_description;
-			const static std::string_view cooling_g_low_capacity_description;
-			const static std::string_view cooling_i_low_capacity_description;
-			const static std::string_view cooling_a_full_power_description;
-			const static std::string_view cooling_b_full_power_description;
-			const static std::string_view cooling_b_low_power_description;
-			const static std::string_view cooling_f_low_power_description;
-			const static std::string_view cooling_g_low_power_description;
-			const static std::string_view cooling_i_low_power_description;
-			const static std::string_view cooling_full_fan_power_description;
-			const static std::string_view cooling_full_air_volumetric_flow_rate_description;
-			const static std::string_view cooling_low_fan_power_description;
-			const static std::string_view cooling_low_air_volumetric_flow_rate_description;
-			const static std::string_view rating_recalculatable_from_performance_data_description;
-			const static std::string_view rating_recalculatable_explanation_description;
+			const static std::string_view seer2_description;
+			const static std::string_view eer_description;
+			const static std::string_view eer2_description;
+			const static std::string_view cooling_capacity_description;
 			const static std::string_view certified_reference_number_name;
 			const static std::string_view test_standard_year_name;
 			const static std::string_view rating_source_name;
 			const static std::string_view staging_type_name;
 			const static std::string_view seer_name;
-			const static std::string_view eer_a_full_name;
-			const static std::string_view eer_b_full_name;
-			const static std::string_view cooling_a_full_capacity_name;
-			const static std::string_view cooling_b_full_capacity_name;
-			const static std::string_view cooling_b_low_capacity_name;
-			const static std::string_view cooling_f_low_capacity_name;
-			const static std::string_view cooling_g_low_capacity_name;
-			const static std::string_view cooling_i_low_capacity_name;
-			const static std::string_view cooling_a_full_power_name;
-			const static std::string_view cooling_b_full_power_name;
-			const static std::string_view cooling_b_low_power_name;
-			const static std::string_view cooling_f_low_power_name;
-			const static std::string_view cooling_g_low_power_name;
-			const static std::string_view cooling_i_low_power_name;
-			const static std::string_view cooling_full_fan_power_name;
-			const static std::string_view cooling_full_air_volumetric_flow_rate_name;
-			const static std::string_view cooling_low_fan_power_name;
-			const static std::string_view cooling_low_air_volumetric_flow_rate_name;
-			const static std::string_view rating_recalculatable_from_performance_data_name;
-			const static std::string_view rating_recalculatable_explanation_name;
-		};
-		class RatingAHRI340360CoolingPartLoadPoint  {
-		public:
-			double capacity;
-			double net_power;
-			double indoor_fan_power;
-			double auxiliary_power;
-			double air_volumetric_flow_rate;
-			bool capacity_is_set;
-			bool net_power_is_set;
-			bool indoor_fan_power_is_set;
-			bool auxiliary_power_is_set;
-			bool air_volumetric_flow_rate_is_set;
-			const static std::string_view capacity_units;
-			const static std::string_view net_power_units;
-			const static std::string_view indoor_fan_power_units;
-			const static std::string_view auxiliary_power_units;
-			const static std::string_view air_volumetric_flow_rate_units;
-			const static std::string_view capacity_description;
-			const static std::string_view net_power_description;
-			const static std::string_view indoor_fan_power_description;
-			const static std::string_view auxiliary_power_description;
-			const static std::string_view air_volumetric_flow_rate_description;
-			const static std::string_view capacity_name;
-			const static std::string_view net_power_name;
-			const static std::string_view indoor_fan_power_name;
-			const static std::string_view auxiliary_power_name;
-			const static std::string_view air_volumetric_flow_rate_name;
+			const static std::string_view seer2_name;
+			const static std::string_view eer_name;
+			const static std::string_view eer2_name;
+			const static std::string_view cooling_capacity_name;
 		};
 		class RatingAHRI340360  {
 		public:
@@ -258,9 +152,6 @@ namespace tk205  {
 			double ieer;
 			double eer;
 			double cooling_capacity;
-			std::vector<rs0002_ns::RatingAHRI340360CoolingPartLoadPoint> part_load_points;
-			bool rating_recalculatable_from_performance_data;
-			std::string rating_recalculatable_explanation;
 			bool certified_reference_number_is_set;
 			bool test_standard_year_is_set;
 			bool rating_source_is_set;
@@ -268,9 +159,6 @@ namespace tk205  {
 			bool ieer_is_set;
 			bool eer_is_set;
 			bool cooling_capacity_is_set;
-			bool part_load_points_is_set;
-			bool rating_recalculatable_from_performance_data_is_set;
-			bool rating_recalculatable_explanation_is_set;
 			const static std::string_view certified_reference_number_units;
 			const static std::string_view test_standard_year_units;
 			const static std::string_view rating_source_units;
@@ -278,9 +166,6 @@ namespace tk205  {
 			const static std::string_view ieer_units;
 			const static std::string_view eer_units;
 			const static std::string_view cooling_capacity_units;
-			const static std::string_view part_load_points_units;
-			const static std::string_view rating_recalculatable_from_performance_data_units;
-			const static std::string_view rating_recalculatable_explanation_units;
 			const static std::string_view certified_reference_number_description;
 			const static std::string_view test_standard_year_description;
 			const static std::string_view rating_source_description;
@@ -288,9 +173,6 @@ namespace tk205  {
 			const static std::string_view ieer_description;
 			const static std::string_view eer_description;
 			const static std::string_view cooling_capacity_description;
-			const static std::string_view part_load_points_description;
-			const static std::string_view rating_recalculatable_from_performance_data_description;
-			const static std::string_view rating_recalculatable_explanation_description;
 			const static std::string_view certified_reference_number_name;
 			const static std::string_view test_standard_year_name;
 			const static std::string_view rating_source_name;
@@ -298,9 +180,6 @@ namespace tk205  {
 			const static std::string_view ieer_name;
 			const static std::string_view eer_name;
 			const static std::string_view cooling_capacity_name;
-			const static std::string_view part_load_points_name;
-			const static std::string_view rating_recalculatable_from_performance_data_name;
-			const static std::string_view rating_recalculatable_explanation_name;
 		};
 		class Description  {
 		public:
@@ -326,22 +205,27 @@ namespace tk205  {
 			rs0003_ns::RS0003 indoor_fan_representation;
 			rs0002_ns::FanPosition fan_position;
 			rs0004_ns::RS0004 dx_system_representation;
+			ashrae205_ns::Scaling scaling;
 			bool standby_power_is_set;
 			bool indoor_fan_representation_is_set;
 			bool fan_position_is_set;
 			bool dx_system_representation_is_set;
+			bool scaling_is_set;
 			const static std::string_view standby_power_units;
 			const static std::string_view indoor_fan_representation_units;
 			const static std::string_view fan_position_units;
 			const static std::string_view dx_system_representation_units;
+			const static std::string_view scaling_units;
 			const static std::string_view standby_power_description;
 			const static std::string_view indoor_fan_representation_description;
 			const static std::string_view fan_position_description;
 			const static std::string_view dx_system_representation_description;
+			const static std::string_view scaling_description;
 			const static std::string_view standby_power_name;
 			const static std::string_view indoor_fan_representation_name;
 			const static std::string_view fan_position_name;
 			const static std::string_view dx_system_representation_name;
+			const static std::string_view scaling_name;
 		};
 		class RS0002  : public RSInstanceBase {
 		public:
@@ -385,6 +269,7 @@ namespace tk205  {
 			{AHRI340360TestStandardYear::IP_2007, "IP_2007"},
 			{AHRI340360TestStandardYear::IP_2015, "IP_2015"},
 			{AHRI340360TestStandardYear::IP_2019, "IP_2019"},
+			{AHRI340360TestStandardYear::IP_2022, "IP_2022"},
 		})
 		NLOHMANN_JSON_SERIALIZE_ENUM (AHRI340360CapacityControlType, {
 			{AHRI340360CapacityControlType::UNKNOWN, "UNKNOWN"},
@@ -397,7 +282,6 @@ namespace tk205  {
 		void from_json (const nlohmann::json& j, ProductInformation& x);
 		void from_json (const nlohmann::json& j, RatingAHRI210240& x);
 		void from_json (const nlohmann::json& j, RatingAHRI340360& x);
-		void from_json (const nlohmann::json& j, RatingAHRI340360CoolingPartLoadPoint& x);
 		void from_json (const nlohmann::json& j, Performance& x);
 	}
 }

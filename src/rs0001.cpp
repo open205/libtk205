@@ -7,7 +7,7 @@ namespace tk205  {
 	
 		const std::string_view Schema::schema_title = "Liquid-Cooled Chiller";
 
-		const std::string_view Schema::schema_version = "1.0.0";
+		const std::string_view Schema::schema_version = "2.0.0";
 
 		const std::string_view Schema::schema_description = "Schema for ASHRAE 205 annex RS0001: Liquid-Cooled Chiller";
 
@@ -69,120 +69,15 @@ namespace tk205  {
 
 		const std::string_view ProductInformation::hot_gas_bypass_installed_name = "hot_gas_bypass_installed";
 
-		void from_json(const nlohmann::json& j, RatingAHRI550590PartLoadPoint& x) {
-			a205_json_get<double>(j, *RS0001::logger, "percent_full_load_capacity", x.percent_full_load_capacity, x.percent_full_load_capacity_is_set, true);
-			a205_json_get<double>(j, *RS0001::logger, "cooling_capacity", x.cooling_capacity, x.cooling_capacity_is_set, true);
-			a205_json_get<double>(j, *RS0001::logger, "input_power", x.input_power, x.input_power_is_set, true);
-			a205_json_get<double>(j, *RS0001::logger, "evaporator_liquid_volumetric_flow_rate", x.evaporator_liquid_volumetric_flow_rate, x.evaporator_liquid_volumetric_flow_rate_is_set, true);
-			a205_json_get<double>(j, *RS0001::logger, "evaporator_liquid_entering_temperature", x.evaporator_liquid_entering_temperature, x.evaporator_liquid_entering_temperature_is_set, true);
-			a205_json_get<double>(j, *RS0001::logger, "evaporator_liquid_leaving_temperature", x.evaporator_liquid_leaving_temperature, x.evaporator_liquid_leaving_temperature_is_set, true);
-			a205_json_get<double>(j, *RS0001::logger, "evaporator_liquid_differential_pressure", x.evaporator_liquid_differential_pressure, x.evaporator_liquid_differential_pressure_is_set, true);
-			a205_json_get<double>(j, *RS0001::logger, "evaporator_fouling_factor", x.evaporator_fouling_factor, x.evaporator_fouling_factor_is_set, true);
-			a205_json_get<double>(j, *RS0001::logger, "condenser_liquid_volumetric_flow_rate", x.condenser_liquid_volumetric_flow_rate, x.condenser_liquid_volumetric_flow_rate_is_set, true);
-			a205_json_get<double>(j, *RS0001::logger, "condenser_liquid_entering_temperature", x.condenser_liquid_entering_temperature, x.condenser_liquid_entering_temperature_is_set, true);
-			a205_json_get<double>(j, *RS0001::logger, "condenser_liquid_leaving_temperature", x.condenser_liquid_leaving_temperature, x.condenser_liquid_leaving_temperature_is_set, true);
-			a205_json_get<double>(j, *RS0001::logger, "condenser_liquid_differential_pressure", x.condenser_liquid_differential_pressure, x.condenser_liquid_differential_pressure_is_set, true);
-			a205_json_get<double>(j, *RS0001::logger, "condenser_fouling_factor", x.condenser_fouling_factor, x.condenser_fouling_factor_is_set, true);
-		}
-		const std::string_view RatingAHRI550590PartLoadPoint::percent_full_load_capacity_units = "%";
-
-		const std::string_view RatingAHRI550590PartLoadPoint::cooling_capacity_units = "Btu/h";
-
-		const std::string_view RatingAHRI550590PartLoadPoint::input_power_units = "kW";
-
-		const std::string_view RatingAHRI550590PartLoadPoint::evaporator_liquid_volumetric_flow_rate_units = "gpm";
-
-		const std::string_view RatingAHRI550590PartLoadPoint::evaporator_liquid_entering_temperature_units = "F";
-
-		const std::string_view RatingAHRI550590PartLoadPoint::evaporator_liquid_leaving_temperature_units = "F";
-
-		const std::string_view RatingAHRI550590PartLoadPoint::evaporator_liquid_differential_pressure_units = "ft of water";
-
-		const std::string_view RatingAHRI550590PartLoadPoint::evaporator_fouling_factor_units = "h-ft2-F/Btu";
-
-		const std::string_view RatingAHRI550590PartLoadPoint::condenser_liquid_volumetric_flow_rate_units = "gpm";
-
-		const std::string_view RatingAHRI550590PartLoadPoint::condenser_liquid_entering_temperature_units = "F";
-
-		const std::string_view RatingAHRI550590PartLoadPoint::condenser_liquid_leaving_temperature_units = "F";
-
-		const std::string_view RatingAHRI550590PartLoadPoint::condenser_liquid_differential_pressure_units = "ft of water";
-
-		const std::string_view RatingAHRI550590PartLoadPoint::condenser_fouling_factor_units = "h-ft2-F/Btu";
-
-		const std::string_view RatingAHRI550590PartLoadPoint::percent_full_load_capacity_description = "Percent full load cooling capacity";
-
-		const std::string_view RatingAHRI550590PartLoadPoint::cooling_capacity_description = "The actual cooling capacity";
-
-		const std::string_view RatingAHRI550590PartLoadPoint::input_power_description = "Combined power input of all components of the unit, including auxiliary power and excluding integral pumps";
-
-		const std::string_view RatingAHRI550590PartLoadPoint::evaporator_liquid_volumetric_flow_rate_description = "Evaporator liquid volumetric flow rate";
-
-		const std::string_view RatingAHRI550590PartLoadPoint::evaporator_liquid_entering_temperature_description = "Liquid temperature at the entry flange of the evaporator";
-
-		const std::string_view RatingAHRI550590PartLoadPoint::evaporator_liquid_leaving_temperature_description = "Liquid temperature at the exit flange of the evaporator";
-
-		const std::string_view RatingAHRI550590PartLoadPoint::evaporator_liquid_differential_pressure_description = "Pressure difference across the evaporator";
-
-		const std::string_view RatingAHRI550590PartLoadPoint::evaporator_fouling_factor_description = "Factor of heat transfer inhibition due to evaporator heat exchanger fouling layer";
-
-		const std::string_view RatingAHRI550590PartLoadPoint::condenser_liquid_volumetric_flow_rate_description = "Condenser liquid volumetric flow rate";
-
-		const std::string_view RatingAHRI550590PartLoadPoint::condenser_liquid_entering_temperature_description = "Liquid temperature at the entry flange of the condenser";
-
-		const std::string_view RatingAHRI550590PartLoadPoint::condenser_liquid_leaving_temperature_description = "Liquid temperature at the exit flange of the condenser";
-
-		const std::string_view RatingAHRI550590PartLoadPoint::condenser_liquid_differential_pressure_description = "Pressure difference across the condenser";
-
-		const std::string_view RatingAHRI550590PartLoadPoint::condenser_fouling_factor_description = "Factor of heat transfer inhibition due to condenser heat exchanger fouling layer";
-
-		const std::string_view RatingAHRI550590PartLoadPoint::percent_full_load_capacity_name = "percent_full_load_capacity";
-
-		const std::string_view RatingAHRI550590PartLoadPoint::cooling_capacity_name = "cooling_capacity";
-
-		const std::string_view RatingAHRI550590PartLoadPoint::input_power_name = "input_power";
-
-		const std::string_view RatingAHRI550590PartLoadPoint::evaporator_liquid_volumetric_flow_rate_name = "evaporator_liquid_volumetric_flow_rate";
-
-		const std::string_view RatingAHRI550590PartLoadPoint::evaporator_liquid_entering_temperature_name = "evaporator_liquid_entering_temperature";
-
-		const std::string_view RatingAHRI550590PartLoadPoint::evaporator_liquid_leaving_temperature_name = "evaporator_liquid_leaving_temperature";
-
-		const std::string_view RatingAHRI550590PartLoadPoint::evaporator_liquid_differential_pressure_name = "evaporator_liquid_differential_pressure";
-
-		const std::string_view RatingAHRI550590PartLoadPoint::evaporator_fouling_factor_name = "evaporator_fouling_factor";
-
-		const std::string_view RatingAHRI550590PartLoadPoint::condenser_liquid_volumetric_flow_rate_name = "condenser_liquid_volumetric_flow_rate";
-
-		const std::string_view RatingAHRI550590PartLoadPoint::condenser_liquid_entering_temperature_name = "condenser_liquid_entering_temperature";
-
-		const std::string_view RatingAHRI550590PartLoadPoint::condenser_liquid_leaving_temperature_name = "condenser_liquid_leaving_temperature";
-
-		const std::string_view RatingAHRI550590PartLoadPoint::condenser_liquid_differential_pressure_name = "condenser_liquid_differential_pressure";
-
-		const std::string_view RatingAHRI550590PartLoadPoint::condenser_fouling_factor_name = "condenser_fouling_factor";
-
 		void from_json(const nlohmann::json& j, RatingAHRI550590& x) {
-			a205_json_get<std::string>(j, *RS0001::logger, "certified_reference_number", x.certified_reference_number, x.certified_reference_number_is_set, true);
-			a205_json_get<rs0001_ns::AHRI550590TestStandardYear>(j, *RS0001::logger, "test_standard_year", x.test_standard_year, x.test_standard_year_is_set, true);
+			a205_json_get<std::string>(j, *RS0001::logger, "certified_reference_number", x.certified_reference_number, x.certified_reference_number_is_set, false);
+			a205_json_get<rs0001_ns::AHRI550590TestStandardYear>(j, *RS0001::logger, "test_standard_year", x.test_standard_year, x.test_standard_year_is_set, false);
 			a205_json_get<std::string>(j, *RS0001::logger, "rating_source", x.rating_source, x.rating_source_is_set, false);
-			a205_json_get<double>(j, *RS0001::logger, "net_refrigerating_capacity", x.net_refrigerating_capacity, x.net_refrigerating_capacity_is_set, true);
-			a205_json_get<double>(j, *RS0001::logger, "input_power", x.input_power, x.input_power_is_set, true);
-			a205_json_get<double>(j, *RS0001::logger, "cop", x.cop, x.cop_is_set, true);
-			a205_json_get<double>(j, *RS0001::logger, "part_load_value", x.part_load_value, x.part_load_value_is_set, true);
-			a205_json_get<std::vector<rs0001_ns::RatingAHRI550590PartLoadPoint>>(j, *RS0001::logger, "part_load_rating_points", x.part_load_rating_points, x.part_load_rating_points_is_set, false);
-			a205_json_get<double>(j, *RS0001::logger, "full_load_evaporator_liquid_volumetric_flow_rate", x.full_load_evaporator_liquid_volumetric_flow_rate, x.full_load_evaporator_liquid_volumetric_flow_rate_is_set, true);
-			a205_json_get<double>(j, *RS0001::logger, "full_load_evaporator_liquid_entering_temperature", x.full_load_evaporator_liquid_entering_temperature, x.full_load_evaporator_liquid_entering_temperature_is_set, true);
-			a205_json_get<double>(j, *RS0001::logger, "full_load_evaporator_liquid_leaving_temperature", x.full_load_evaporator_liquid_leaving_temperature, x.full_load_evaporator_liquid_leaving_temperature_is_set, true);
-			a205_json_get<double>(j, *RS0001::logger, "full_load_evaporator_liquid_differential_pressure", x.full_load_evaporator_liquid_differential_pressure, x.full_load_evaporator_liquid_differential_pressure_is_set, true);
-			a205_json_get<double>(j, *RS0001::logger, "full_load_evaporator_fouling_factor", x.full_load_evaporator_fouling_factor, x.full_load_evaporator_fouling_factor_is_set, true);
-			a205_json_get<double>(j, *RS0001::logger, "full_load_condenser_liquid_volumetric_flow_rate", x.full_load_condenser_liquid_volumetric_flow_rate, x.full_load_condenser_liquid_volumetric_flow_rate_is_set, true);
-			a205_json_get<double>(j, *RS0001::logger, "full_load_condenser_liquid_entering_temperature", x.full_load_condenser_liquid_entering_temperature, x.full_load_condenser_liquid_entering_temperature_is_set, true);
-			a205_json_get<double>(j, *RS0001::logger, "full_load_condenser_liquid_leaving_temperature", x.full_load_condenser_liquid_leaving_temperature, x.full_load_condenser_liquid_leaving_temperature_is_set, true);
-			a205_json_get<double>(j, *RS0001::logger, "full_load_condenser_liquid_differential_pressure", x.full_load_condenser_liquid_differential_pressure, x.full_load_condenser_liquid_differential_pressure_is_set, true);
-			a205_json_get<double>(j, *RS0001::logger, "full_load_condenser_fouling_factor", x.full_load_condenser_fouling_factor, x.full_load_condenser_fouling_factor_is_set, true);
-			a205_json_get<bool>(j, *RS0001::logger, "rating_recalculatable_from_performance_data", x.rating_recalculatable_from_performance_data, x.rating_recalculatable_from_performance_data_is_set, true);
-			a205_json_get<std::string>(j, *RS0001::logger, "rating_recalculatable_explanation", x.rating_recalculatable_explanation, x.rating_recalculatable_explanation_is_set, false);
+			a205_json_get<double>(j, *RS0001::logger, "net_refrigerating_capacity", x.net_refrigerating_capacity, x.net_refrigerating_capacity_is_set, false);
+			a205_json_get<double>(j, *RS0001::logger, "input_power", x.input_power, x.input_power_is_set, false);
+			a205_json_get<double>(j, *RS0001::logger, "cop", x.cop, x.cop_is_set, false);
+			a205_json_get<double>(j, *RS0001::logger, "iplv_ip", x.iplv_ip, x.iplv_ip_is_set, false);
+			a205_json_get<double>(j, *RS0001::logger, "nplv_ip", x.nplv_ip, x.nplv_ip_is_set, false);
 		}
 		const std::string_view RatingAHRI550590::certified_reference_number_units = "";
 
@@ -196,33 +91,9 @@ namespace tk205  {
 
 		const std::string_view RatingAHRI550590::cop_units = "-";
 
-		const std::string_view RatingAHRI550590::part_load_value_units = "-";
+		const std::string_view RatingAHRI550590::iplv_ip_units = "-";
 
-		const std::string_view RatingAHRI550590::part_load_rating_points_units = "";
-
-		const std::string_view RatingAHRI550590::full_load_evaporator_liquid_volumetric_flow_rate_units = "gpm";
-
-		const std::string_view RatingAHRI550590::full_load_evaporator_liquid_entering_temperature_units = "F";
-
-		const std::string_view RatingAHRI550590::full_load_evaporator_liquid_leaving_temperature_units = "F";
-
-		const std::string_view RatingAHRI550590::full_load_evaporator_liquid_differential_pressure_units = "ft of water";
-
-		const std::string_view RatingAHRI550590::full_load_evaporator_fouling_factor_units = "h-ft2-F/Btu";
-
-		const std::string_view RatingAHRI550590::full_load_condenser_liquid_volumetric_flow_rate_units = "gpm";
-
-		const std::string_view RatingAHRI550590::full_load_condenser_liquid_entering_temperature_units = "F";
-
-		const std::string_view RatingAHRI550590::full_load_condenser_liquid_leaving_temperature_units = "F";
-
-		const std::string_view RatingAHRI550590::full_load_condenser_liquid_differential_pressure_units = "ft of water";
-
-		const std::string_view RatingAHRI550590::full_load_condenser_fouling_factor_units = "h-ft2-F/Btu";
-
-		const std::string_view RatingAHRI550590::rating_recalculatable_from_performance_data_units = "";
-
-		const std::string_view RatingAHRI550590::rating_recalculatable_explanation_units = "";
+		const std::string_view RatingAHRI550590::nplv_ip_units = "-";
 
 		const std::string_view RatingAHRI550590::certified_reference_number_description = "AHRI certified reference number";
 
@@ -236,33 +107,9 @@ namespace tk205  {
 
 		const std::string_view RatingAHRI550590::cop_description = "Ratio of the net refrigerating capacity to the total input power at the rating conditions";
 
-		const std::string_view RatingAHRI550590::part_load_value_description = "Rated part-load efficiency on the basis of weighted operation at various partial load capacities";
+		const std::string_view RatingAHRI550590::iplv_ip_description = "The Integrated Part-Load Value efficiency of merit calculated at the standard rating conditions";
 
-		const std::string_view RatingAHRI550590::part_load_rating_points_description = "The four measured data points used to calculate the part load rating value";
-
-		const std::string_view RatingAHRI550590::full_load_evaporator_liquid_volumetric_flow_rate_description = "Evaporator liquid volumetric flow rate at the full load design point rating condition";
-
-		const std::string_view RatingAHRI550590::full_load_evaporator_liquid_entering_temperature_description = "Liquid temperature at the entry flange of the evaporator at the full load design rating conditions";
-
-		const std::string_view RatingAHRI550590::full_load_evaporator_liquid_leaving_temperature_description = "Liquid temperature at the exit flange of the evaporator at the full load design rating conditions";
-
-		const std::string_view RatingAHRI550590::full_load_evaporator_liquid_differential_pressure_description = "Pressure difference across the evaporator at the full load design rating conditions";
-
-		const std::string_view RatingAHRI550590::full_load_evaporator_fouling_factor_description = "Factor of heat transfer inhibition due to evaporator heat exchanger fouling layer at the full load design rating condition";
-
-		const std::string_view RatingAHRI550590::full_load_condenser_liquid_volumetric_flow_rate_description = "Condenser liquid volumetric flow rate at the full load design rating conditions";
-
-		const std::string_view RatingAHRI550590::full_load_condenser_liquid_entering_temperature_description = "Liquid temperature at the entry flange of the condenser at the full load design rating conditions";
-
-		const std::string_view RatingAHRI550590::full_load_condenser_liquid_leaving_temperature_description = "Liquid temperature at the exit flange of the condenser at the full load design rating conditions";
-
-		const std::string_view RatingAHRI550590::full_load_condenser_liquid_differential_pressure_description = "Pressure difference across the condenser at the full load design rating conditions";
-
-		const std::string_view RatingAHRI550590::full_load_condenser_fouling_factor_description = "Factor of heat transfer inhibition due to condenser heat exchanger fouling layer at the full load design rating conditions";
-
-		const std::string_view RatingAHRI550590::rating_recalculatable_from_performance_data_description = "Whether this rating can be recalculated using the performance data in the representation";
-
-		const std::string_view RatingAHRI550590::rating_recalculatable_explanation_description = "An explanation of the value for `rating_recalculatable_from_performance_data`";
+		const std::string_view RatingAHRI550590::nplv_ip_description = "The Non-Standard Part-Load Value efficiency of merit calculated at the conditions other than the IPLV.IP conditions";
 
 		const std::string_view RatingAHRI550590::certified_reference_number_name = "certified_reference_number";
 
@@ -276,148 +123,19 @@ namespace tk205  {
 
 		const std::string_view RatingAHRI550590::cop_name = "cop";
 
-		const std::string_view RatingAHRI550590::part_load_value_name = "part_load_value";
+		const std::string_view RatingAHRI550590::iplv_ip_name = "iplv_ip";
 
-		const std::string_view RatingAHRI550590::part_load_rating_points_name = "part_load_rating_points";
-
-		const std::string_view RatingAHRI550590::full_load_evaporator_liquid_volumetric_flow_rate_name = "full_load_evaporator_liquid_volumetric_flow_rate";
-
-		const std::string_view RatingAHRI550590::full_load_evaporator_liquid_entering_temperature_name = "full_load_evaporator_liquid_entering_temperature";
-
-		const std::string_view RatingAHRI550590::full_load_evaporator_liquid_leaving_temperature_name = "full_load_evaporator_liquid_leaving_temperature";
-
-		const std::string_view RatingAHRI550590::full_load_evaporator_liquid_differential_pressure_name = "full_load_evaporator_liquid_differential_pressure";
-
-		const std::string_view RatingAHRI550590::full_load_evaporator_fouling_factor_name = "full_load_evaporator_fouling_factor";
-
-		const std::string_view RatingAHRI550590::full_load_condenser_liquid_volumetric_flow_rate_name = "full_load_condenser_liquid_volumetric_flow_rate";
-
-		const std::string_view RatingAHRI550590::full_load_condenser_liquid_entering_temperature_name = "full_load_condenser_liquid_entering_temperature";
-
-		const std::string_view RatingAHRI550590::full_load_condenser_liquid_leaving_temperature_name = "full_load_condenser_liquid_leaving_temperature";
-
-		const std::string_view RatingAHRI550590::full_load_condenser_liquid_differential_pressure_name = "full_load_condenser_liquid_differential_pressure";
-
-		const std::string_view RatingAHRI550590::full_load_condenser_fouling_factor_name = "full_load_condenser_fouling_factor";
-
-		const std::string_view RatingAHRI550590::rating_recalculatable_from_performance_data_name = "rating_recalculatable_from_performance_data";
-
-		const std::string_view RatingAHRI550590::rating_recalculatable_explanation_name = "rating_recalculatable_explanation";
-
-		void from_json(const nlohmann::json& j, RatingAHRI551591PartLoadPoint& x) {
-			a205_json_get<double>(j, *RS0001::logger, "percent_full_load_capacity", x.percent_full_load_capacity, x.percent_full_load_capacity_is_set, true);
-			a205_json_get<double>(j, *RS0001::logger, "cooling_capacity", x.cooling_capacity, x.cooling_capacity_is_set, true);
-			a205_json_get<double>(j, *RS0001::logger, "input_power", x.input_power, x.input_power_is_set, true);
-			a205_json_get<double>(j, *RS0001::logger, "evaporator_liquid_volumetric_flow_rate", x.evaporator_liquid_volumetric_flow_rate, x.evaporator_liquid_volumetric_flow_rate_is_set, true);
-			a205_json_get<double>(j, *RS0001::logger, "evaporator_liquid_entering_temperature", x.evaporator_liquid_entering_temperature, x.evaporator_liquid_entering_temperature_is_set, true);
-			a205_json_get<double>(j, *RS0001::logger, "evaporator_liquid_leaving_temperature", x.evaporator_liquid_leaving_temperature, x.evaporator_liquid_leaving_temperature_is_set, true);
-			a205_json_get<double>(j, *RS0001::logger, "evaporator_liquid_differential_pressure", x.evaporator_liquid_differential_pressure, x.evaporator_liquid_differential_pressure_is_set, true);
-			a205_json_get<double>(j, *RS0001::logger, "evaporator_fouling_factor", x.evaporator_fouling_factor, x.evaporator_fouling_factor_is_set, true);
-			a205_json_get<double>(j, *RS0001::logger, "condenser_liquid_volumetric_flow_rate", x.condenser_liquid_volumetric_flow_rate, x.condenser_liquid_volumetric_flow_rate_is_set, true);
-			a205_json_get<double>(j, *RS0001::logger, "condenser_liquid_entering_temperature", x.condenser_liquid_entering_temperature, x.condenser_liquid_entering_temperature_is_set, true);
-			a205_json_get<double>(j, *RS0001::logger, "condenser_liquid_leaving_temperature", x.condenser_liquid_leaving_temperature, x.condenser_liquid_leaving_temperature_is_set, true);
-			a205_json_get<double>(j, *RS0001::logger, "condenser_liquid_differential_pressure", x.condenser_liquid_differential_pressure, x.condenser_liquid_differential_pressure_is_set, true);
-			a205_json_get<double>(j, *RS0001::logger, "condenser_fouling_factor", x.condenser_fouling_factor, x.condenser_fouling_factor_is_set, true);
-		}
-		const std::string_view RatingAHRI551591PartLoadPoint::percent_full_load_capacity_units = "%";
-
-		const std::string_view RatingAHRI551591PartLoadPoint::cooling_capacity_units = "kW";
-
-		const std::string_view RatingAHRI551591PartLoadPoint::input_power_units = "kW";
-
-		const std::string_view RatingAHRI551591PartLoadPoint::evaporator_liquid_volumetric_flow_rate_units = "l/s";
-
-		const std::string_view RatingAHRI551591PartLoadPoint::evaporator_liquid_entering_temperature_units = "C";
-
-		const std::string_view RatingAHRI551591PartLoadPoint::evaporator_liquid_leaving_temperature_units = "C";
-
-		const std::string_view RatingAHRI551591PartLoadPoint::evaporator_liquid_differential_pressure_units = "kPa";
-
-		const std::string_view RatingAHRI551591PartLoadPoint::evaporator_fouling_factor_units = "m2-K/kW";
-
-		const std::string_view RatingAHRI551591PartLoadPoint::condenser_liquid_volumetric_flow_rate_units = "l/s";
-
-		const std::string_view RatingAHRI551591PartLoadPoint::condenser_liquid_entering_temperature_units = "C";
-
-		const std::string_view RatingAHRI551591PartLoadPoint::condenser_liquid_leaving_temperature_units = "C";
-
-		const std::string_view RatingAHRI551591PartLoadPoint::condenser_liquid_differential_pressure_units = "kPa";
-
-		const std::string_view RatingAHRI551591PartLoadPoint::condenser_fouling_factor_units = "m2-K/kW";
-
-		const std::string_view RatingAHRI551591PartLoadPoint::percent_full_load_capacity_description = "Percent full load cooling capacity";
-
-		const std::string_view RatingAHRI551591PartLoadPoint::cooling_capacity_description = "The actual cooling capacity";
-
-		const std::string_view RatingAHRI551591PartLoadPoint::input_power_description = "Combined power input of all components of the unit, including auxiliary power and excluding integral pumps";
-
-		const std::string_view RatingAHRI551591PartLoadPoint::evaporator_liquid_volumetric_flow_rate_description = "Evaporator liquid volumetric flow rate";
-
-		const std::string_view RatingAHRI551591PartLoadPoint::evaporator_liquid_entering_temperature_description = "Liquid temperature at the entry flange of the evaporator";
-
-		const std::string_view RatingAHRI551591PartLoadPoint::evaporator_liquid_leaving_temperature_description = "Liquid temperature at the exit flange of the evaporator";
-
-		const std::string_view RatingAHRI551591PartLoadPoint::evaporator_liquid_differential_pressure_description = "Pressure difference across the evaporator";
-
-		const std::string_view RatingAHRI551591PartLoadPoint::evaporator_fouling_factor_description = "Factor of heat transfer inhibition due to evaporator heat exchanger fouling layer";
-
-		const std::string_view RatingAHRI551591PartLoadPoint::condenser_liquid_volumetric_flow_rate_description = "Condenser liquid volumetric flow rate";
-
-		const std::string_view RatingAHRI551591PartLoadPoint::condenser_liquid_entering_temperature_description = "Liquid temperature at the entry flange of the condenser";
-
-		const std::string_view RatingAHRI551591PartLoadPoint::condenser_liquid_leaving_temperature_description = "Liquid temperature at the exit flange of the condenser";
-
-		const std::string_view RatingAHRI551591PartLoadPoint::condenser_liquid_differential_pressure_description = "Pressure difference across the condenser";
-
-		const std::string_view RatingAHRI551591PartLoadPoint::condenser_fouling_factor_description = "Factor of heat transfer inhibition due to condenser heat exchanger fouling layer";
-
-		const std::string_view RatingAHRI551591PartLoadPoint::percent_full_load_capacity_name = "percent_full_load_capacity";
-
-		const std::string_view RatingAHRI551591PartLoadPoint::cooling_capacity_name = "cooling_capacity";
-
-		const std::string_view RatingAHRI551591PartLoadPoint::input_power_name = "input_power";
-
-		const std::string_view RatingAHRI551591PartLoadPoint::evaporator_liquid_volumetric_flow_rate_name = "evaporator_liquid_volumetric_flow_rate";
-
-		const std::string_view RatingAHRI551591PartLoadPoint::evaporator_liquid_entering_temperature_name = "evaporator_liquid_entering_temperature";
-
-		const std::string_view RatingAHRI551591PartLoadPoint::evaporator_liquid_leaving_temperature_name = "evaporator_liquid_leaving_temperature";
-
-		const std::string_view RatingAHRI551591PartLoadPoint::evaporator_liquid_differential_pressure_name = "evaporator_liquid_differential_pressure";
-
-		const std::string_view RatingAHRI551591PartLoadPoint::evaporator_fouling_factor_name = "evaporator_fouling_factor";
-
-		const std::string_view RatingAHRI551591PartLoadPoint::condenser_liquid_volumetric_flow_rate_name = "condenser_liquid_volumetric_flow_rate";
-
-		const std::string_view RatingAHRI551591PartLoadPoint::condenser_liquid_entering_temperature_name = "condenser_liquid_entering_temperature";
-
-		const std::string_view RatingAHRI551591PartLoadPoint::condenser_liquid_leaving_temperature_name = "condenser_liquid_leaving_temperature";
-
-		const std::string_view RatingAHRI551591PartLoadPoint::condenser_liquid_differential_pressure_name = "condenser_liquid_differential_pressure";
-
-		const std::string_view RatingAHRI551591PartLoadPoint::condenser_fouling_factor_name = "condenser_fouling_factor";
+		const std::string_view RatingAHRI550590::nplv_ip_name = "nplv_ip";
 
 		void from_json(const nlohmann::json& j, RatingAHRI551591& x) {
-			a205_json_get<std::string>(j, *RS0001::logger, "certified_reference_number", x.certified_reference_number, x.certified_reference_number_is_set, true);
-			a205_json_get<rs0001_ns::AHRI551591TestStandardYear>(j, *RS0001::logger, "test_standard_year", x.test_standard_year, x.test_standard_year_is_set, true);
+			a205_json_get<std::string>(j, *RS0001::logger, "certified_reference_number", x.certified_reference_number, x.certified_reference_number_is_set, false);
+			a205_json_get<rs0001_ns::AHRI551591TestStandardYear>(j, *RS0001::logger, "test_standard_year", x.test_standard_year, x.test_standard_year_is_set, false);
 			a205_json_get<std::string>(j, *RS0001::logger, "rating_source", x.rating_source, x.rating_source_is_set, false);
-			a205_json_get<double>(j, *RS0001::logger, "net_refrigerating_capacity", x.net_refrigerating_capacity, x.net_refrigerating_capacity_is_set, true);
-			a205_json_get<double>(j, *RS0001::logger, "input_power", x.input_power, x.input_power_is_set, true);
-			a205_json_get<double>(j, *RS0001::logger, "cop", x.cop, x.cop_is_set, true);
-			a205_json_get<double>(j, *RS0001::logger, "part_load_value", x.part_load_value, x.part_load_value_is_set, true);
-			a205_json_get<std::vector<rs0001_ns::RatingAHRI551591PartLoadPoint>>(j, *RS0001::logger, "part_load_rating_points", x.part_load_rating_points, x.part_load_rating_points_is_set, false);
-			a205_json_get<double>(j, *RS0001::logger, "full_load_evaporator_liquid_volumetric_flow_rate", x.full_load_evaporator_liquid_volumetric_flow_rate, x.full_load_evaporator_liquid_volumetric_flow_rate_is_set, true);
-			a205_json_get<double>(j, *RS0001::logger, "full_load_evaporator_liquid_entering_temperature", x.full_load_evaporator_liquid_entering_temperature, x.full_load_evaporator_liquid_entering_temperature_is_set, true);
-			a205_json_get<double>(j, *RS0001::logger, "full_load_evaporator_liquid_leaving_temperature", x.full_load_evaporator_liquid_leaving_temperature, x.full_load_evaporator_liquid_leaving_temperature_is_set, true);
-			a205_json_get<double>(j, *RS0001::logger, "full_load_evaporator_liquid_differential_pressure", x.full_load_evaporator_liquid_differential_pressure, x.full_load_evaporator_liquid_differential_pressure_is_set, true);
-			a205_json_get<double>(j, *RS0001::logger, "full_load_evaporator_fouling_factor", x.full_load_evaporator_fouling_factor, x.full_load_evaporator_fouling_factor_is_set, true);
-			a205_json_get<double>(j, *RS0001::logger, "full_load_condenser_liquid_volumetric_flow_rate", x.full_load_condenser_liquid_volumetric_flow_rate, x.full_load_condenser_liquid_volumetric_flow_rate_is_set, true);
-			a205_json_get<double>(j, *RS0001::logger, "full_load_condenser_liquid_entering_temperature", x.full_load_condenser_liquid_entering_temperature, x.full_load_condenser_liquid_entering_temperature_is_set, true);
-			a205_json_get<double>(j, *RS0001::logger, "full_load_condenser_liquid_leaving_temperature", x.full_load_condenser_liquid_leaving_temperature, x.full_load_condenser_liquid_leaving_temperature_is_set, true);
-			a205_json_get<double>(j, *RS0001::logger, "full_load_condenser_liquid_differential_pressure", x.full_load_condenser_liquid_differential_pressure, x.full_load_condenser_liquid_differential_pressure_is_set, true);
-			a205_json_get<double>(j, *RS0001::logger, "full_load_condenser_fouling_factor", x.full_load_condenser_fouling_factor, x.full_load_condenser_fouling_factor_is_set, true);
-			a205_json_get<bool>(j, *RS0001::logger, "rating_recalculatable_from_performance_data", x.rating_recalculatable_from_performance_data, x.rating_recalculatable_from_performance_data_is_set, true);
-			a205_json_get<std::string>(j, *RS0001::logger, "rating_recalculatable_explanation", x.rating_recalculatable_explanation, x.rating_recalculatable_explanation_is_set, false);
+			a205_json_get<double>(j, *RS0001::logger, "net_refrigerating_capacity", x.net_refrigerating_capacity, x.net_refrigerating_capacity_is_set, false);
+			a205_json_get<double>(j, *RS0001::logger, "input_power", x.input_power, x.input_power_is_set, false);
+			a205_json_get<double>(j, *RS0001::logger, "cop", x.cop, x.cop_is_set, false);
+			a205_json_get<double>(j, *RS0001::logger, "iplv_si", x.iplv_si, x.iplv_si_is_set, false);
+			a205_json_get<double>(j, *RS0001::logger, "nplv_si", x.nplv_si, x.nplv_si_is_set, false);
 		}
 		const std::string_view RatingAHRI551591::certified_reference_number_units = "";
 
@@ -431,33 +149,9 @@ namespace tk205  {
 
 		const std::string_view RatingAHRI551591::cop_units = "-";
 
-		const std::string_view RatingAHRI551591::part_load_value_units = "-";
+		const std::string_view RatingAHRI551591::iplv_si_units = "-";
 
-		const std::string_view RatingAHRI551591::part_load_rating_points_units = "";
-
-		const std::string_view RatingAHRI551591::full_load_evaporator_liquid_volumetric_flow_rate_units = "l/s";
-
-		const std::string_view RatingAHRI551591::full_load_evaporator_liquid_entering_temperature_units = "C";
-
-		const std::string_view RatingAHRI551591::full_load_evaporator_liquid_leaving_temperature_units = "C";
-
-		const std::string_view RatingAHRI551591::full_load_evaporator_liquid_differential_pressure_units = "kPa";
-
-		const std::string_view RatingAHRI551591::full_load_evaporator_fouling_factor_units = "m2-K/kW";
-
-		const std::string_view RatingAHRI551591::full_load_condenser_liquid_volumetric_flow_rate_units = "l/s";
-
-		const std::string_view RatingAHRI551591::full_load_condenser_liquid_entering_temperature_units = "C";
-
-		const std::string_view RatingAHRI551591::full_load_condenser_liquid_leaving_temperature_units = "C";
-
-		const std::string_view RatingAHRI551591::full_load_condenser_liquid_differential_pressure_units = "kPa";
-
-		const std::string_view RatingAHRI551591::full_load_condenser_fouling_factor_units = "m2-K/kW";
-
-		const std::string_view RatingAHRI551591::rating_recalculatable_from_performance_data_units = "";
-
-		const std::string_view RatingAHRI551591::rating_recalculatable_explanation_units = "";
+		const std::string_view RatingAHRI551591::nplv_si_units = "-";
 
 		const std::string_view RatingAHRI551591::certified_reference_number_description = "AHRI certified reference number";
 
@@ -471,33 +165,9 @@ namespace tk205  {
 
 		const std::string_view RatingAHRI551591::cop_description = "Ratio of the net refrigerating capacity to the total input power at the rating conditions";
 
-		const std::string_view RatingAHRI551591::part_load_value_description = "Rated part-load efficiency on the basis of weighted operation at various partial load capacities";
+		const std::string_view RatingAHRI551591::iplv_si_description = "The Integrated Part-Load Value efficiency of merit calculated at the standard rating conditions";
 
-		const std::string_view RatingAHRI551591::part_load_rating_points_description = "The four measured data points used to calculate the part load rating value";
-
-		const std::string_view RatingAHRI551591::full_load_evaporator_liquid_volumetric_flow_rate_description = "Evaporator liquid volumetric flow rate at the full load design rating conditions";
-
-		const std::string_view RatingAHRI551591::full_load_evaporator_liquid_entering_temperature_description = "Liquid temperature at the entry flange of the evaporator at the full load design rating conditions";
-
-		const std::string_view RatingAHRI551591::full_load_evaporator_liquid_leaving_temperature_description = "Liquid temperature at the exit flange of the evaporator at the full load design rating conditions";
-
-		const std::string_view RatingAHRI551591::full_load_evaporator_liquid_differential_pressure_description = "Pressure difference across the evaporator at the full load design rating conditions";
-
-		const std::string_view RatingAHRI551591::full_load_evaporator_fouling_factor_description = "Factor of heat transfer inhibition due to evaporator heat exchanger fouling layer at the full load design rating conditions";
-
-		const std::string_view RatingAHRI551591::full_load_condenser_liquid_volumetric_flow_rate_description = "Condenser liquid volumetric flow rate at the full load design rating conditions";
-
-		const std::string_view RatingAHRI551591::full_load_condenser_liquid_entering_temperature_description = "Liquid temperature at the entry flange of the condenser at the full load design rating conditions";
-
-		const std::string_view RatingAHRI551591::full_load_condenser_liquid_leaving_temperature_description = "Liquid temperature at the exit flange of the condenser at the full load design rating conditions";
-
-		const std::string_view RatingAHRI551591::full_load_condenser_liquid_differential_pressure_description = "Pressure difference across the condenser at the full load design rating conditions";
-
-		const std::string_view RatingAHRI551591::full_load_condenser_fouling_factor_description = "Factor of heat transfer inhibition due to condenser heat exchanger fouling layer at the full load design rating conditions";
-
-		const std::string_view RatingAHRI551591::rating_recalculatable_from_performance_data_description = "Whether this rating can be recalculated using the performance data in the representation";
-
-		const std::string_view RatingAHRI551591::rating_recalculatable_explanation_description = "An explanation of the value for `rating_recalculatable_from_performance_data`";
+		const std::string_view RatingAHRI551591::nplv_si_description = "The Non-Standard Part-Load Value efficiency of merit calculated at the conditions other than the IPLV.SI conditions";
 
 		const std::string_view RatingAHRI551591::certified_reference_number_name = "certified_reference_number";
 
@@ -511,33 +181,9 @@ namespace tk205  {
 
 		const std::string_view RatingAHRI551591::cop_name = "cop";
 
-		const std::string_view RatingAHRI551591::part_load_value_name = "part_load_value";
+		const std::string_view RatingAHRI551591::iplv_si_name = "iplv_si";
 
-		const std::string_view RatingAHRI551591::part_load_rating_points_name = "part_load_rating_points";
-
-		const std::string_view RatingAHRI551591::full_load_evaporator_liquid_volumetric_flow_rate_name = "full_load_evaporator_liquid_volumetric_flow_rate";
-
-		const std::string_view RatingAHRI551591::full_load_evaporator_liquid_entering_temperature_name = "full_load_evaporator_liquid_entering_temperature";
-
-		const std::string_view RatingAHRI551591::full_load_evaporator_liquid_leaving_temperature_name = "full_load_evaporator_liquid_leaving_temperature";
-
-		const std::string_view RatingAHRI551591::full_load_evaporator_liquid_differential_pressure_name = "full_load_evaporator_liquid_differential_pressure";
-
-		const std::string_view RatingAHRI551591::full_load_evaporator_fouling_factor_name = "full_load_evaporator_fouling_factor";
-
-		const std::string_view RatingAHRI551591::full_load_condenser_liquid_volumetric_flow_rate_name = "full_load_condenser_liquid_volumetric_flow_rate";
-
-		const std::string_view RatingAHRI551591::full_load_condenser_liquid_entering_temperature_name = "full_load_condenser_liquid_entering_temperature";
-
-		const std::string_view RatingAHRI551591::full_load_condenser_liquid_leaving_temperature_name = "full_load_condenser_liquid_leaving_temperature";
-
-		const std::string_view RatingAHRI551591::full_load_condenser_liquid_differential_pressure_name = "full_load_condenser_liquid_differential_pressure";
-
-		const std::string_view RatingAHRI551591::full_load_condenser_fouling_factor_name = "full_load_condenser_fouling_factor";
-
-		const std::string_view RatingAHRI551591::rating_recalculatable_from_performance_data_name = "rating_recalculatable_from_performance_data";
-
-		const std::string_view RatingAHRI551591::rating_recalculatable_explanation_name = "rating_recalculatable_explanation";
+		const std::string_view RatingAHRI551591::nplv_si_name = "nplv_si";
 
 		void from_json(const nlohmann::json& j, Description& x) {
 			a205_json_get<rs0001_ns::ProductInformation>(j, *RS0001::logger, "product_information", x.product_information, x.product_information_is_set, false);
@@ -611,23 +257,17 @@ namespace tk205  {
 			a205_json_get<std::vector<double>>(j, *RS0001::logger, "input_power", x.input_power, x.input_power_is_set, true);
 			a205_json_get<std::vector<double>>(j, *RS0001::logger, "net_evaporator_capacity", x.net_evaporator_capacity, x.net_evaporator_capacity_is_set, true);
 			a205_json_get<std::vector<double>>(j, *RS0001::logger, "net_condenser_capacity", x.net_condenser_capacity, x.net_condenser_capacity_is_set, true);
-			a205_json_get<std::vector<double>>(j, *RS0001::logger, "evaporator_liquid_entering_temperature", x.evaporator_liquid_entering_temperature, x.evaporator_liquid_entering_temperature_is_set, true);
-			a205_json_get<std::vector<double>>(j, *RS0001::logger, "condenser_liquid_leaving_temperature", x.condenser_liquid_leaving_temperature, x.condenser_liquid_leaving_temperature_is_set, true);
-			a205_json_get<std::vector<double>>(j, *RS0001::logger, "evaporator_liquid_differential_pressure", x.evaporator_liquid_differential_pressure, x.evaporator_liquid_differential_pressure_is_set, true);
-			a205_json_get<std::vector<double>>(j, *RS0001::logger, "condenser_liquid_differential_pressure", x.condenser_liquid_differential_pressure, x.condenser_liquid_differential_pressure_is_set, true);
 			a205_json_get<std::vector<double>>(j, *RS0001::logger, "oil_cooler_heat", x.oil_cooler_heat, x.oil_cooler_heat_is_set, true);
 			a205_json_get<std::vector<double>>(j, *RS0001::logger, "auxiliary_heat", x.auxiliary_heat, x.auxiliary_heat_is_set, true);
+			a205_json_get<std::vector<ashrae205_ns::OperationState>>(j, *RS0001::logger, "operation_state", x.operation_state, x.operation_state_is_set, true);
 		}
 		void LookupVariablesCooling::populate_performance_map(PerformanceMapBase* performance_map) {
 			add_data_table(performance_map, input_power);
 			add_data_table(performance_map, net_evaporator_capacity);
 			add_data_table(performance_map, net_condenser_capacity);
-			add_data_table(performance_map, evaporator_liquid_entering_temperature);
-			add_data_table(performance_map, condenser_liquid_leaving_temperature);
-			add_data_table(performance_map, evaporator_liquid_differential_pressure);
-			add_data_table(performance_map, condenser_liquid_differential_pressure);
 			add_data_table(performance_map, oil_cooler_heat);
 			add_data_table(performance_map, auxiliary_heat);
+			add_data_table(performance_map, operation_state);
 		}
 		const std::string_view LookupVariablesCooling::input_power_units = "W";
 
@@ -635,17 +275,11 @@ namespace tk205  {
 
 		const std::string_view LookupVariablesCooling::net_condenser_capacity_units = "W";
 
-		const std::string_view LookupVariablesCooling::evaporator_liquid_entering_temperature_units = "K";
-
-		const std::string_view LookupVariablesCooling::condenser_liquid_leaving_temperature_units = "K";
-
-		const std::string_view LookupVariablesCooling::evaporator_liquid_differential_pressure_units = "Pa";
-
-		const std::string_view LookupVariablesCooling::condenser_liquid_differential_pressure_units = "Pa";
-
 		const std::string_view LookupVariablesCooling::oil_cooler_heat_units = "W";
 
 		const std::string_view LookupVariablesCooling::auxiliary_heat_units = "W";
+
+		const std::string_view LookupVariablesCooling::operation_state_units = "-";
 
 		const std::string_view LookupVariablesCooling::input_power_description = "Total power input";
 
@@ -653,17 +287,11 @@ namespace tk205  {
 
 		const std::string_view LookupVariablesCooling::net_condenser_capacity_description = "Condenser heat rejection";
 
-		const std::string_view LookupVariablesCooling::evaporator_liquid_entering_temperature_description = "Entering evaporator liquid temperature";
-
-		const std::string_view LookupVariablesCooling::condenser_liquid_leaving_temperature_description = "Leaving condenser liquid temperature";
-
-		const std::string_view LookupVariablesCooling::evaporator_liquid_differential_pressure_description = "Pressure difference across the evaporator";
-
-		const std::string_view LookupVariablesCooling::condenser_liquid_differential_pressure_description = "Pressure difference across the condenser";
-
 		const std::string_view LookupVariablesCooling::oil_cooler_heat_description = "Heat transferred to another liquid crossing the control volume boundary from the chiller oil cooler.";
 
 		const std::string_view LookupVariablesCooling::auxiliary_heat_description = "Heat transferred to another liquid crossing the control volume boundary from the chiller auxiliaries (motor, motor controller, inverter drive, starter, etc).";
+
+		const std::string_view LookupVariablesCooling::operation_state_description = "The operation state at the operating conditions";
 
 		const std::string_view LookupVariablesCooling::input_power_name = "input_power";
 
@@ -671,17 +299,11 @@ namespace tk205  {
 
 		const std::string_view LookupVariablesCooling::net_condenser_capacity_name = "net_condenser_capacity";
 
-		const std::string_view LookupVariablesCooling::evaporator_liquid_entering_temperature_name = "evaporator_liquid_entering_temperature";
-
-		const std::string_view LookupVariablesCooling::condenser_liquid_leaving_temperature_name = "condenser_liquid_leaving_temperature";
-
-		const std::string_view LookupVariablesCooling::evaporator_liquid_differential_pressure_name = "evaporator_liquid_differential_pressure";
-
-		const std::string_view LookupVariablesCooling::condenser_liquid_differential_pressure_name = "condenser_liquid_differential_pressure";
-
 		const std::string_view LookupVariablesCooling::oil_cooler_heat_name = "oil_cooler_heat";
 
 		const std::string_view LookupVariablesCooling::auxiliary_heat_name = "auxiliary_heat";
+
+		const std::string_view LookupVariablesCooling::operation_state_name = "operation_state";
 
 		void from_json(const nlohmann::json& j, PerformanceMapCooling& x) {
 			a205_json_get<rs0001_ns::GridVariablesCooling>(j, *RS0001::logger, "grid_variables", x.grid_variables, x.grid_variables_is_set, true);
@@ -710,7 +332,7 @@ namespace tk205  {
 		LookupVariablesCoolingStruct PerformanceMapCooling::calculate_performance(double evaporator_liquid_volumetric_flow_rate, double evaporator_liquid_leaving_temperature, double condenser_liquid_volumetric_flow_rate, double condenser_liquid_entering_temperature, double compressor_sequence_number, Btwxt::InterpolationMethod performance_interpolation_method ) {
 			std::vector<double> target {evaporator_liquid_volumetric_flow_rate, evaporator_liquid_leaving_temperature, condenser_liquid_volumetric_flow_rate, condenser_liquid_entering_temperature, compressor_sequence_number};
 			auto v = PerformanceMapBase::calculate_performance(target, performance_interpolation_method);
-			LookupVariablesCoolingStruct s {v[0], v[1], v[2], v[3], v[4], v[5], v[6], v[7], v[8], };
+			LookupVariablesCoolingStruct s {v[0], v[1], v[2], v[3], v[4], v[5], };
 			return s;
 		}
 		void from_json(const nlohmann::json& j, GridVariablesStandby& x) {
@@ -768,16 +390,144 @@ namespace tk205  {
 			LookupVariablesStandbyStruct s {v[0], };
 			return s;
 		}
+		void from_json(const nlohmann::json& j, GridVariablesEvaporatorLiquidPressureDifferential& x) {
+			a205_json_get<std::vector<double>>(j, *RS0001::logger, "evaporator_liquid_volumetric_flow_rate", x.evaporator_liquid_volumetric_flow_rate, x.evaporator_liquid_volumetric_flow_rate_is_set, true);
+			a205_json_get<std::vector<double>>(j, *RS0001::logger, "evaporator_liquid_leaving_temperature", x.evaporator_liquid_leaving_temperature, x.evaporator_liquid_leaving_temperature_is_set, true);
+		}
+		void GridVariablesEvaporatorLiquidPressureDifferential::populate_performance_map(PerformanceMapBase* performance_map) {
+			add_grid_axis(performance_map, evaporator_liquid_volumetric_flow_rate);
+			add_grid_axis(performance_map, evaporator_liquid_leaving_temperature);
+			performance_map->finalize_grid(RS0001::logger);
+		}
+		const std::string_view GridVariablesEvaporatorLiquidPressureDifferential::evaporator_liquid_volumetric_flow_rate_units = "m3/s";
+
+		const std::string_view GridVariablesEvaporatorLiquidPressureDifferential::evaporator_liquid_leaving_temperature_units = "K";
+
+		const std::string_view GridVariablesEvaporatorLiquidPressureDifferential::evaporator_liquid_volumetric_flow_rate_description = "Chilled liquid (evaporator) flow";
+
+		const std::string_view GridVariablesEvaporatorLiquidPressureDifferential::evaporator_liquid_leaving_temperature_description = "Leaving evaporator liquid temperature";
+
+		const std::string_view GridVariablesEvaporatorLiquidPressureDifferential::evaporator_liquid_volumetric_flow_rate_name = "evaporator_liquid_volumetric_flow_rate";
+
+		const std::string_view GridVariablesEvaporatorLiquidPressureDifferential::evaporator_liquid_leaving_temperature_name = "evaporator_liquid_leaving_temperature";
+
+		void from_json(const nlohmann::json& j, LookupVariablesEvaporatorLiquidPressureDifferential& x) {
+			a205_json_get<std::vector<double>>(j, *RS0001::logger, "evaporator_liquid_differential_pressure", x.evaporator_liquid_differential_pressure, x.evaporator_liquid_differential_pressure_is_set, true);
+		}
+		void LookupVariablesEvaporatorLiquidPressureDifferential::populate_performance_map(PerformanceMapBase* performance_map) {
+			add_data_table(performance_map, evaporator_liquid_differential_pressure);
+		}
+		const std::string_view LookupVariablesEvaporatorLiquidPressureDifferential::evaporator_liquid_differential_pressure_units = "Pa";
+
+		const std::string_view LookupVariablesEvaporatorLiquidPressureDifferential::evaporator_liquid_differential_pressure_description = "Pressure difference across the evaporator";
+
+		const std::string_view LookupVariablesEvaporatorLiquidPressureDifferential::evaporator_liquid_differential_pressure_name = "evaporator_liquid_differential_pressure";
+
+		void from_json(const nlohmann::json& j, PerformanceMapEvaporatorLiquidPressureDifferential& x) {
+			a205_json_get<rs0001_ns::GridVariablesEvaporatorLiquidPressureDifferential>(j, *RS0001::logger, "grid_variables", x.grid_variables, x.grid_variables_is_set, true);
+			x.grid_variables.populate_performance_map(&x);
+			a205_json_get<rs0001_ns::LookupVariablesEvaporatorLiquidPressureDifferential>(j, *RS0001::logger, "lookup_variables", x.lookup_variables, x.lookup_variables_is_set, true);
+			x.lookup_variables.populate_performance_map(&x);
+		}
+		void PerformanceMapEvaporatorLiquidPressureDifferential::initialize(const nlohmann::json& j) {
+			a205_json_get<rs0001_ns::GridVariablesEvaporatorLiquidPressureDifferential>(j, *RS0001::logger, "grid_variables", grid_variables, grid_variables_is_set, true);
+			grid_variables.populate_performance_map(this);
+			a205_json_get<rs0001_ns::LookupVariablesEvaporatorLiquidPressureDifferential>(j, *RS0001::logger, "lookup_variables", lookup_variables, lookup_variables_is_set, true);
+			lookup_variables.populate_performance_map(this);
+		}
+		const std::string_view PerformanceMapEvaporatorLiquidPressureDifferential::grid_variables_units = "";
+
+		const std::string_view PerformanceMapEvaporatorLiquidPressureDifferential::lookup_variables_units = "";
+
+		const std::string_view PerformanceMapEvaporatorLiquidPressureDifferential::grid_variables_description = "Data group defining the grid variables for the evaporator liquid pressure differential";
+
+		const std::string_view PerformanceMapEvaporatorLiquidPressureDifferential::lookup_variables_description = "Data group defining the lookup variables for the evaporator liquid pressure differential";
+
+		const std::string_view PerformanceMapEvaporatorLiquidPressureDifferential::grid_variables_name = "grid_variables";
+
+		const std::string_view PerformanceMapEvaporatorLiquidPressureDifferential::lookup_variables_name = "lookup_variables";
+
+		LookupVariablesEvaporatorLiquidPressureDifferentialStruct PerformanceMapEvaporatorLiquidPressureDifferential::calculate_performance(double evaporator_liquid_volumetric_flow_rate, double evaporator_liquid_leaving_temperature, Btwxt::InterpolationMethod performance_interpolation_method ) {
+			std::vector<double> target {evaporator_liquid_volumetric_flow_rate, evaporator_liquid_leaving_temperature};
+			auto v = PerformanceMapBase::calculate_performance(target, performance_interpolation_method);
+			LookupVariablesEvaporatorLiquidPressureDifferentialStruct s {v[0], };
+			return s;
+		}
+		void from_json(const nlohmann::json& j, GridVariablesCondenserLiquidPressureDifferential& x) {
+			a205_json_get<std::vector<double>>(j, *RS0001::logger, "condenser_liquid_volumetric_flow_rate", x.condenser_liquid_volumetric_flow_rate, x.condenser_liquid_volumetric_flow_rate_is_set, true);
+			a205_json_get<std::vector<double>>(j, *RS0001::logger, "condenser_liquid_entering_temperature", x.condenser_liquid_entering_temperature, x.condenser_liquid_entering_temperature_is_set, true);
+		}
+		void GridVariablesCondenserLiquidPressureDifferential::populate_performance_map(PerformanceMapBase* performance_map) {
+			add_grid_axis(performance_map, condenser_liquid_volumetric_flow_rate);
+			add_grid_axis(performance_map, condenser_liquid_entering_temperature);
+			performance_map->finalize_grid(RS0001::logger);
+		}
+		const std::string_view GridVariablesCondenserLiquidPressureDifferential::condenser_liquid_volumetric_flow_rate_units = "m3/s";
+
+		const std::string_view GridVariablesCondenserLiquidPressureDifferential::condenser_liquid_entering_temperature_units = "K";
+
+		const std::string_view GridVariablesCondenserLiquidPressureDifferential::condenser_liquid_volumetric_flow_rate_description = "Condenser liquid flow";
+
+		const std::string_view GridVariablesCondenserLiquidPressureDifferential::condenser_liquid_entering_temperature_description = "Entering condenser liquid temperature";
+
+		const std::string_view GridVariablesCondenserLiquidPressureDifferential::condenser_liquid_volumetric_flow_rate_name = "condenser_liquid_volumetric_flow_rate";
+
+		const std::string_view GridVariablesCondenserLiquidPressureDifferential::condenser_liquid_entering_temperature_name = "condenser_liquid_entering_temperature";
+
+		void from_json(const nlohmann::json& j, LookupVariablesCondenserLiquidPressureDifferential& x) {
+			a205_json_get<std::vector<double>>(j, *RS0001::logger, "condenser_liquid_differential_pressure", x.condenser_liquid_differential_pressure, x.condenser_liquid_differential_pressure_is_set, true);
+		}
+		void LookupVariablesCondenserLiquidPressureDifferential::populate_performance_map(PerformanceMapBase* performance_map) {
+			add_data_table(performance_map, condenser_liquid_differential_pressure);
+		}
+		const std::string_view LookupVariablesCondenserLiquidPressureDifferential::condenser_liquid_differential_pressure_units = "Pa";
+
+		const std::string_view LookupVariablesCondenserLiquidPressureDifferential::condenser_liquid_differential_pressure_description = "Pressure difference across the condenser";
+
+		const std::string_view LookupVariablesCondenserLiquidPressureDifferential::condenser_liquid_differential_pressure_name = "condenser_liquid_differential_pressure";
+
+		void from_json(const nlohmann::json& j, PerformanceMapCondenserLiquidPressureDifferential& x) {
+			a205_json_get<rs0001_ns::GridVariablesCondenserLiquidPressureDifferential>(j, *RS0001::logger, "grid_variables", x.grid_variables, x.grid_variables_is_set, true);
+			x.grid_variables.populate_performance_map(&x);
+			a205_json_get<rs0001_ns::LookupVariablesCondenserLiquidPressureDifferential>(j, *RS0001::logger, "lookup_variables", x.lookup_variables, x.lookup_variables_is_set, true);
+			x.lookup_variables.populate_performance_map(&x);
+		}
+		void PerformanceMapCondenserLiquidPressureDifferential::initialize(const nlohmann::json& j) {
+			a205_json_get<rs0001_ns::GridVariablesCondenserLiquidPressureDifferential>(j, *RS0001::logger, "grid_variables", grid_variables, grid_variables_is_set, true);
+			grid_variables.populate_performance_map(this);
+			a205_json_get<rs0001_ns::LookupVariablesCondenserLiquidPressureDifferential>(j, *RS0001::logger, "lookup_variables", lookup_variables, lookup_variables_is_set, true);
+			lookup_variables.populate_performance_map(this);
+		}
+		const std::string_view PerformanceMapCondenserLiquidPressureDifferential::grid_variables_units = "";
+
+		const std::string_view PerformanceMapCondenserLiquidPressureDifferential::lookup_variables_units = "";
+
+		const std::string_view PerformanceMapCondenserLiquidPressureDifferential::grid_variables_description = "Data group defining the grid variables for the condenser liquid pressure differential";
+
+		const std::string_view PerformanceMapCondenserLiquidPressureDifferential::lookup_variables_description = "Data group defining the lookup variables for the condenser liquid pressure differential";
+
+		const std::string_view PerformanceMapCondenserLiquidPressureDifferential::grid_variables_name = "grid_variables";
+
+		const std::string_view PerformanceMapCondenserLiquidPressureDifferential::lookup_variables_name = "lookup_variables";
+
+		LookupVariablesCondenserLiquidPressureDifferentialStruct PerformanceMapCondenserLiquidPressureDifferential::calculate_performance(double condenser_liquid_volumetric_flow_rate, double condenser_liquid_entering_temperature, Btwxt::InterpolationMethod performance_interpolation_method ) {
+			std::vector<double> target {condenser_liquid_volumetric_flow_rate, condenser_liquid_entering_temperature};
+			auto v = PerformanceMapBase::calculate_performance(target, performance_interpolation_method);
+			LookupVariablesCondenserLiquidPressureDifferentialStruct s {v[0], };
+			return s;
+		}
 		void from_json(const nlohmann::json& j, Performance& x) {
 			a205_json_get<ashrae205_ns::LiquidMixture>(j, *RS0001::logger, "evaporator_liquid_type", x.evaporator_liquid_type, x.evaporator_liquid_type_is_set, true);
 			a205_json_get<ashrae205_ns::LiquidMixture>(j, *RS0001::logger, "condenser_liquid_type", x.condenser_liquid_type, x.condenser_liquid_type_is_set, true);
 			a205_json_get<double>(j, *RS0001::logger, "evaporator_fouling_factor", x.evaporator_fouling_factor, x.evaporator_fouling_factor_is_set, true);
 			a205_json_get<double>(j, *RS0001::logger, "condenser_fouling_factor", x.condenser_fouling_factor, x.condenser_fouling_factor_is_set, true);
 			a205_json_get<ashrae205_ns::SpeedControlType>(j, *RS0001::logger, "compressor_speed_control_type", x.compressor_speed_control_type, x.compressor_speed_control_type_is_set, true);
-			a205_json_get<double>(j, *RS0001::logger, "maximum_power", x.maximum_power, x.maximum_power_is_set, false);
 			a205_json_get<double>(j, *RS0001::logger, "cycling_degradation_coefficient", x.cycling_degradation_coefficient, x.cycling_degradation_coefficient_is_set, true);
+			a205_json_get<ashrae205_ns::Scaling>(j, *RS0001::logger, "scaling", x.scaling, x.scaling_is_set, false);
 			a205_json_get<rs0001_ns::PerformanceMapCooling>(j, *RS0001::logger, "performance_map_cooling", x.performance_map_cooling, x.performance_map_cooling_is_set, true);
 			a205_json_get<rs0001_ns::PerformanceMapStandby>(j, *RS0001::logger, "performance_map_standby", x.performance_map_standby, x.performance_map_standby_is_set, true);
+			a205_json_get<rs0001_ns::PerformanceMapEvaporatorLiquidPressureDifferential>(j, *RS0001::logger, "performance_map_evaporator_liquid_pressure_differential", x.performance_map_evaporator_liquid_pressure_differential, x.performance_map_evaporator_liquid_pressure_differential_is_set, true);
+			a205_json_get<rs0001_ns::PerformanceMapCondenserLiquidPressureDifferential>(j, *RS0001::logger, "performance_map_condenser_liquid_pressure_differential", x.performance_map_condenser_liquid_pressure_differential, x.performance_map_condenser_liquid_pressure_differential_is_set, true);
 		}
 		const std::string_view Performance::evaporator_liquid_type_units = "";
 
@@ -789,13 +539,17 @@ namespace tk205  {
 
 		const std::string_view Performance::compressor_speed_control_type_units = "";
 
-		const std::string_view Performance::maximum_power_units = "W";
-
 		const std::string_view Performance::cycling_degradation_coefficient_units = "-";
+
+		const std::string_view Performance::scaling_units = "";
 
 		const std::string_view Performance::performance_map_cooling_units = "";
 
 		const std::string_view Performance::performance_map_standby_units = "";
+
+		const std::string_view Performance::performance_map_evaporator_liquid_pressure_differential_units = "";
+
+		const std::string_view Performance::performance_map_condenser_liquid_pressure_differential_units = "";
 
 		const std::string_view Performance::evaporator_liquid_type_description = "Type of liquid in evaporator";
 
@@ -807,13 +561,17 @@ namespace tk205  {
 
 		const std::string_view Performance::compressor_speed_control_type_description = "Type of compressor speed control";
 
-		const std::string_view Performance::maximum_power_description = "Maximum input power at which the chiller operates reliably and continuously";
-
 		const std::string_view Performance::cycling_degradation_coefficient_description = "Cycling degradation coefficient (C~D~) as described in AHRI 550/590 or AHRI 551/591";
+
+		const std::string_view Performance::scaling_description = "Specifies the range the performance data can be scaled to represent different capacity equipment";
 
 		const std::string_view Performance::performance_map_cooling_description = "Data group describing cooling performance over a range of conditions";
 
 		const std::string_view Performance::performance_map_standby_description = "Data group describing standby performance";
+
+		const std::string_view Performance::performance_map_evaporator_liquid_pressure_differential_description = "Data group describing the liquid pressure differential through the evaporator";
+
+		const std::string_view Performance::performance_map_condenser_liquid_pressure_differential_description = "Data group describing the liquid pressure differential through the condenser";
 
 		const std::string_view Performance::evaporator_liquid_type_name = "evaporator_liquid_type";
 
@@ -825,13 +583,17 @@ namespace tk205  {
 
 		const std::string_view Performance::compressor_speed_control_type_name = "compressor_speed_control_type";
 
-		const std::string_view Performance::maximum_power_name = "maximum_power";
-
 		const std::string_view Performance::cycling_degradation_coefficient_name = "cycling_degradation_coefficient";
+
+		const std::string_view Performance::scaling_name = "scaling";
 
 		const std::string_view Performance::performance_map_cooling_name = "performance_map_cooling";
 
 		const std::string_view Performance::performance_map_standby_name = "performance_map_standby";
+
+		const std::string_view Performance::performance_map_evaporator_liquid_pressure_differential_name = "performance_map_evaporator_liquid_pressure_differential";
+
+		const std::string_view Performance::performance_map_condenser_liquid_pressure_differential_name = "performance_map_condenser_liquid_pressure_differential";
 
 		void from_json(const nlohmann::json& j, RS0001& x) {
 			a205_json_get<ashrae205_ns::Metadata>(j, *RS0001::logger, "metadata", x.metadata, x.metadata_is_set, true);

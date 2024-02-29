@@ -7,7 +7,7 @@ namespace tk205  {
 	
 		const std::string_view Schema::schema_title = "ASHRAE 205";
 
-		const std::string_view Schema::schema_version = "1.0.0";
+		const std::string_view Schema::schema_version = "2.0.0";
 
 		const std::string_view Schema::schema_description = "Base schema for ASHRAE 205 representations";
 
@@ -116,6 +116,22 @@ namespace tk205  {
 		const std::string_view LiquidMixture::liquid_components_name = "liquid_components";
 
 		const std::string_view LiquidMixture::concentration_type_name = "concentration_type";
+
+		void from_json(const nlohmann::json& j, Scaling& x) {
+			a205_json_get<double>(j, *ASHRAE205::logger, "minimum", x.minimum, x.minimum_is_set, false);
+			a205_json_get<double>(j, *ASHRAE205::logger, "maximum", x.maximum, x.maximum_is_set, false);
+		}
+		const std::string_view Scaling::minimum_units = "-";
+
+		const std::string_view Scaling::maximum_units = "-";
+
+		const std::string_view Scaling::minimum_description = "Minimum scaling factor";
+
+		const std::string_view Scaling::maximum_description = "Maximum scaling factor";
+
+		const std::string_view Scaling::minimum_name = "minimum";
+
+		const std::string_view Scaling::maximum_name = "maximum";
 
 	}
 }

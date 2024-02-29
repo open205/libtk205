@@ -7,7 +7,7 @@ namespace tk205  {
 	
 		const std::string_view Schema::schema_title = "Motor";
 
-		const std::string_view Schema::schema_version = "1.0.0";
+		const std::string_view Schema::schema_version = "2.0.0";
 
 		const std::string_view Schema::schema_description = "Schema for ASHRAE 205 annex RS0005: Motor";
 
@@ -74,22 +74,30 @@ namespace tk205  {
 		void from_json(const nlohmann::json& j, LookupVariables& x) {
 			a205_json_get<std::vector<double>>(j, *RS0005::logger, "efficiency", x.efficiency, x.efficiency_is_set, true);
 			a205_json_get<std::vector<double>>(j, *RS0005::logger, "power_factor", x.power_factor, x.power_factor_is_set, true);
+			a205_json_get<std::vector<ashrae205_ns::OperationState>>(j, *RS0005::logger, "operation_state", x.operation_state, x.operation_state_is_set, true);
 		}
 		void LookupVariables::populate_performance_map(PerformanceMapBase* performance_map) {
 			add_data_table(performance_map, efficiency);
 			add_data_table(performance_map, power_factor);
+			add_data_table(performance_map, operation_state);
 		}
 		const std::string_view LookupVariables::efficiency_units = "-";
 
 		const std::string_view LookupVariables::power_factor_units = "-";
 
+		const std::string_view LookupVariables::operation_state_units = "-";
+
 		const std::string_view LookupVariables::efficiency_description = "Efficiency of motor";
 
 		const std::string_view LookupVariables::power_factor_description = "Power factor of the motor";
 
+		const std::string_view LookupVariables::operation_state_description = "The operation state at the operating conditions";
+
 		const std::string_view LookupVariables::efficiency_name = "efficiency";
 
 		const std::string_view LookupVariables::power_factor_name = "power_factor";
+
+		const std::string_view LookupVariables::operation_state_name = "operation_state";
 
 		void from_json(const nlohmann::json& j, PerformanceMap& x) {
 			a205_json_get<rs0005_ns::GridVariables>(j, *RS0005::logger, "grid_variables", x.grid_variables, x.grid_variables_is_set, true);
@@ -118,7 +126,7 @@ namespace tk205  {
 		LookupVariablesStruct PerformanceMap::calculate_performance(double shaft_power, double shaft_rotational_speed, Btwxt::InterpolationMethod performance_interpolation_method ) {
 			std::vector<double> target {shaft_power, shaft_rotational_speed};
 			auto v = PerformanceMapBase::calculate_performance(target, performance_interpolation_method);
-			LookupVariablesStruct s {v[0], v[1], };
+			LookupVariablesStruct s {v[0], v[1], v[2], };
 			return s;
 		}
 		void from_json(const nlohmann::json& j, Performance& x) {
@@ -126,6 +134,7 @@ namespace tk205  {
 			a205_json_get<double>(j, *RS0005::logger, "standby_power", x.standby_power, x.standby_power_is_set, true);
 			a205_json_get<int>(j, *RS0005::logger, "number_of_poles", x.number_of_poles, x.number_of_poles_is_set, true);
 			a205_json_get<rs0006_ns::RS0006>(j, *RS0005::logger, "drive_representation", x.drive_representation, x.drive_representation_is_set, false);
+			a205_json_get<ashrae205_ns::Scaling>(j, *RS0005::logger, "scaling", x.scaling, x.scaling_is_set, false);
 			a205_json_get<rs0005_ns::PerformanceMap>(j, *RS0005::logger, "performance_map", x.performance_map, x.performance_map_is_set, false);
 		}
 		const std::string_view Performance::maximum_power_units = "W";
@@ -135,6 +144,8 @@ namespace tk205  {
 		const std::string_view Performance::number_of_poles_units = "";
 
 		const std::string_view Performance::drive_representation_units = "";
+
+		const std::string_view Performance::scaling_units = "";
 
 		const std::string_view Performance::performance_map_units = "";
 
@@ -146,6 +157,8 @@ namespace tk205  {
 
 		const std::string_view Performance::drive_representation_description = "The corresponding Standard 205 drive representation";
 
+		const std::string_view Performance::scaling_description = "Specifies the range the performance data can be scaled to represent different capacity equipment";
+
 		const std::string_view Performance::performance_map_description = "Data group describing motor performance when operating";
 
 		const std::string_view Performance::maximum_power_name = "maximum_power";
@@ -155,6 +168,8 @@ namespace tk205  {
 		const std::string_view Performance::number_of_poles_name = "number_of_poles";
 
 		const std::string_view Performance::drive_representation_name = "drive_representation";
+
+		const std::string_view Performance::scaling_name = "scaling";
 
 		const std::string_view Performance::performance_map_name = "performance_map";
 

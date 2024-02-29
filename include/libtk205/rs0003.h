@@ -151,6 +151,7 @@ namespace tk205  {
 			rs0003_ns::InstallationSpeedControlType installation_speed_control_type;
 			rs0005_ns::RS0005 motor_representation;
 			rs0007_ns::RS0007 mechanical_drive_representation;
+			ashrae205_ns::Scaling scaling;
 			std::unique_ptr<PerformanceMapBase> performance_map;
 			bool nominal_standard_air_volumetric_flow_rate_is_set;
 			bool is_enclosed_is_set;
@@ -163,6 +164,7 @@ namespace tk205  {
 			bool installation_speed_control_type_is_set;
 			bool motor_representation_is_set;
 			bool mechanical_drive_representation_is_set;
+			bool scaling_is_set;
 			bool performance_map_is_set;
 			const static std::string_view nominal_standard_air_volumetric_flow_rate_units;
 			const static std::string_view is_enclosed_units;
@@ -175,6 +177,7 @@ namespace tk205  {
 			const static std::string_view installation_speed_control_type_units;
 			const static std::string_view motor_representation_units;
 			const static std::string_view mechanical_drive_representation_units;
+			const static std::string_view scaling_units;
 			const static std::string_view performance_map_units;
 			const static std::string_view nominal_standard_air_volumetric_flow_rate_description;
 			const static std::string_view is_enclosed_description;
@@ -187,6 +190,7 @@ namespace tk205  {
 			const static std::string_view installation_speed_control_type_description;
 			const static std::string_view motor_representation_description;
 			const static std::string_view mechanical_drive_representation_description;
+			const static std::string_view scaling_description;
 			const static std::string_view performance_map_description;
 			const static std::string_view nominal_standard_air_volumetric_flow_rate_name;
 			const static std::string_view is_enclosed_name;
@@ -199,6 +203,7 @@ namespace tk205  {
 			const static std::string_view installation_speed_control_type_name;
 			const static std::string_view motor_representation_name;
 			const static std::string_view mechanical_drive_representation_name;
+			const static std::string_view scaling_name;
 			const static std::string_view performance_map_name;
 		};
 		class RS0003  : public RSInstanceBase {
@@ -246,22 +251,29 @@ namespace tk205  {
 			enum  {
 				impeller_rotational_speed_index,
 				shaft_power_index,
+				operation_state_index,
 				index_count
 			};
 			std::vector<double> impeller_rotational_speed;
 			std::vector<double> shaft_power;
+			std::vector<ashrae205_ns::OperationState> operation_state;
 			bool impeller_rotational_speed_is_set;
 			bool shaft_power_is_set;
+			bool operation_state_is_set;
 			const static std::string_view impeller_rotational_speed_units;
 			const static std::string_view shaft_power_units;
+			const static std::string_view operation_state_units;
 			const static std::string_view impeller_rotational_speed_description;
 			const static std::string_view shaft_power_description;
+			const static std::string_view operation_state_description;
 			const static std::string_view impeller_rotational_speed_name;
 			const static std::string_view shaft_power_name;
+			const static std::string_view operation_state_name;
 		};
 		struct LookupVariablesContinuousStruct {
 			double impeller_rotational_speed;
 			double shaft_power;
+			double operation_state;
 		};
 		class PerformanceMapContinuous  : public PerformanceMapBase {
 		public:
@@ -305,28 +317,35 @@ namespace tk205  {
 				standard_air_volumetric_flow_rate_index,
 				shaft_power_index,
 				impeller_rotational_speed_index,
+				operation_state_index,
 				index_count
 			};
 			std::vector<double> standard_air_volumetric_flow_rate;
 			std::vector<double> shaft_power;
 			std::vector<double> impeller_rotational_speed;
+			std::vector<ashrae205_ns::OperationState> operation_state;
 			bool standard_air_volumetric_flow_rate_is_set;
 			bool shaft_power_is_set;
 			bool impeller_rotational_speed_is_set;
+			bool operation_state_is_set;
 			const static std::string_view standard_air_volumetric_flow_rate_units;
 			const static std::string_view shaft_power_units;
 			const static std::string_view impeller_rotational_speed_units;
+			const static std::string_view operation_state_units;
 			const static std::string_view standard_air_volumetric_flow_rate_description;
 			const static std::string_view shaft_power_description;
 			const static std::string_view impeller_rotational_speed_description;
+			const static std::string_view operation_state_description;
 			const static std::string_view standard_air_volumetric_flow_rate_name;
 			const static std::string_view shaft_power_name;
 			const static std::string_view impeller_rotational_speed_name;
+			const static std::string_view operation_state_name;
 		};
 		struct LookupVariablesDiscreteStruct {
 			double standard_air_volumetric_flow_rate;
 			double shaft_power;
 			double impeller_rotational_speed;
+			double operation_state;
 		};
 		class PerformanceMapDiscrete  : public PerformanceMapBase {
 		public:

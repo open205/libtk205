@@ -7,7 +7,7 @@ namespace tk205  {
 	
 		const std::string_view Schema::schema_title = "Fan Assembly";
 
-		const std::string_view Schema::schema_version = "1.0.0";
+		const std::string_view Schema::schema_version = "2.0.0";
 
 		const std::string_view Schema::schema_description = "Schema for ASHRAE 205 annex RS0003: Fan Assembly";
 
@@ -108,6 +108,7 @@ namespace tk205  {
 			a205_json_get<rs0003_ns::InstallationSpeedControlType>(j, *RS0003::logger, "installation_speed_control_type", x.installation_speed_control_type, x.installation_speed_control_type_is_set, true);
 			a205_json_get<rs0005_ns::RS0005>(j, *RS0003::logger, "motor_representation", x.motor_representation, x.motor_representation_is_set, false);
 			a205_json_get<rs0007_ns::RS0007>(j, *RS0003::logger, "mechanical_drive_representation", x.mechanical_drive_representation, x.mechanical_drive_representation_is_set, false);
+			a205_json_get<ashrae205_ns::Scaling>(j, *RS0003::logger, "scaling", x.scaling, x.scaling_is_set, false);
 			if (x.operation_speed_control_type == ashrae205_ns::SpeedControlType::CONTINUOUS) {
 				x.performance_map = std::make_unique<rs0003_ns::PerformanceMapContinuous>();
 				if (x.performance_map) {
@@ -143,6 +144,8 @@ namespace tk205  {
 
 		const std::string_view Performance::mechanical_drive_representation_units = "";
 
+		const std::string_view Performance::scaling_units = "";
+
 		const std::string_view Performance::performance_map_units = "";
 
 		const std::string_view Performance::nominal_standard_air_volumetric_flow_rate_description = "Nominal or rated air flow rate at standard air conditions";
@@ -167,6 +170,8 @@ namespace tk205  {
 
 		const std::string_view Performance::mechanical_drive_representation_description = "The corresponding Standard 205 mechanical drive representation";
 
+		const std::string_view Performance::scaling_description = "Specifies the range the performance data can be scaled to represent different capacity equipment";
+
 		const std::string_view Performance::performance_map_description = "Data group describing fan assembly performance when operating";
 
 		const std::string_view Performance::nominal_standard_air_volumetric_flow_rate_name = "nominal_standard_air_volumetric_flow_rate";
@@ -190,6 +195,8 @@ namespace tk205  {
 		const std::string_view Performance::motor_representation_name = "motor_representation";
 
 		const std::string_view Performance::mechanical_drive_representation_name = "mechanical_drive_representation";
+
+		const std::string_view Performance::scaling_name = "scaling";
 
 		const std::string_view Performance::performance_map_name = "performance_map";
 
@@ -247,22 +254,30 @@ namespace tk205  {
 		void from_json(const nlohmann::json& j, LookupVariablesContinuous& x) {
 			a205_json_get<std::vector<double>>(j, *RS0003::logger, "impeller_rotational_speed", x.impeller_rotational_speed, x.impeller_rotational_speed_is_set, true);
 			a205_json_get<std::vector<double>>(j, *RS0003::logger, "shaft_power", x.shaft_power, x.shaft_power_is_set, true);
+			a205_json_get<std::vector<ashrae205_ns::OperationState>>(j, *RS0003::logger, "operation_state", x.operation_state, x.operation_state_is_set, true);
 		}
 		void LookupVariablesContinuous::populate_performance_map(PerformanceMapBase* performance_map) {
 			add_data_table(performance_map, impeller_rotational_speed);
 			add_data_table(performance_map, shaft_power);
+			add_data_table(performance_map, operation_state);
 		}
 		const std::string_view LookupVariablesContinuous::impeller_rotational_speed_units = "rev/s";
 
 		const std::string_view LookupVariablesContinuous::shaft_power_units = "W";
 
+		const std::string_view LookupVariablesContinuous::operation_state_units = "-";
+
 		const std::string_view LookupVariablesContinuous::impeller_rotational_speed_description = "Rotational speed of fan impeller";
 
 		const std::string_view LookupVariablesContinuous::shaft_power_description = "Mechanical shaft power input to fan assembly";
 
+		const std::string_view LookupVariablesContinuous::operation_state_description = "The operation state at the operating conditions";
+
 		const std::string_view LookupVariablesContinuous::impeller_rotational_speed_name = "impeller_rotational_speed";
 
 		const std::string_view LookupVariablesContinuous::shaft_power_name = "shaft_power";
+
+		const std::string_view LookupVariablesContinuous::operation_state_name = "operation_state";
 
 		void from_json(const nlohmann::json& j, PerformanceMapContinuous& x) {
 			a205_json_get<rs0003_ns::GridVariablesContinuous>(j, *RS0003::logger, "grid_variables", x.grid_variables, x.grid_variables_is_set, true);
@@ -291,7 +306,7 @@ namespace tk205  {
 		LookupVariablesContinuousStruct PerformanceMapContinuous::calculate_performance(double standard_air_volumetric_flow_rate, double static_pressure_difference, Btwxt::InterpolationMethod performance_interpolation_method ) {
 			std::vector<double> target {standard_air_volumetric_flow_rate, static_pressure_difference};
 			auto v = PerformanceMapBase::calculate_performance(target, performance_interpolation_method);
-			LookupVariablesContinuousStruct s {v[0], v[1], };
+			LookupVariablesContinuousStruct s {v[0], v[1], v[2], };
 			return s;
 		}
 		void from_json(const nlohmann::json& j, GridVariablesDiscrete& x) {
@@ -319,11 +334,13 @@ namespace tk205  {
 			a205_json_get<std::vector<double>>(j, *RS0003::logger, "standard_air_volumetric_flow_rate", x.standard_air_volumetric_flow_rate, x.standard_air_volumetric_flow_rate_is_set, true);
 			a205_json_get<std::vector<double>>(j, *RS0003::logger, "shaft_power", x.shaft_power, x.shaft_power_is_set, true);
 			a205_json_get<std::vector<double>>(j, *RS0003::logger, "impeller_rotational_speed", x.impeller_rotational_speed, x.impeller_rotational_speed_is_set, true);
+			a205_json_get<std::vector<ashrae205_ns::OperationState>>(j, *RS0003::logger, "operation_state", x.operation_state, x.operation_state_is_set, true);
 		}
 		void LookupVariablesDiscrete::populate_performance_map(PerformanceMapBase* performance_map) {
 			add_data_table(performance_map, standard_air_volumetric_flow_rate);
 			add_data_table(performance_map, shaft_power);
 			add_data_table(performance_map, impeller_rotational_speed);
+			add_data_table(performance_map, operation_state);
 		}
 		const std::string_view LookupVariablesDiscrete::standard_air_volumetric_flow_rate_units = "m3/s";
 
@@ -331,17 +348,23 @@ namespace tk205  {
 
 		const std::string_view LookupVariablesDiscrete::impeller_rotational_speed_units = "rev/s";
 
+		const std::string_view LookupVariablesDiscrete::operation_state_units = "-";
+
 		const std::string_view LookupVariablesDiscrete::standard_air_volumetric_flow_rate_description = "Volumetric air flow rate through fan assembly at standard air conditions";
 
 		const std::string_view LookupVariablesDiscrete::shaft_power_description = "Mechanical shaft power input to fan assembly";
 
 		const std::string_view LookupVariablesDiscrete::impeller_rotational_speed_description = "Rotational speed of fan impeller";
 
+		const std::string_view LookupVariablesDiscrete::operation_state_description = "The operation state at the operating conditions";
+
 		const std::string_view LookupVariablesDiscrete::standard_air_volumetric_flow_rate_name = "standard_air_volumetric_flow_rate";
 
 		const std::string_view LookupVariablesDiscrete::shaft_power_name = "shaft_power";
 
 		const std::string_view LookupVariablesDiscrete::impeller_rotational_speed_name = "impeller_rotational_speed";
+
+		const std::string_view LookupVariablesDiscrete::operation_state_name = "operation_state";
 
 		void from_json(const nlohmann::json& j, PerformanceMapDiscrete& x) {
 			a205_json_get<rs0003_ns::GridVariablesDiscrete>(j, *RS0003::logger, "grid_variables", x.grid_variables, x.grid_variables_is_set, true);
@@ -370,7 +393,7 @@ namespace tk205  {
 		LookupVariablesDiscreteStruct PerformanceMapDiscrete::calculate_performance(double speed_number, double static_pressure_difference, Btwxt::InterpolationMethod performance_interpolation_method ) {
 			std::vector<double> target {speed_number, static_pressure_difference};
 			auto v = PerformanceMapBase::calculate_performance(target, performance_interpolation_method);
-			LookupVariablesDiscreteStruct s {v[0], v[1], v[2], };
+			LookupVariablesDiscreteStruct s {v[0], v[1], v[2], v[3], };
 			return s;
 		}
 	}

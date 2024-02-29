@@ -7,7 +7,7 @@ namespace tk205  {
 	
 		const std::string_view Schema::schema_title = "Air-to-Air Direct Expansion Refrigerant System";
 
-		const std::string_view Schema::schema_version = "1.0.0";
+		const std::string_view Schema::schema_version = "2.0.0";
 
 		const std::string_view Schema::schema_description = "Schema for ASHRAE 205 annex RS0004: Air-to-Air Direct Expansion Refrigerant System";
 
@@ -121,11 +121,13 @@ namespace tk205  {
 			a205_json_get<std::vector<double>>(j, *RS0004::logger, "gross_total_capacity", x.gross_total_capacity, x.gross_total_capacity_is_set, true);
 			a205_json_get<std::vector<double>>(j, *RS0004::logger, "gross_sensible_capacity", x.gross_sensible_capacity, x.gross_sensible_capacity_is_set, true);
 			a205_json_get<std::vector<double>>(j, *RS0004::logger, "gross_power", x.gross_power, x.gross_power_is_set, true);
+			a205_json_get<std::vector<ashrae205_ns::OperationState>>(j, *RS0004::logger, "operation_state", x.operation_state, x.operation_state_is_set, true);
 		}
 		void LookupVariablesCooling::populate_performance_map(PerformanceMapBase* performance_map) {
 			add_data_table(performance_map, gross_total_capacity);
 			add_data_table(performance_map, gross_sensible_capacity);
 			add_data_table(performance_map, gross_power);
+			add_data_table(performance_map, operation_state);
 		}
 		const std::string_view LookupVariablesCooling::gross_total_capacity_units = "W";
 
@@ -133,17 +135,23 @@ namespace tk205  {
 
 		const std::string_view LookupVariablesCooling::gross_power_units = "W";
 
+		const std::string_view LookupVariablesCooling::operation_state_units = "-";
+
 		const std::string_view LookupVariablesCooling::gross_total_capacity_description = "Total heat removed by the indoor coil";
 
 		const std::string_view LookupVariablesCooling::gross_sensible_capacity_description = "Sensible heat removed by the indoor coil";
 
 		const std::string_view LookupVariablesCooling::gross_power_description = "Gross power draw (of the outdoor unit)";
 
+		const std::string_view LookupVariablesCooling::operation_state_description = "The operation state at the operating conditions";
+
 		const std::string_view LookupVariablesCooling::gross_total_capacity_name = "gross_total_capacity";
 
 		const std::string_view LookupVariablesCooling::gross_sensible_capacity_name = "gross_sensible_capacity";
 
 		const std::string_view LookupVariablesCooling::gross_power_name = "gross_power";
+
+		const std::string_view LookupVariablesCooling::operation_state_name = "operation_state";
 
 		void from_json(const nlohmann::json& j, PerformanceMapCooling& x) {
 			a205_json_get<rs0004_ns::GridVariablesCooling>(j, *RS0004::logger, "grid_variables", x.grid_variables, x.grid_variables_is_set, true);
@@ -172,7 +180,7 @@ namespace tk205  {
 		LookupVariablesCoolingStruct PerformanceMapCooling::calculate_performance(double outdoor_coil_entering_dry_bulb_temperature, double indoor_coil_entering_relative_humidity, double indoor_coil_entering_dry_bulb_temperature, double indoor_coil_air_mass_flow_rate, double compressor_sequence_number, double ambient_absolute_air_pressure, Btwxt::InterpolationMethod performance_interpolation_method ) {
 			std::vector<double> target {outdoor_coil_entering_dry_bulb_temperature, indoor_coil_entering_relative_humidity, indoor_coil_entering_dry_bulb_temperature, indoor_coil_air_mass_flow_rate, compressor_sequence_number, ambient_absolute_air_pressure};
 			auto v = PerformanceMapBase::calculate_performance(target, performance_interpolation_method);
-			LookupVariablesCoolingStruct s {v[0], v[1], v[2], };
+			LookupVariablesCoolingStruct s {v[0], v[1], v[2], v[3], };
 			return s;
 		}
 		void from_json(const nlohmann::json& j, GridVariablesStandby& x) {
@@ -233,12 +241,15 @@ namespace tk205  {
 		void from_json(const nlohmann::json& j, Performance& x) {
 			a205_json_get<ashrae205_ns::SpeedControlType>(j, *RS0004::logger, "compressor_speed_control_type", x.compressor_speed_control_type, x.compressor_speed_control_type_is_set, true);
 			a205_json_get<double>(j, *RS0004::logger, "cycling_degradation_coefficient", x.cycling_degradation_coefficient, x.cycling_degradation_coefficient_is_set, true);
+			a205_json_get<ashrae205_ns::Scaling>(j, *RS0004::logger, "scaling", x.scaling, x.scaling_is_set, false);
 			a205_json_get<rs0004_ns::PerformanceMapCooling>(j, *RS0004::logger, "performance_map_cooling", x.performance_map_cooling, x.performance_map_cooling_is_set, true);
 			a205_json_get<rs0004_ns::PerformanceMapStandby>(j, *RS0004::logger, "performance_map_standby", x.performance_map_standby, x.performance_map_standby_is_set, true);
 		}
 		const std::string_view Performance::compressor_speed_control_type_units = "";
 
 		const std::string_view Performance::cycling_degradation_coefficient_units = "-";
+
+		const std::string_view Performance::scaling_units = "";
 
 		const std::string_view Performance::performance_map_cooling_units = "";
 
@@ -248,6 +259,8 @@ namespace tk205  {
 
 		const std::string_view Performance::cycling_degradation_coefficient_description = "Cycling degradation coefficient (C~D~) as described in AHRI 210/240";
 
+		const std::string_view Performance::scaling_description = "Specifies the range the performance data can be scaled to represent different capacity equipment";
+
 		const std::string_view Performance::performance_map_cooling_description = "Data group describing cooling performance over a range of conditions";
 
 		const std::string_view Performance::performance_map_standby_description = "Data group describing standby performance";
@@ -255,6 +268,8 @@ namespace tk205  {
 		const std::string_view Performance::compressor_speed_control_type_name = "compressor_speed_control_type";
 
 		const std::string_view Performance::cycling_degradation_coefficient_name = "cycling_degradation_coefficient";
+
+		const std::string_view Performance::scaling_name = "scaling";
 
 		const std::string_view Performance::performance_map_cooling_name = "performance_map_cooling";
 
