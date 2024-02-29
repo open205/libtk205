@@ -29,7 +29,7 @@ TEST_F(RS0001Fixture, Check_is_set)
     auto rs = dynamic_cast<rs0001_ns::RS0001 *>(rs_.get());
     EXPECT_TRUE(rs != nullptr);
     EXPECT_FALSE(rs->metadata.data_source_is_set);
-    EXPECT_TRUE(rs->metadata.description_is_set);
+    EXPECT_TRUE(rs->metadata.data_model_is_set);
 }
 
 TEST_F(RS0001Fixture, Calculate_performance_cooling)
@@ -38,7 +38,7 @@ TEST_F(RS0001Fixture, Calculate_performance_cooling)
     EXPECT_TRUE(rs != nullptr);
     std::vector<double> target {0.0755, 280.0, 0.0957, 295.0, 0.5}; //NOLINT : Magic numbers necessary!
     auto result = rs->performance.performance_map_cooling.calculate_performance(target);
-    EXPECT_EQ(result.size(), 9u);
+    EXPECT_EQ(result.size(), 6u);
 }
 
 TEST_F(RS0001Fixture, Calculate_performance_cooling_2)
@@ -46,17 +46,16 @@ TEST_F(RS0001Fixture, Calculate_performance_cooling_2)
     auto rs = dynamic_cast<rs0001_ns::RS0001 *>(rs_.get());
     EXPECT_TRUE(rs != nullptr);
     std::vector<double> target {0.0755, 280.0, 0.0957, 295.0, 0.5}; //NOLINT : Magic numbers necessary!
-    auto result = rs->performance.performance_map_cooling.calculate_performance(target, rs->performance.performance_map_cooling.lookup_variables.condenser_liquid_leaving_temperature_index);
-    // 59593.2,351600,411193,281.11,296.03,74400,23600,0,0
-    EXPECT_NEAR(result, 296.03, 0.001);
+    auto result = rs->performance.performance_map_cooling.calculate_performance(target, rs->performance.performance_map_cooling.lookup_variables.net_condenser_capacity_index);
+    EXPECT_NEAR(result, 411193.22, 0.001);
 }
 
 TEST_F(RS0001Fixture, Calculate_performance_cooling_3)
 {
     auto rs = dynamic_cast<rs0001_ns::RS0001 *>(rs_.get());
     EXPECT_TRUE(rs != nullptr);
-    auto result = rs->performance.performance_map_cooling.calculate_performance(0.0755, 280.0, 0.0957, 295.0, 0.5, Btwxt::InterpolationMethod::linear).condenser_liquid_leaving_temperature;
-    EXPECT_NEAR(result, 296.03, 0.001);
+    auto result = rs->performance.performance_map_cooling.calculate_performance(0.0755, 280.0, 0.0957, 295.0, 0.5, Btwxt::InterpolationMethod::linear).net_condenser_capacity;
+    EXPECT_NEAR(result, 411193.22, 0.001);
 }
 
 TEST_F(ASHRAEChillerFixture, Calculate_performance_cubic)
@@ -75,7 +74,7 @@ TEST_F(RS0005Fixture, Calculate_embedded_RS_performance)
     EXPECT_TRUE(rs != nullptr);
     std::vector<double> target {5550.0, 10.0}; //NOLINT
     auto result = rs->performance.drive_representation.performance.performance_map.calculate_performance(target);
-    EXPECT_THAT(result, testing::ElementsAre(testing::DoubleEq(0.985)));
+    EXPECT_THAT(result, testing::ElementsAre(testing::DoubleEq(0.985), testing::DoubleEq(0.0)));
 }
 
 TEST_F(RS0003Fixture, Verify_grid_variable_index)
@@ -96,10 +95,10 @@ TEST_F(RS0006Fixture, Verify_enum_description)
 
 TEST_F(RS0001Fixture, Verify_element_metadata)
 {
-    auto result = rs0001_ns::RatingAHRI550590PartLoadPoint::evaporator_liquid_volumetric_flow_rate_name;
-    EXPECT_THAT(result, "evaporator_liquid_volumetric_flow_rate");
-    result = rs0001_ns::RatingAHRI550590PartLoadPoint::evaporator_liquid_volumetric_flow_rate_units;
-    EXPECT_THAT(result, "gpm");
+    auto result = rs0001_ns::RatingAHRI550590::net_refrigerating_capacity_name;
+    EXPECT_THAT(result, "net_refrigerating_capacity");
+    result = rs0001_ns::RatingAHRI550590::net_refrigerating_capacity_units;
+    EXPECT_THAT(result, "Btu/h");
 }
 
 int main(int argc, char **argv)
