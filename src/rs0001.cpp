@@ -5,11 +5,11 @@ namespace tk205  {
 
 	namespace rs0001_ns  {
 	
-		const std::string_view Schema::schema_title = "Liquid-Cooled Chiller";
+		const std::string_view Schema::schema_title = "Chiller";
 
-		const std::string_view Schema::schema_version = "2.0.0";
+		const std::string_view Schema::schema_version = "3.0.0";
 
-		const std::string_view Schema::schema_description = "Schema for ASHRAE 205 annex RS0001: Liquid-Cooled Chiller";
+		const std::string_view Schema::schema_description = "Schema for ASHRAE 205 annex RS0001: Chiller";
 
 		void from_json(const nlohmann::json& j, ProductInformation& x) {
 			a205_json_get<std::string>(j, *RS0001::logger, "manufacturer", x.manufacturer, x.manufacturer_is_set, false);
@@ -208,133 +208,6 @@ namespace tk205  {
 
 		const std::string_view Description::rating_ahri_551_591_name = "rating_ahri_551_591";
 
-		void from_json(const nlohmann::json& j, GridVariablesCooling& x) {
-			a205_json_get<std::vector<double>>(j, *RS0001::logger, "evaporator_liquid_volumetric_flow_rate", x.evaporator_liquid_volumetric_flow_rate, x.evaporator_liquid_volumetric_flow_rate_is_set, true);
-			a205_json_get<std::vector<double>>(j, *RS0001::logger, "evaporator_liquid_leaving_temperature", x.evaporator_liquid_leaving_temperature, x.evaporator_liquid_leaving_temperature_is_set, true);
-			a205_json_get<std::vector<double>>(j, *RS0001::logger, "condenser_liquid_volumetric_flow_rate", x.condenser_liquid_volumetric_flow_rate, x.condenser_liquid_volumetric_flow_rate_is_set, true);
-			a205_json_get<std::vector<double>>(j, *RS0001::logger, "condenser_liquid_entering_temperature", x.condenser_liquid_entering_temperature, x.condenser_liquid_entering_temperature_is_set, true);
-			a205_json_get<std::vector<int>>(j, *RS0001::logger, "compressor_sequence_number", x.compressor_sequence_number, x.compressor_sequence_number_is_set, true);
-		}
-		void GridVariablesCooling::populate_performance_map(PerformanceMapBase* performance_map) {
-			add_grid_axis(performance_map, evaporator_liquid_volumetric_flow_rate);
-			add_grid_axis(performance_map, evaporator_liquid_leaving_temperature);
-			add_grid_axis(performance_map, condenser_liquid_volumetric_flow_rate);
-			add_grid_axis(performance_map, condenser_liquid_entering_temperature);
-			add_grid_axis(performance_map, compressor_sequence_number);
-			performance_map->finalize_grid(RS0001::logger);
-		}
-		const std::string_view GridVariablesCooling::evaporator_liquid_volumetric_flow_rate_units = "m3/s";
-
-		const std::string_view GridVariablesCooling::evaporator_liquid_leaving_temperature_units = "K";
-
-		const std::string_view GridVariablesCooling::condenser_liquid_volumetric_flow_rate_units = "m3/s";
-
-		const std::string_view GridVariablesCooling::condenser_liquid_entering_temperature_units = "K";
-
-		const std::string_view GridVariablesCooling::compressor_sequence_number_units = "-";
-
-		const std::string_view GridVariablesCooling::evaporator_liquid_volumetric_flow_rate_description = "Chilled liquid (evaporator) flow";
-
-		const std::string_view GridVariablesCooling::evaporator_liquid_leaving_temperature_description = "Leaving evaporator liquid temperature";
-
-		const std::string_view GridVariablesCooling::condenser_liquid_volumetric_flow_rate_description = "Condenser liquid flow";
-
-		const std::string_view GridVariablesCooling::condenser_liquid_entering_temperature_description = "Entering condenser liquid temperature";
-
-		const std::string_view GridVariablesCooling::compressor_sequence_number_description = "Index indicating the relative capacity order of the compressor speed/stage expressed in order from lowest capacity (starting at 1) to highest capacity";
-
-		const std::string_view GridVariablesCooling::evaporator_liquid_volumetric_flow_rate_name = "evaporator_liquid_volumetric_flow_rate";
-
-		const std::string_view GridVariablesCooling::evaporator_liquid_leaving_temperature_name = "evaporator_liquid_leaving_temperature";
-
-		const std::string_view GridVariablesCooling::condenser_liquid_volumetric_flow_rate_name = "condenser_liquid_volumetric_flow_rate";
-
-		const std::string_view GridVariablesCooling::condenser_liquid_entering_temperature_name = "condenser_liquid_entering_temperature";
-
-		const std::string_view GridVariablesCooling::compressor_sequence_number_name = "compressor_sequence_number";
-
-		void from_json(const nlohmann::json& j, LookupVariablesCooling& x) {
-			a205_json_get<std::vector<double>>(j, *RS0001::logger, "input_power", x.input_power, x.input_power_is_set, true);
-			a205_json_get<std::vector<double>>(j, *RS0001::logger, "net_evaporator_capacity", x.net_evaporator_capacity, x.net_evaporator_capacity_is_set, true);
-			a205_json_get<std::vector<double>>(j, *RS0001::logger, "net_condenser_capacity", x.net_condenser_capacity, x.net_condenser_capacity_is_set, true);
-			a205_json_get<std::vector<double>>(j, *RS0001::logger, "oil_cooler_heat", x.oil_cooler_heat, x.oil_cooler_heat_is_set, true);
-			a205_json_get<std::vector<double>>(j, *RS0001::logger, "auxiliary_heat", x.auxiliary_heat, x.auxiliary_heat_is_set, true);
-			a205_json_get<std::vector<ashrae205_ns::OperationState>>(j, *RS0001::logger, "operation_state", x.operation_state, x.operation_state_is_set, true);
-		}
-		void LookupVariablesCooling::populate_performance_map(PerformanceMapBase* performance_map) {
-			add_data_table(performance_map, input_power);
-			add_data_table(performance_map, net_evaporator_capacity);
-			add_data_table(performance_map, net_condenser_capacity);
-			add_data_table(performance_map, oil_cooler_heat);
-			add_data_table(performance_map, auxiliary_heat);
-			add_data_table(performance_map, operation_state);
-		}
-		const std::string_view LookupVariablesCooling::input_power_units = "W";
-
-		const std::string_view LookupVariablesCooling::net_evaporator_capacity_units = "W";
-
-		const std::string_view LookupVariablesCooling::net_condenser_capacity_units = "W";
-
-		const std::string_view LookupVariablesCooling::oil_cooler_heat_units = "W";
-
-		const std::string_view LookupVariablesCooling::auxiliary_heat_units = "W";
-
-		const std::string_view LookupVariablesCooling::operation_state_units = "-";
-
-		const std::string_view LookupVariablesCooling::input_power_description = "Total power input";
-
-		const std::string_view LookupVariablesCooling::net_evaporator_capacity_description = "Refrigeration capacity";
-
-		const std::string_view LookupVariablesCooling::net_condenser_capacity_description = "Condenser heat rejection";
-
-		const std::string_view LookupVariablesCooling::oil_cooler_heat_description = "Heat transferred to another liquid crossing the control volume boundary from the chiller oil cooler.";
-
-		const std::string_view LookupVariablesCooling::auxiliary_heat_description = "Heat transferred to another liquid crossing the control volume boundary from the chiller auxiliaries (motor, motor controller, inverter drive, starter, etc).";
-
-		const std::string_view LookupVariablesCooling::operation_state_description = "The operation state at the operating conditions";
-
-		const std::string_view LookupVariablesCooling::input_power_name = "input_power";
-
-		const std::string_view LookupVariablesCooling::net_evaporator_capacity_name = "net_evaporator_capacity";
-
-		const std::string_view LookupVariablesCooling::net_condenser_capacity_name = "net_condenser_capacity";
-
-		const std::string_view LookupVariablesCooling::oil_cooler_heat_name = "oil_cooler_heat";
-
-		const std::string_view LookupVariablesCooling::auxiliary_heat_name = "auxiliary_heat";
-
-		const std::string_view LookupVariablesCooling::operation_state_name = "operation_state";
-
-		void from_json(const nlohmann::json& j, PerformanceMapCooling& x) {
-			a205_json_get<rs0001_ns::GridVariablesCooling>(j, *RS0001::logger, "grid_variables", x.grid_variables, x.grid_variables_is_set, true);
-			x.grid_variables.populate_performance_map(&x);
-			a205_json_get<rs0001_ns::LookupVariablesCooling>(j, *RS0001::logger, "lookup_variables", x.lookup_variables, x.lookup_variables_is_set, true);
-			x.lookup_variables.populate_performance_map(&x);
-		}
-		void PerformanceMapCooling::initialize(const nlohmann::json& j) {
-			a205_json_get<rs0001_ns::GridVariablesCooling>(j, *RS0001::logger, "grid_variables", grid_variables, grid_variables_is_set, true);
-			grid_variables.populate_performance_map(this);
-			a205_json_get<rs0001_ns::LookupVariablesCooling>(j, *RS0001::logger, "lookup_variables", lookup_variables, lookup_variables_is_set, true);
-			lookup_variables.populate_performance_map(this);
-		}
-		const std::string_view PerformanceMapCooling::grid_variables_units = "";
-
-		const std::string_view PerformanceMapCooling::lookup_variables_units = "";
-
-		const std::string_view PerformanceMapCooling::grid_variables_description = "Data group defining the grid variables for cooling performance";
-
-		const std::string_view PerformanceMapCooling::lookup_variables_description = "Data group defining the lookup variables for cooling performance";
-
-		const std::string_view PerformanceMapCooling::grid_variables_name = "grid_variables";
-
-		const std::string_view PerformanceMapCooling::lookup_variables_name = "lookup_variables";
-
-		LookupVariablesCoolingStruct PerformanceMapCooling::calculate_performance(double evaporator_liquid_volumetric_flow_rate, double evaporator_liquid_leaving_temperature, double condenser_liquid_volumetric_flow_rate, double condenser_liquid_entering_temperature, double compressor_sequence_number, Btwxt::InterpolationMethod performance_interpolation_method ) {
-			std::vector<double> target {evaporator_liquid_volumetric_flow_rate, evaporator_liquid_leaving_temperature, condenser_liquid_volumetric_flow_rate, condenser_liquid_entering_temperature, compressor_sequence_number};
-			auto v = PerformanceMapBase::calculate_performance(target, performance_interpolation_method);
-			LookupVariablesCoolingStruct s {v[0], v[1], v[2], v[3], v[4], v[5], };
-			return s;
-		}
 		void from_json(const nlohmann::json& j, GridVariablesStandby& x) {
 			a205_json_get<std::vector<double>>(j, *RS0001::logger, "environment_dry_bulb_temperature", x.environment_dry_bulb_temperature, x.environment_dry_bulb_temperature_is_set, true);
 		}
@@ -517,6 +390,7 @@ namespace tk205  {
 			return s;
 		}
 		void from_json(const nlohmann::json& j, Performance& x) {
+			a205_json_get<ashrae205_ns::CondenserType>(j, *RS0001::logger, "condenser_type", x.condenser_type, x.condenser_type_is_set, true);
 			a205_json_get<ashrae205_ns::LiquidMixture>(j, *RS0001::logger, "evaporator_liquid_type", x.evaporator_liquid_type, x.evaporator_liquid_type_is_set, true);
 			a205_json_get<ashrae205_ns::LiquidMixture>(j, *RS0001::logger, "condenser_liquid_type", x.condenser_liquid_type, x.condenser_liquid_type_is_set, true);
 			a205_json_get<double>(j, *RS0001::logger, "evaporator_fouling_factor", x.evaporator_fouling_factor, x.evaporator_fouling_factor_is_set, true);
@@ -524,11 +398,30 @@ namespace tk205  {
 			a205_json_get<ashrae205_ns::SpeedControlType>(j, *RS0001::logger, "compressor_speed_control_type", x.compressor_speed_control_type, x.compressor_speed_control_type_is_set, true);
 			a205_json_get<double>(j, *RS0001::logger, "cycling_degradation_coefficient", x.cycling_degradation_coefficient, x.cycling_degradation_coefficient_is_set, true);
 			a205_json_get<ashrae205_ns::Scaling>(j, *RS0001::logger, "scaling", x.scaling, x.scaling_is_set, false);
-			a205_json_get<rs0001_ns::PerformanceMapCooling>(j, *RS0001::logger, "performance_map_cooling", x.performance_map_cooling, x.performance_map_cooling_is_set, true);
+			if (x.condenser_type == ashrae205_ns::CondenserType::LIQUID) {
+				x.performance_map_cooling = std::make_unique<rs0001_ns::PerformanceMapCoolingLiquid>();
+				if (x.performance_map_cooling) {
+					x.performance_map_cooling->initialize(j.at("performance_map_cooling"));
+				}
+			}
+			if (x.condenser_type == ashrae205_ns::CondenserType::AIR) {
+				x.performance_map_cooling = std::make_unique<rs0001_ns::PerformanceMapCoolingAir>();
+				if (x.performance_map_cooling) {
+					x.performance_map_cooling->initialize(j.at("performance_map_cooling"));
+				}
+			}
+			if (x.condenser_type == ashrae205_ns::CondenserType::EVAPORATIVE) {
+				x.performance_map_cooling = std::make_unique<rs0001_ns::PerformanceMapCoolingEvaporative>();
+				if (x.performance_map_cooling) {
+					x.performance_map_cooling->initialize(j.at("performance_map_cooling"));
+				}
+			}
 			a205_json_get<rs0001_ns::PerformanceMapStandby>(j, *RS0001::logger, "performance_map_standby", x.performance_map_standby, x.performance_map_standby_is_set, true);
 			a205_json_get<rs0001_ns::PerformanceMapEvaporatorLiquidPressureDifferential>(j, *RS0001::logger, "performance_map_evaporator_liquid_pressure_differential", x.performance_map_evaporator_liquid_pressure_differential, x.performance_map_evaporator_liquid_pressure_differential_is_set, true);
 			a205_json_get<rs0001_ns::PerformanceMapCondenserLiquidPressureDifferential>(j, *RS0001::logger, "performance_map_condenser_liquid_pressure_differential", x.performance_map_condenser_liquid_pressure_differential, x.performance_map_condenser_liquid_pressure_differential_is_set, true);
 		}
+		const std::string_view Performance::condenser_type_units = "";
+
 		const std::string_view Performance::evaporator_liquid_type_units = "";
 
 		const std::string_view Performance::condenser_liquid_type_units = "";
@@ -551,6 +444,8 @@ namespace tk205  {
 
 		const std::string_view Performance::performance_map_condenser_liquid_pressure_differential_units = "";
 
+		const std::string_view Performance::condenser_type_description = "Heat rejection method of the condenser";
+
 		const std::string_view Performance::evaporator_liquid_type_description = "Type of liquid in evaporator";
 
 		const std::string_view Performance::condenser_liquid_type_description = "Type of liquid in condenser";
@@ -572,6 +467,8 @@ namespace tk205  {
 		const std::string_view Performance::performance_map_evaporator_liquid_pressure_differential_description = "Data group describing the liquid pressure differential through the evaporator";
 
 		const std::string_view Performance::performance_map_condenser_liquid_pressure_differential_description = "Data group describing the liquid pressure differential through the condenser";
+
+		const std::string_view Performance::condenser_type_name = "condenser_type";
 
 		const std::string_view Performance::evaporator_liquid_type_name = "evaporator_liquid_type";
 
@@ -625,6 +522,427 @@ namespace tk205  {
 
 		const std::string_view RS0001::performance_name = "performance";
 
+		void from_json(const nlohmann::json& j, GridVariablesCoolingLiquid& x) {
+			a205_json_get<std::vector<double>>(j, *RS0001::logger, "evaporator_liquid_volumetric_flow_rate", x.evaporator_liquid_volumetric_flow_rate, x.evaporator_liquid_volumetric_flow_rate_is_set, true);
+			a205_json_get<std::vector<double>>(j, *RS0001::logger, "evaporator_liquid_leaving_temperature", x.evaporator_liquid_leaving_temperature, x.evaporator_liquid_leaving_temperature_is_set, true);
+			a205_json_get<std::vector<double>>(j, *RS0001::logger, "condenser_liquid_volumetric_flow_rate", x.condenser_liquid_volumetric_flow_rate, x.condenser_liquid_volumetric_flow_rate_is_set, true);
+			a205_json_get<std::vector<double>>(j, *RS0001::logger, "condenser_liquid_entering_temperature", x.condenser_liquid_entering_temperature, x.condenser_liquid_entering_temperature_is_set, true);
+			a205_json_get<std::vector<int>>(j, *RS0001::logger, "compressor_sequence_number", x.compressor_sequence_number, x.compressor_sequence_number_is_set, true);
+		}
+		void GridVariablesCoolingLiquid::populate_performance_map(PerformanceMapBase* performance_map) {
+			add_grid_axis(performance_map, evaporator_liquid_volumetric_flow_rate);
+			add_grid_axis(performance_map, evaporator_liquid_leaving_temperature);
+			add_grid_axis(performance_map, condenser_liquid_volumetric_flow_rate);
+			add_grid_axis(performance_map, condenser_liquid_entering_temperature);
+			add_grid_axis(performance_map, compressor_sequence_number);
+			performance_map->finalize_grid(RS0001::logger);
+		}
+		const std::string_view GridVariablesCoolingLiquid::evaporator_liquid_volumetric_flow_rate_units = "m3/s";
+
+		const std::string_view GridVariablesCoolingLiquid::evaporator_liquid_leaving_temperature_units = "K";
+
+		const std::string_view GridVariablesCoolingLiquid::condenser_liquid_volumetric_flow_rate_units = "m3/s";
+
+		const std::string_view GridVariablesCoolingLiquid::condenser_liquid_entering_temperature_units = "K";
+
+		const std::string_view GridVariablesCoolingLiquid::compressor_sequence_number_units = "-";
+
+		const std::string_view GridVariablesCoolingLiquid::evaporator_liquid_volumetric_flow_rate_description = "Chilled liquid (evaporator) flow";
+
+		const std::string_view GridVariablesCoolingLiquid::evaporator_liquid_leaving_temperature_description = "Leaving evaporator liquid temperature";
+
+		const std::string_view GridVariablesCoolingLiquid::condenser_liquid_volumetric_flow_rate_description = "Condenser liquid flow";
+
+		const std::string_view GridVariablesCoolingLiquid::condenser_liquid_entering_temperature_description = "Entering condenser liquid temperature";
+
+		const std::string_view GridVariablesCoolingLiquid::compressor_sequence_number_description = "Index indicating the relative capacity order of the compressor speed/stage expressed in order from lowest capacity (starting at 1) to highest capacity";
+
+		const std::string_view GridVariablesCoolingLiquid::evaporator_liquid_volumetric_flow_rate_name = "evaporator_liquid_volumetric_flow_rate";
+
+		const std::string_view GridVariablesCoolingLiquid::evaporator_liquid_leaving_temperature_name = "evaporator_liquid_leaving_temperature";
+
+		const std::string_view GridVariablesCoolingLiquid::condenser_liquid_volumetric_flow_rate_name = "condenser_liquid_volumetric_flow_rate";
+
+		const std::string_view GridVariablesCoolingLiquid::condenser_liquid_entering_temperature_name = "condenser_liquid_entering_temperature";
+
+		const std::string_view GridVariablesCoolingLiquid::compressor_sequence_number_name = "compressor_sequence_number";
+
+		void from_json(const nlohmann::json& j, LookupVariablesCoolingLiquid& x) {
+			a205_json_get<std::vector<double>>(j, *RS0001::logger, "input_power", x.input_power, x.input_power_is_set, true);
+			a205_json_get<std::vector<double>>(j, *RS0001::logger, "net_evaporator_capacity", x.net_evaporator_capacity, x.net_evaporator_capacity_is_set, true);
+			a205_json_get<std::vector<double>>(j, *RS0001::logger, "net_condenser_capacity", x.net_condenser_capacity, x.net_condenser_capacity_is_set, true);
+			a205_json_get<std::vector<double>>(j, *RS0001::logger, "oil_cooler_heat", x.oil_cooler_heat, x.oil_cooler_heat_is_set, true);
+			a205_json_get<std::vector<double>>(j, *RS0001::logger, "auxiliary_heat", x.auxiliary_heat, x.auxiliary_heat_is_set, true);
+			a205_json_get<std::vector<ashrae205_ns::OperationState>>(j, *RS0001::logger, "operation_state", x.operation_state, x.operation_state_is_set, true);
+		}
+		void LookupVariablesCoolingLiquid::populate_performance_map(PerformanceMapBase* performance_map) {
+			add_data_table(performance_map, input_power);
+			add_data_table(performance_map, net_evaporator_capacity);
+			add_data_table(performance_map, net_condenser_capacity);
+			add_data_table(performance_map, oil_cooler_heat);
+			add_data_table(performance_map, auxiliary_heat);
+			add_data_table(performance_map, operation_state);
+		}
+		const std::string_view LookupVariablesCoolingLiquid::input_power_units = "W";
+
+		const std::string_view LookupVariablesCoolingLiquid::net_evaporator_capacity_units = "W";
+
+		const std::string_view LookupVariablesCoolingLiquid::net_condenser_capacity_units = "W";
+
+		const std::string_view LookupVariablesCoolingLiquid::oil_cooler_heat_units = "W";
+
+		const std::string_view LookupVariablesCoolingLiquid::auxiliary_heat_units = "W";
+
+		const std::string_view LookupVariablesCoolingLiquid::operation_state_units = "-";
+
+		const std::string_view LookupVariablesCoolingLiquid::input_power_description = "Total power input";
+
+		const std::string_view LookupVariablesCoolingLiquid::net_evaporator_capacity_description = "Refrigeration capacity";
+
+		const std::string_view LookupVariablesCoolingLiquid::net_condenser_capacity_description = "Condenser heat rejection";
+
+		const std::string_view LookupVariablesCoolingLiquid::oil_cooler_heat_description = "Heat transferred to another liquid crossing the control volume boundary from the chiller oil cooler.";
+
+		const std::string_view LookupVariablesCoolingLiquid::auxiliary_heat_description = "Heat transferred to another liquid crossing the control volume boundary from the chiller auxiliaries (motor, motor controller, inverter drive, starter, etc).";
+
+		const std::string_view LookupVariablesCoolingLiquid::operation_state_description = "The operation state at the operating conditions";
+
+		const std::string_view LookupVariablesCoolingLiquid::input_power_name = "input_power";
+
+		const std::string_view LookupVariablesCoolingLiquid::net_evaporator_capacity_name = "net_evaporator_capacity";
+
+		const std::string_view LookupVariablesCoolingLiquid::net_condenser_capacity_name = "net_condenser_capacity";
+
+		const std::string_view LookupVariablesCoolingLiquid::oil_cooler_heat_name = "oil_cooler_heat";
+
+		const std::string_view LookupVariablesCoolingLiquid::auxiliary_heat_name = "auxiliary_heat";
+
+		const std::string_view LookupVariablesCoolingLiquid::operation_state_name = "operation_state";
+
+		void from_json(const nlohmann::json& j, PerformanceMapCoolingLiquid& x) {
+			a205_json_get<rs0001_ns::GridVariablesCoolingLiquid>(j, *RS0001::logger, "grid_variables", x.grid_variables, x.grid_variables_is_set, true);
+			x.grid_variables.populate_performance_map(&x);
+			a205_json_get<rs0001_ns::LookupVariablesCoolingLiquid>(j, *RS0001::logger, "lookup_variables", x.lookup_variables, x.lookup_variables_is_set, true);
+			x.lookup_variables.populate_performance_map(&x);
+		}
+		void PerformanceMapCoolingLiquid::initialize(const nlohmann::json& j) {
+			a205_json_get<rs0001_ns::GridVariablesCoolingLiquid>(j, *RS0001::logger, "grid_variables", grid_variables, grid_variables_is_set, true);
+			grid_variables.populate_performance_map(this);
+			a205_json_get<rs0001_ns::LookupVariablesCoolingLiquid>(j, *RS0001::logger, "lookup_variables", lookup_variables, lookup_variables_is_set, true);
+			lookup_variables.populate_performance_map(this);
+		}
+		const std::string_view PerformanceMapCoolingLiquid::grid_variables_units = "";
+
+		const std::string_view PerformanceMapCoolingLiquid::lookup_variables_units = "";
+
+		const std::string_view PerformanceMapCoolingLiquid::grid_variables_description = "Data group defining the grid variables for cooling performance";
+
+		const std::string_view PerformanceMapCoolingLiquid::lookup_variables_description = "Data group defining the lookup variables for cooling performance";
+
+		const std::string_view PerformanceMapCoolingLiquid::grid_variables_name = "grid_variables";
+
+		const std::string_view PerformanceMapCoolingLiquid::lookup_variables_name = "lookup_variables";
+
+		LookupVariablesCoolingLiquidStruct PerformanceMapCoolingLiquid::calculate_performance(double evaporator_liquid_volumetric_flow_rate, double evaporator_liquid_leaving_temperature, double condenser_liquid_volumetric_flow_rate, double condenser_liquid_entering_temperature, double compressor_sequence_number, Btwxt::InterpolationMethod performance_interpolation_method ) {
+			std::vector<double> target {evaporator_liquid_volumetric_flow_rate, evaporator_liquid_leaving_temperature, condenser_liquid_volumetric_flow_rate, condenser_liquid_entering_temperature, compressor_sequence_number};
+			auto v = PerformanceMapBase::calculate_performance(target, performance_interpolation_method);
+			LookupVariablesCoolingLiquidStruct s {v[0], v[1], v[2], v[3], v[4], v[5], };
+			return s;
+		}
+		void from_json(const nlohmann::json& j, GridVariablesCoolingAir& x) {
+			a205_json_get<std::vector<double>>(j, *RS0001::logger, "evaporator_liquid_volumetric_flow_rate", x.evaporator_liquid_volumetric_flow_rate, x.evaporator_liquid_volumetric_flow_rate_is_set, true);
+			a205_json_get<std::vector<double>>(j, *RS0001::logger, "evaporator_liquid_leaving_temperature", x.evaporator_liquid_leaving_temperature, x.evaporator_liquid_leaving_temperature_is_set, true);
+			a205_json_get<std::vector<double>>(j, *RS0001::logger, "condenser_air_entering_drybulb_temperature", x.condenser_air_entering_drybulb_temperature, x.condenser_air_entering_drybulb_temperature_is_set, true);
+			a205_json_get<std::vector<double>>(j, *RS0001::logger, "condenser_air_entering_relative_humidity", x.condenser_air_entering_relative_humidity, x.condenser_air_entering_relative_humidity_is_set, true);
+			a205_json_get<std::vector<double>>(j, *RS0001::logger, "ambient_pressure", x.ambient_pressure, x.ambient_pressure_is_set, true);
+			a205_json_get<std::vector<int>>(j, *RS0001::logger, "compressor_sequence_number", x.compressor_sequence_number, x.compressor_sequence_number_is_set, true);
+		}
+		void GridVariablesCoolingAir::populate_performance_map(PerformanceMapBase* performance_map) {
+			add_grid_axis(performance_map, evaporator_liquid_volumetric_flow_rate);
+			add_grid_axis(performance_map, evaporator_liquid_leaving_temperature);
+			add_grid_axis(performance_map, condenser_air_entering_drybulb_temperature);
+			add_grid_axis(performance_map, condenser_air_entering_relative_humidity);
+			add_grid_axis(performance_map, ambient_pressure);
+			add_grid_axis(performance_map, compressor_sequence_number);
+			performance_map->finalize_grid(RS0001::logger);
+		}
+		const std::string_view GridVariablesCoolingAir::evaporator_liquid_volumetric_flow_rate_units = "m3/s";
+
+		const std::string_view GridVariablesCoolingAir::evaporator_liquid_leaving_temperature_units = "K";
+
+		const std::string_view GridVariablesCoolingAir::condenser_air_entering_drybulb_temperature_units = "K";
+
+		const std::string_view GridVariablesCoolingAir::condenser_air_entering_relative_humidity_units = "-";
+
+		const std::string_view GridVariablesCoolingAir::ambient_pressure_units = "Pa";
+
+		const std::string_view GridVariablesCoolingAir::compressor_sequence_number_units = "-";
+
+		const std::string_view GridVariablesCoolingAir::evaporator_liquid_volumetric_flow_rate_description = "Chilled liquid (evaporator) flow";
+
+		const std::string_view GridVariablesCoolingAir::evaporator_liquid_leaving_temperature_description = "Leaving evaporator liquid temperature";
+
+		const std::string_view GridVariablesCoolingAir::condenser_air_entering_drybulb_temperature_description = "Entering condenser air drybulb temperature";
+
+		const std::string_view GridVariablesCoolingAir::condenser_air_entering_relative_humidity_description = "Entering condenser air relative humidity";
+
+		const std::string_view GridVariablesCoolingAir::ambient_pressure_description = "Ambient pressure used to calculate the performance";
+
+		const std::string_view GridVariablesCoolingAir::compressor_sequence_number_description = "Index indicating the relative capacity order of the compressor speed/stage expressed in order from lowest capacity (starting at 1) to highest capacity";
+
+		const std::string_view GridVariablesCoolingAir::evaporator_liquid_volumetric_flow_rate_name = "evaporator_liquid_volumetric_flow_rate";
+
+		const std::string_view GridVariablesCoolingAir::evaporator_liquid_leaving_temperature_name = "evaporator_liquid_leaving_temperature";
+
+		const std::string_view GridVariablesCoolingAir::condenser_air_entering_drybulb_temperature_name = "condenser_air_entering_drybulb_temperature";
+
+		const std::string_view GridVariablesCoolingAir::condenser_air_entering_relative_humidity_name = "condenser_air_entering_relative_humidity";
+
+		const std::string_view GridVariablesCoolingAir::ambient_pressure_name = "ambient_pressure";
+
+		const std::string_view GridVariablesCoolingAir::compressor_sequence_number_name = "compressor_sequence_number";
+
+		void from_json(const nlohmann::json& j, LookupVariablesCoolingAir& x) {
+			a205_json_get<std::vector<double>>(j, *RS0001::logger, "input_power", x.input_power, x.input_power_is_set, true);
+			a205_json_get<std::vector<double>>(j, *RS0001::logger, "net_evaporator_capacity", x.net_evaporator_capacity, x.net_evaporator_capacity_is_set, true);
+			a205_json_get<std::vector<double>>(j, *RS0001::logger, "net_condenser_capacity", x.net_condenser_capacity, x.net_condenser_capacity_is_set, true);
+			a205_json_get<std::vector<double>>(j, *RS0001::logger, "condenser_air_volumetric_flow_rate", x.condenser_air_volumetric_flow_rate, x.condenser_air_volumetric_flow_rate_is_set, true);
+			a205_json_get<std::vector<double>>(j, *RS0001::logger, "oil_cooler_heat", x.oil_cooler_heat, x.oil_cooler_heat_is_set, true);
+			a205_json_get<std::vector<double>>(j, *RS0001::logger, "auxiliary_heat", x.auxiliary_heat, x.auxiliary_heat_is_set, true);
+			a205_json_get<std::vector<ashrae205_ns::OperationState>>(j, *RS0001::logger, "operation_state", x.operation_state, x.operation_state_is_set, true);
+		}
+		void LookupVariablesCoolingAir::populate_performance_map(PerformanceMapBase* performance_map) {
+			add_data_table(performance_map, input_power);
+			add_data_table(performance_map, net_evaporator_capacity);
+			add_data_table(performance_map, net_condenser_capacity);
+			add_data_table(performance_map, condenser_air_volumetric_flow_rate);
+			add_data_table(performance_map, oil_cooler_heat);
+			add_data_table(performance_map, auxiliary_heat);
+			add_data_table(performance_map, operation_state);
+		}
+		const std::string_view LookupVariablesCoolingAir::input_power_units = "W";
+
+		const std::string_view LookupVariablesCoolingAir::net_evaporator_capacity_units = "W";
+
+		const std::string_view LookupVariablesCoolingAir::net_condenser_capacity_units = "W";
+
+		const std::string_view LookupVariablesCoolingAir::condenser_air_volumetric_flow_rate_units = "m3/s";
+
+		const std::string_view LookupVariablesCoolingAir::oil_cooler_heat_units = "W";
+
+		const std::string_view LookupVariablesCoolingAir::auxiliary_heat_units = "W";
+
+		const std::string_view LookupVariablesCoolingAir::operation_state_units = "-";
+
+		const std::string_view LookupVariablesCoolingAir::input_power_description = "Total power input";
+
+		const std::string_view LookupVariablesCoolingAir::net_evaporator_capacity_description = "Refrigeration capacity";
+
+		const std::string_view LookupVariablesCoolingAir::net_condenser_capacity_description = "Condenser heat rejection";
+
+		const std::string_view LookupVariablesCoolingAir::condenser_air_volumetric_flow_rate_description = "Condenser air flow";
+
+		const std::string_view LookupVariablesCoolingAir::oil_cooler_heat_description = "Heat transferred to another liquid crossing the control volume boundary from the chiller oil cooler.";
+
+		const std::string_view LookupVariablesCoolingAir::auxiliary_heat_description = "Heat transferred to another liquid crossing the control volume boundary from the chiller auxiliaries (motor, motor controller, inverter drive, starter, etc).";
+
+		const std::string_view LookupVariablesCoolingAir::operation_state_description = "The operation state at the operating conditions";
+
+		const std::string_view LookupVariablesCoolingAir::input_power_name = "input_power";
+
+		const std::string_view LookupVariablesCoolingAir::net_evaporator_capacity_name = "net_evaporator_capacity";
+
+		const std::string_view LookupVariablesCoolingAir::net_condenser_capacity_name = "net_condenser_capacity";
+
+		const std::string_view LookupVariablesCoolingAir::condenser_air_volumetric_flow_rate_name = "condenser_air_volumetric_flow_rate";
+
+		const std::string_view LookupVariablesCoolingAir::oil_cooler_heat_name = "oil_cooler_heat";
+
+		const std::string_view LookupVariablesCoolingAir::auxiliary_heat_name = "auxiliary_heat";
+
+		const std::string_view LookupVariablesCoolingAir::operation_state_name = "operation_state";
+
+		void from_json(const nlohmann::json& j, PerformanceMapCoolingAir& x) {
+			a205_json_get<rs0001_ns::GridVariablesCoolingAir>(j, *RS0001::logger, "grid_variables", x.grid_variables, x.grid_variables_is_set, true);
+			x.grid_variables.populate_performance_map(&x);
+			a205_json_get<rs0001_ns::LookupVariablesCoolingAir>(j, *RS0001::logger, "lookup_variables", x.lookup_variables, x.lookup_variables_is_set, true);
+			x.lookup_variables.populate_performance_map(&x);
+		}
+		void PerformanceMapCoolingAir::initialize(const nlohmann::json& j) {
+			a205_json_get<rs0001_ns::GridVariablesCoolingAir>(j, *RS0001::logger, "grid_variables", grid_variables, grid_variables_is_set, true);
+			grid_variables.populate_performance_map(this);
+			a205_json_get<rs0001_ns::LookupVariablesCoolingAir>(j, *RS0001::logger, "lookup_variables", lookup_variables, lookup_variables_is_set, true);
+			lookup_variables.populate_performance_map(this);
+		}
+		const std::string_view PerformanceMapCoolingAir::grid_variables_units = "";
+
+		const std::string_view PerformanceMapCoolingAir::lookup_variables_units = "";
+
+		const std::string_view PerformanceMapCoolingAir::grid_variables_description = "Data group defining the grid variables for cooling performance";
+
+		const std::string_view PerformanceMapCoolingAir::lookup_variables_description = "Data group defining the lookup variables for cooling performance";
+
+		const std::string_view PerformanceMapCoolingAir::grid_variables_name = "grid_variables";
+
+		const std::string_view PerformanceMapCoolingAir::lookup_variables_name = "lookup_variables";
+
+		LookupVariablesCoolingAirStruct PerformanceMapCoolingAir::calculate_performance(double evaporator_liquid_volumetric_flow_rate, double evaporator_liquid_leaving_temperature, double condenser_air_entering_drybulb_temperature, double condenser_air_entering_relative_humidity, double ambient_pressure, double compressor_sequence_number, Btwxt::InterpolationMethod performance_interpolation_method ) {
+			std::vector<double> target {evaporator_liquid_volumetric_flow_rate, evaporator_liquid_leaving_temperature, condenser_air_entering_drybulb_temperature, condenser_air_entering_relative_humidity, ambient_pressure, compressor_sequence_number};
+			auto v = PerformanceMapBase::calculate_performance(target, performance_interpolation_method);
+			LookupVariablesCoolingAirStruct s {v[0], v[1], v[2], v[3], v[4], v[5], v[6], };
+			return s;
+		}
+		void from_json(const nlohmann::json& j, GridVariablesCoolingEvaporative& x) {
+			a205_json_get<std::vector<double>>(j, *RS0001::logger, "evaporator_liquid_volumetric_flow_rate", x.evaporator_liquid_volumetric_flow_rate, x.evaporator_liquid_volumetric_flow_rate_is_set, true);
+			a205_json_get<std::vector<double>>(j, *RS0001::logger, "evaporator_liquid_leaving_temperature", x.evaporator_liquid_leaving_temperature, x.evaporator_liquid_leaving_temperature_is_set, true);
+			a205_json_get<std::vector<double>>(j, *RS0001::logger, "condenser_air_entering_drybulb_temperature", x.condenser_air_entering_drybulb_temperature, x.condenser_air_entering_drybulb_temperature_is_set, true);
+			a205_json_get<std::vector<double>>(j, *RS0001::logger, "condenser_air_entering_relative_humidity", x.condenser_air_entering_relative_humidity, x.condenser_air_entering_relative_humidity_is_set, true);
+			a205_json_get<std::vector<double>>(j, *RS0001::logger, "ambient_pressure", x.ambient_pressure, x.ambient_pressure_is_set, true);
+			a205_json_get<std::vector<int>>(j, *RS0001::logger, "compressor_sequence_number", x.compressor_sequence_number, x.compressor_sequence_number_is_set, true);
+		}
+		void GridVariablesCoolingEvaporative::populate_performance_map(PerformanceMapBase* performance_map) {
+			add_grid_axis(performance_map, evaporator_liquid_volumetric_flow_rate);
+			add_grid_axis(performance_map, evaporator_liquid_leaving_temperature);
+			add_grid_axis(performance_map, condenser_air_entering_drybulb_temperature);
+			add_grid_axis(performance_map, condenser_air_entering_relative_humidity);
+			add_grid_axis(performance_map, ambient_pressure);
+			add_grid_axis(performance_map, compressor_sequence_number);
+			performance_map->finalize_grid(RS0001::logger);
+		}
+		const std::string_view GridVariablesCoolingEvaporative::evaporator_liquid_volumetric_flow_rate_units = "m3/s";
+
+		const std::string_view GridVariablesCoolingEvaporative::evaporator_liquid_leaving_temperature_units = "K";
+
+		const std::string_view GridVariablesCoolingEvaporative::condenser_air_entering_drybulb_temperature_units = "K";
+
+		const std::string_view GridVariablesCoolingEvaporative::condenser_air_entering_relative_humidity_units = "-";
+
+		const std::string_view GridVariablesCoolingEvaporative::ambient_pressure_units = "Pa";
+
+		const std::string_view GridVariablesCoolingEvaporative::compressor_sequence_number_units = "-";
+
+		const std::string_view GridVariablesCoolingEvaporative::evaporator_liquid_volumetric_flow_rate_description = "Chilled liquid (evaporator) flow";
+
+		const std::string_view GridVariablesCoolingEvaporative::evaporator_liquid_leaving_temperature_description = "Leaving evaporator liquid temperature";
+
+		const std::string_view GridVariablesCoolingEvaporative::condenser_air_entering_drybulb_temperature_description = "Entering condenser air drybulb temperature";
+
+		const std::string_view GridVariablesCoolingEvaporative::condenser_air_entering_relative_humidity_description = "Entering condenser air relative humidity";
+
+		const std::string_view GridVariablesCoolingEvaporative::ambient_pressure_description = "Ambient pressure used to calculate the performance";
+
+		const std::string_view GridVariablesCoolingEvaporative::compressor_sequence_number_description = "Index indicating the relative capacity order of the compressor speed/stage expressed in order from lowest capacity (starting at 1) to highest capacity";
+
+		const std::string_view GridVariablesCoolingEvaporative::evaporator_liquid_volumetric_flow_rate_name = "evaporator_liquid_volumetric_flow_rate";
+
+		const std::string_view GridVariablesCoolingEvaporative::evaporator_liquid_leaving_temperature_name = "evaporator_liquid_leaving_temperature";
+
+		const std::string_view GridVariablesCoolingEvaporative::condenser_air_entering_drybulb_temperature_name = "condenser_air_entering_drybulb_temperature";
+
+		const std::string_view GridVariablesCoolingEvaporative::condenser_air_entering_relative_humidity_name = "condenser_air_entering_relative_humidity";
+
+		const std::string_view GridVariablesCoolingEvaporative::ambient_pressure_name = "ambient_pressure";
+
+		const std::string_view GridVariablesCoolingEvaporative::compressor_sequence_number_name = "compressor_sequence_number";
+
+		void from_json(const nlohmann::json& j, LookupVariablesCoolingEvaporative& x) {
+			a205_json_get<std::vector<double>>(j, *RS0001::logger, "input_power", x.input_power, x.input_power_is_set, true);
+			a205_json_get<std::vector<double>>(j, *RS0001::logger, "net_evaporator_capacity", x.net_evaporator_capacity, x.net_evaporator_capacity_is_set, true);
+			a205_json_get<std::vector<double>>(j, *RS0001::logger, "net_condenser_capacity", x.net_condenser_capacity, x.net_condenser_capacity_is_set, true);
+			a205_json_get<std::vector<double>>(j, *RS0001::logger, "condenser_air_volumetric_flow_rate", x.condenser_air_volumetric_flow_rate, x.condenser_air_volumetric_flow_rate_is_set, true);
+			a205_json_get<std::vector<double>>(j, *RS0001::logger, "evaporation_rate", x.evaporation_rate, x.evaporation_rate_is_set, true);
+			a205_json_get<std::vector<double>>(j, *RS0001::logger, "oil_cooler_heat", x.oil_cooler_heat, x.oil_cooler_heat_is_set, true);
+			a205_json_get<std::vector<double>>(j, *RS0001::logger, "auxiliary_heat", x.auxiliary_heat, x.auxiliary_heat_is_set, true);
+			a205_json_get<std::vector<ashrae205_ns::OperationState>>(j, *RS0001::logger, "operation_state", x.operation_state, x.operation_state_is_set, true);
+		}
+		void LookupVariablesCoolingEvaporative::populate_performance_map(PerformanceMapBase* performance_map) {
+			add_data_table(performance_map, input_power);
+			add_data_table(performance_map, net_evaporator_capacity);
+			add_data_table(performance_map, net_condenser_capacity);
+			add_data_table(performance_map, condenser_air_volumetric_flow_rate);
+			add_data_table(performance_map, evaporation_rate);
+			add_data_table(performance_map, oil_cooler_heat);
+			add_data_table(performance_map, auxiliary_heat);
+			add_data_table(performance_map, operation_state);
+		}
+		const std::string_view LookupVariablesCoolingEvaporative::input_power_units = "W";
+
+		const std::string_view LookupVariablesCoolingEvaporative::net_evaporator_capacity_units = "W";
+
+		const std::string_view LookupVariablesCoolingEvaporative::net_condenser_capacity_units = "W";
+
+		const std::string_view LookupVariablesCoolingEvaporative::condenser_air_volumetric_flow_rate_units = "m3/s";
+
+		const std::string_view LookupVariablesCoolingEvaporative::evaporation_rate_units = "m3/s";
+
+		const std::string_view LookupVariablesCoolingEvaporative::oil_cooler_heat_units = "W";
+
+		const std::string_view LookupVariablesCoolingEvaporative::auxiliary_heat_units = "W";
+
+		const std::string_view LookupVariablesCoolingEvaporative::operation_state_units = "-";
+
+		const std::string_view LookupVariablesCoolingEvaporative::input_power_description = "Total power input";
+
+		const std::string_view LookupVariablesCoolingEvaporative::net_evaporator_capacity_description = "Refrigeration capacity";
+
+		const std::string_view LookupVariablesCoolingEvaporative::net_condenser_capacity_description = "Condenser heat rejection";
+
+		const std::string_view LookupVariablesCoolingEvaporative::condenser_air_volumetric_flow_rate_description = "Condenser air flow";
+
+		const std::string_view LookupVariablesCoolingEvaporative::evaporation_rate_description = "Rate at which water evaporates from the condenser.";
+
+		const std::string_view LookupVariablesCoolingEvaporative::oil_cooler_heat_description = "Heat transferred to another liquid crossing the control volume boundary from the chiller oil cooler.";
+
+		const std::string_view LookupVariablesCoolingEvaporative::auxiliary_heat_description = "Heat transferred to another liquid crossing the control volume boundary from the chiller auxiliaries (motor, motor controller, inverter drive, starter, etc).";
+
+		const std::string_view LookupVariablesCoolingEvaporative::operation_state_description = "The operation state at the operating conditions";
+
+		const std::string_view LookupVariablesCoolingEvaporative::input_power_name = "input_power";
+
+		const std::string_view LookupVariablesCoolingEvaporative::net_evaporator_capacity_name = "net_evaporator_capacity";
+
+		const std::string_view LookupVariablesCoolingEvaporative::net_condenser_capacity_name = "net_condenser_capacity";
+
+		const std::string_view LookupVariablesCoolingEvaporative::condenser_air_volumetric_flow_rate_name = "condenser_air_volumetric_flow_rate";
+
+		const std::string_view LookupVariablesCoolingEvaporative::evaporation_rate_name = "evaporation_rate";
+
+		const std::string_view LookupVariablesCoolingEvaporative::oil_cooler_heat_name = "oil_cooler_heat";
+
+		const std::string_view LookupVariablesCoolingEvaporative::auxiliary_heat_name = "auxiliary_heat";
+
+		const std::string_view LookupVariablesCoolingEvaporative::operation_state_name = "operation_state";
+
+		void from_json(const nlohmann::json& j, PerformanceMapCoolingEvaporative& x) {
+			a205_json_get<rs0001_ns::GridVariablesCoolingEvaporative>(j, *RS0001::logger, "grid_variables", x.grid_variables, x.grid_variables_is_set, true);
+			x.grid_variables.populate_performance_map(&x);
+			a205_json_get<rs0001_ns::LookupVariablesCoolingEvaporative>(j, *RS0001::logger, "lookup_variables", x.lookup_variables, x.lookup_variables_is_set, true);
+			x.lookup_variables.populate_performance_map(&x);
+		}
+		void PerformanceMapCoolingEvaporative::initialize(const nlohmann::json& j) {
+			a205_json_get<rs0001_ns::GridVariablesCoolingEvaporative>(j, *RS0001::logger, "grid_variables", grid_variables, grid_variables_is_set, true);
+			grid_variables.populate_performance_map(this);
+			a205_json_get<rs0001_ns::LookupVariablesCoolingEvaporative>(j, *RS0001::logger, "lookup_variables", lookup_variables, lookup_variables_is_set, true);
+			lookup_variables.populate_performance_map(this);
+		}
+		const std::string_view PerformanceMapCoolingEvaporative::grid_variables_units = "";
+
+		const std::string_view PerformanceMapCoolingEvaporative::lookup_variables_units = "";
+
+		const std::string_view PerformanceMapCoolingEvaporative::grid_variables_description = "Data group defining the grid variables for cooling performance";
+
+		const std::string_view PerformanceMapCoolingEvaporative::lookup_variables_description = "Data group defining the lookup variables for cooling performance";
+
+		const std::string_view PerformanceMapCoolingEvaporative::grid_variables_name = "grid_variables";
+
+		const std::string_view PerformanceMapCoolingEvaporative::lookup_variables_name = "lookup_variables";
+
+		LookupVariablesCoolingEvaporativeStruct PerformanceMapCoolingEvaporative::calculate_performance(double evaporator_liquid_volumetric_flow_rate, double evaporator_liquid_leaving_temperature, double condenser_air_entering_drybulb_temperature, double condenser_air_entering_relative_humidity, double ambient_pressure, double compressor_sequence_number, Btwxt::InterpolationMethod performance_interpolation_method ) {
+			std::vector<double> target {evaporator_liquid_volumetric_flow_rate, evaporator_liquid_leaving_temperature, condenser_air_entering_drybulb_temperature, condenser_air_entering_relative_humidity, ambient_pressure, compressor_sequence_number};
+			auto v = PerformanceMapBase::calculate_performance(target, performance_interpolation_method);
+			LookupVariablesCoolingEvaporativeStruct s {v[0], v[1], v[2], v[3], v[4], v[5], v[6], v[7], };
+			return s;
+		}
 	}
 }
 
