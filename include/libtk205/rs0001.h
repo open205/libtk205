@@ -206,110 +206,6 @@ namespace tk205  {
 			const static std::string_view rating_ahri_550_590_name;
 			const static std::string_view rating_ahri_551_591_name;
 		};
-		class GridVariablesCooling  : public GridVariablesBase {
-		public:
-			void populate_performance_map (PerformanceMapBase* performance_map) override;
-			enum  {
-				evaporator_liquid_volumetric_flow_rate_index,
-				evaporator_liquid_leaving_temperature_index,
-				condenser_liquid_volumetric_flow_rate_index,
-				condenser_liquid_entering_temperature_index,
-				compressor_sequence_number_index,
-				index_count
-			};
-			std::vector<double> evaporator_liquid_volumetric_flow_rate;
-			std::vector<double> evaporator_liquid_leaving_temperature;
-			std::vector<double> condenser_liquid_volumetric_flow_rate;
-			std::vector<double> condenser_liquid_entering_temperature;
-			std::vector<int> compressor_sequence_number;
-			bool evaporator_liquid_volumetric_flow_rate_is_set;
-			bool evaporator_liquid_leaving_temperature_is_set;
-			bool condenser_liquid_volumetric_flow_rate_is_set;
-			bool condenser_liquid_entering_temperature_is_set;
-			bool compressor_sequence_number_is_set;
-			const static std::string_view evaporator_liquid_volumetric_flow_rate_units;
-			const static std::string_view evaporator_liquid_leaving_temperature_units;
-			const static std::string_view condenser_liquid_volumetric_flow_rate_units;
-			const static std::string_view condenser_liquid_entering_temperature_units;
-			const static std::string_view compressor_sequence_number_units;
-			const static std::string_view evaporator_liquid_volumetric_flow_rate_description;
-			const static std::string_view evaporator_liquid_leaving_temperature_description;
-			const static std::string_view condenser_liquid_volumetric_flow_rate_description;
-			const static std::string_view condenser_liquid_entering_temperature_description;
-			const static std::string_view compressor_sequence_number_description;
-			const static std::string_view evaporator_liquid_volumetric_flow_rate_name;
-			const static std::string_view evaporator_liquid_leaving_temperature_name;
-			const static std::string_view condenser_liquid_volumetric_flow_rate_name;
-			const static std::string_view condenser_liquid_entering_temperature_name;
-			const static std::string_view compressor_sequence_number_name;
-		};
-		struct LookupVariablesCooling  : public LookupVariablesBase {
-		
-			void populate_performance_map (PerformanceMapBase* performance_map) override;
-			enum  {
-				input_power_index,
-				net_evaporator_capacity_index,
-				net_condenser_capacity_index,
-				oil_cooler_heat_index,
-				auxiliary_heat_index,
-				operation_state_index,
-				index_count
-			};
-			std::vector<double> input_power;
-			std::vector<double> net_evaporator_capacity;
-			std::vector<double> net_condenser_capacity;
-			std::vector<double> oil_cooler_heat;
-			std::vector<double> auxiliary_heat;
-			std::vector<ashrae205_ns::OperationState> operation_state;
-			bool input_power_is_set;
-			bool net_evaporator_capacity_is_set;
-			bool net_condenser_capacity_is_set;
-			bool oil_cooler_heat_is_set;
-			bool auxiliary_heat_is_set;
-			bool operation_state_is_set;
-			const static std::string_view input_power_units;
-			const static std::string_view net_evaporator_capacity_units;
-			const static std::string_view net_condenser_capacity_units;
-			const static std::string_view oil_cooler_heat_units;
-			const static std::string_view auxiliary_heat_units;
-			const static std::string_view operation_state_units;
-			const static std::string_view input_power_description;
-			const static std::string_view net_evaporator_capacity_description;
-			const static std::string_view net_condenser_capacity_description;
-			const static std::string_view oil_cooler_heat_description;
-			const static std::string_view auxiliary_heat_description;
-			const static std::string_view operation_state_description;
-			const static std::string_view input_power_name;
-			const static std::string_view net_evaporator_capacity_name;
-			const static std::string_view net_condenser_capacity_name;
-			const static std::string_view oil_cooler_heat_name;
-			const static std::string_view auxiliary_heat_name;
-			const static std::string_view operation_state_name;
-		};
-		struct LookupVariablesCoolingStruct {
-			double input_power;
-			double net_evaporator_capacity;
-			double net_condenser_capacity;
-			double oil_cooler_heat;
-			double auxiliary_heat;
-			double operation_state;
-		};
-		class PerformanceMapCooling  : public PerformanceMapBase {
-		public:
-			void initialize (const nlohmann::json& j) override;
-			rs0001_ns::GridVariablesCooling grid_variables;
-			rs0001_ns::LookupVariablesCooling lookup_variables;
-			bool grid_variables_is_set;
-			bool lookup_variables_is_set;
-			const static std::string_view grid_variables_units;
-			const static std::string_view lookup_variables_units;
-			const static std::string_view grid_variables_description;
-			const static std::string_view lookup_variables_description;
-			const static std::string_view grid_variables_name;
-			const static std::string_view lookup_variables_name;
-			using PerformanceMapBase::calculate_performance;
-			LookupVariablesCoolingStruct calculate_performance (double evaporator_liquid_volumetric_flow_rate, double evaporator_liquid_leaving_temperature, double condenser_liquid_volumetric_flow_rate, double condenser_liquid_entering_temperature, double compressor_sequence_number, Btwxt::InterpolationMethod performance_interpolation_method = Btwxt::InterpolationMethod::linear);
-		};
 		class GridVariablesStandby  : public GridVariablesBase {
 		public:
 			void populate_performance_map (PerformanceMapBase* performance_map) override;
@@ -459,6 +355,7 @@ namespace tk205  {
 		};
 		class Performance  {
 		public:
+			ashrae205_ns::CondenserType condenser_type;
 			ashrae205_ns::LiquidMixture evaporator_liquid_type;
 			ashrae205_ns::LiquidMixture condenser_liquid_type;
 			double evaporator_fouling_factor;
@@ -466,10 +363,11 @@ namespace tk205  {
 			ashrae205_ns::SpeedControlType compressor_speed_control_type;
 			double cycling_degradation_coefficient;
 			ashrae205_ns::Scaling scaling;
-			rs0001_ns::PerformanceMapCooling performance_map_cooling;
+			std::unique_ptr<PerformanceMapBase> performance_map_cooling;
 			rs0001_ns::PerformanceMapStandby performance_map_standby;
 			rs0001_ns::PerformanceMapEvaporatorLiquidPressureDifferential performance_map_evaporator_liquid_pressure_differential;
 			rs0001_ns::PerformanceMapCondenserLiquidPressureDifferential performance_map_condenser_liquid_pressure_differential;
+			bool condenser_type_is_set;
 			bool evaporator_liquid_type_is_set;
 			bool condenser_liquid_type_is_set;
 			bool evaporator_fouling_factor_is_set;
@@ -481,6 +379,7 @@ namespace tk205  {
 			bool performance_map_standby_is_set;
 			bool performance_map_evaporator_liquid_pressure_differential_is_set;
 			bool performance_map_condenser_liquid_pressure_differential_is_set;
+			const static std::string_view condenser_type_units;
 			const static std::string_view evaporator_liquid_type_units;
 			const static std::string_view condenser_liquid_type_units;
 			const static std::string_view evaporator_fouling_factor_units;
@@ -492,6 +391,7 @@ namespace tk205  {
 			const static std::string_view performance_map_standby_units;
 			const static std::string_view performance_map_evaporator_liquid_pressure_differential_units;
 			const static std::string_view performance_map_condenser_liquid_pressure_differential_units;
+			const static std::string_view condenser_type_description;
 			const static std::string_view evaporator_liquid_type_description;
 			const static std::string_view condenser_liquid_type_description;
 			const static std::string_view evaporator_fouling_factor_description;
@@ -503,6 +403,7 @@ namespace tk205  {
 			const static std::string_view performance_map_standby_description;
 			const static std::string_view performance_map_evaporator_liquid_pressure_differential_description;
 			const static std::string_view performance_map_condenser_liquid_pressure_differential_description;
+			const static std::string_view condenser_type_name;
 			const static std::string_view evaporator_liquid_type_name;
 			const static std::string_view condenser_liquid_type_name;
 			const static std::string_view evaporator_fouling_factor_name;
@@ -535,6 +436,351 @@ namespace tk205  {
 			const static std::string_view description_name;
 			const static std::string_view performance_name;
 		};
+		class GridVariablesCoolingLiquid  : public GridVariablesBase {
+		public:
+			void populate_performance_map (PerformanceMapBase* performance_map) override;
+			enum  {
+				evaporator_liquid_volumetric_flow_rate_index,
+				evaporator_liquid_leaving_temperature_index,
+				condenser_liquid_volumetric_flow_rate_index,
+				condenser_liquid_entering_temperature_index,
+				compressor_sequence_number_index,
+				index_count
+			};
+			std::vector<double> evaporator_liquid_volumetric_flow_rate;
+			std::vector<double> evaporator_liquid_leaving_temperature;
+			std::vector<double> condenser_liquid_volumetric_flow_rate;
+			std::vector<double> condenser_liquid_entering_temperature;
+			std::vector<int> compressor_sequence_number;
+			bool evaporator_liquid_volumetric_flow_rate_is_set;
+			bool evaporator_liquid_leaving_temperature_is_set;
+			bool condenser_liquid_volumetric_flow_rate_is_set;
+			bool condenser_liquid_entering_temperature_is_set;
+			bool compressor_sequence_number_is_set;
+			const static std::string_view evaporator_liquid_volumetric_flow_rate_units;
+			const static std::string_view evaporator_liquid_leaving_temperature_units;
+			const static std::string_view condenser_liquid_volumetric_flow_rate_units;
+			const static std::string_view condenser_liquid_entering_temperature_units;
+			const static std::string_view compressor_sequence_number_units;
+			const static std::string_view evaporator_liquid_volumetric_flow_rate_description;
+			const static std::string_view evaporator_liquid_leaving_temperature_description;
+			const static std::string_view condenser_liquid_volumetric_flow_rate_description;
+			const static std::string_view condenser_liquid_entering_temperature_description;
+			const static std::string_view compressor_sequence_number_description;
+			const static std::string_view evaporator_liquid_volumetric_flow_rate_name;
+			const static std::string_view evaporator_liquid_leaving_temperature_name;
+			const static std::string_view condenser_liquid_volumetric_flow_rate_name;
+			const static std::string_view condenser_liquid_entering_temperature_name;
+			const static std::string_view compressor_sequence_number_name;
+		};
+		struct LookupVariablesCoolingLiquid  : public LookupVariablesBase {
+		
+			void populate_performance_map (PerformanceMapBase* performance_map) override;
+			enum  {
+				input_power_index,
+				net_evaporator_capacity_index,
+				net_condenser_capacity_index,
+				oil_cooler_heat_index,
+				auxiliary_heat_index,
+				operation_state_index,
+				index_count
+			};
+			std::vector<double> input_power;
+			std::vector<double> net_evaporator_capacity;
+			std::vector<double> net_condenser_capacity;
+			std::vector<double> oil_cooler_heat;
+			std::vector<double> auxiliary_heat;
+			std::vector<ashrae205_ns::OperationState> operation_state;
+			bool input_power_is_set;
+			bool net_evaporator_capacity_is_set;
+			bool net_condenser_capacity_is_set;
+			bool oil_cooler_heat_is_set;
+			bool auxiliary_heat_is_set;
+			bool operation_state_is_set;
+			const static std::string_view input_power_units;
+			const static std::string_view net_evaporator_capacity_units;
+			const static std::string_view net_condenser_capacity_units;
+			const static std::string_view oil_cooler_heat_units;
+			const static std::string_view auxiliary_heat_units;
+			const static std::string_view operation_state_units;
+			const static std::string_view input_power_description;
+			const static std::string_view net_evaporator_capacity_description;
+			const static std::string_view net_condenser_capacity_description;
+			const static std::string_view oil_cooler_heat_description;
+			const static std::string_view auxiliary_heat_description;
+			const static std::string_view operation_state_description;
+			const static std::string_view input_power_name;
+			const static std::string_view net_evaporator_capacity_name;
+			const static std::string_view net_condenser_capacity_name;
+			const static std::string_view oil_cooler_heat_name;
+			const static std::string_view auxiliary_heat_name;
+			const static std::string_view operation_state_name;
+		};
+		struct LookupVariablesCoolingLiquidStruct {
+			double input_power;
+			double net_evaporator_capacity;
+			double net_condenser_capacity;
+			double oil_cooler_heat;
+			double auxiliary_heat;
+			double operation_state;
+		};
+		class PerformanceMapCoolingLiquid  : public PerformanceMapBase {
+		public:
+			void initialize (const nlohmann::json& j) override;
+			rs0001_ns::GridVariablesCoolingLiquid grid_variables;
+			rs0001_ns::LookupVariablesCoolingLiquid lookup_variables;
+			bool grid_variables_is_set;
+			bool lookup_variables_is_set;
+			const static std::string_view grid_variables_units;
+			const static std::string_view lookup_variables_units;
+			const static std::string_view grid_variables_description;
+			const static std::string_view lookup_variables_description;
+			const static std::string_view grid_variables_name;
+			const static std::string_view lookup_variables_name;
+			using PerformanceMapBase::calculate_performance;
+			LookupVariablesCoolingLiquidStruct calculate_performance (double evaporator_liquid_volumetric_flow_rate, double evaporator_liquid_leaving_temperature, double condenser_liquid_volumetric_flow_rate, double condenser_liquid_entering_temperature, double compressor_sequence_number, Btwxt::InterpolationMethod performance_interpolation_method = Btwxt::InterpolationMethod::linear);
+		};
+		class GridVariablesCoolingAir  : public GridVariablesBase {
+		public:
+			void populate_performance_map (PerformanceMapBase* performance_map) override;
+			enum  {
+				evaporator_liquid_volumetric_flow_rate_index,
+				evaporator_liquid_leaving_temperature_index,
+				condenser_air_entering_drybulb_temperature_index,
+				condenser_air_entering_relative_humidity_index,
+				ambient_pressure_index,
+				compressor_sequence_number_index,
+				index_count
+			};
+			std::vector<double> evaporator_liquid_volumetric_flow_rate;
+			std::vector<double> evaporator_liquid_leaving_temperature;
+			std::vector<double> condenser_air_entering_drybulb_temperature;
+			std::vector<double> condenser_air_entering_relative_humidity;
+			std::vector<double> ambient_pressure;
+			std::vector<int> compressor_sequence_number;
+			bool evaporator_liquid_volumetric_flow_rate_is_set;
+			bool evaporator_liquid_leaving_temperature_is_set;
+			bool condenser_air_entering_drybulb_temperature_is_set;
+			bool condenser_air_entering_relative_humidity_is_set;
+			bool ambient_pressure_is_set;
+			bool compressor_sequence_number_is_set;
+			const static std::string_view evaporator_liquid_volumetric_flow_rate_units;
+			const static std::string_view evaporator_liquid_leaving_temperature_units;
+			const static std::string_view condenser_air_entering_drybulb_temperature_units;
+			const static std::string_view condenser_air_entering_relative_humidity_units;
+			const static std::string_view ambient_pressure_units;
+			const static std::string_view compressor_sequence_number_units;
+			const static std::string_view evaporator_liquid_volumetric_flow_rate_description;
+			const static std::string_view evaporator_liquid_leaving_temperature_description;
+			const static std::string_view condenser_air_entering_drybulb_temperature_description;
+			const static std::string_view condenser_air_entering_relative_humidity_description;
+			const static std::string_view ambient_pressure_description;
+			const static std::string_view compressor_sequence_number_description;
+			const static std::string_view evaporator_liquid_volumetric_flow_rate_name;
+			const static std::string_view evaporator_liquid_leaving_temperature_name;
+			const static std::string_view condenser_air_entering_drybulb_temperature_name;
+			const static std::string_view condenser_air_entering_relative_humidity_name;
+			const static std::string_view ambient_pressure_name;
+			const static std::string_view compressor_sequence_number_name;
+		};
+		struct LookupVariablesCoolingAir  : public LookupVariablesBase {
+		
+			void populate_performance_map (PerformanceMapBase* performance_map) override;
+			enum  {
+				input_power_index,
+				net_evaporator_capacity_index,
+				net_condenser_capacity_index,
+				condenser_air_volumetric_flow_rate_index,
+				oil_cooler_heat_index,
+				auxiliary_heat_index,
+				operation_state_index,
+				index_count
+			};
+			std::vector<double> input_power;
+			std::vector<double> net_evaporator_capacity;
+			std::vector<double> net_condenser_capacity;
+			std::vector<double> condenser_air_volumetric_flow_rate;
+			std::vector<double> oil_cooler_heat;
+			std::vector<double> auxiliary_heat;
+			std::vector<ashrae205_ns::OperationState> operation_state;
+			bool input_power_is_set;
+			bool net_evaporator_capacity_is_set;
+			bool net_condenser_capacity_is_set;
+			bool condenser_air_volumetric_flow_rate_is_set;
+			bool oil_cooler_heat_is_set;
+			bool auxiliary_heat_is_set;
+			bool operation_state_is_set;
+			const static std::string_view input_power_units;
+			const static std::string_view net_evaporator_capacity_units;
+			const static std::string_view net_condenser_capacity_units;
+			const static std::string_view condenser_air_volumetric_flow_rate_units;
+			const static std::string_view oil_cooler_heat_units;
+			const static std::string_view auxiliary_heat_units;
+			const static std::string_view operation_state_units;
+			const static std::string_view input_power_description;
+			const static std::string_view net_evaporator_capacity_description;
+			const static std::string_view net_condenser_capacity_description;
+			const static std::string_view condenser_air_volumetric_flow_rate_description;
+			const static std::string_view oil_cooler_heat_description;
+			const static std::string_view auxiliary_heat_description;
+			const static std::string_view operation_state_description;
+			const static std::string_view input_power_name;
+			const static std::string_view net_evaporator_capacity_name;
+			const static std::string_view net_condenser_capacity_name;
+			const static std::string_view condenser_air_volumetric_flow_rate_name;
+			const static std::string_view oil_cooler_heat_name;
+			const static std::string_view auxiliary_heat_name;
+			const static std::string_view operation_state_name;
+		};
+		struct LookupVariablesCoolingAirStruct {
+			double input_power;
+			double net_evaporator_capacity;
+			double net_condenser_capacity;
+			double condenser_air_volumetric_flow_rate;
+			double oil_cooler_heat;
+			double auxiliary_heat;
+			double operation_state;
+		};
+		class PerformanceMapCoolingAir  : public PerformanceMapBase {
+		public:
+			void initialize (const nlohmann::json& j) override;
+			rs0001_ns::GridVariablesCoolingAir grid_variables;
+			rs0001_ns::LookupVariablesCoolingAir lookup_variables;
+			bool grid_variables_is_set;
+			bool lookup_variables_is_set;
+			const static std::string_view grid_variables_units;
+			const static std::string_view lookup_variables_units;
+			const static std::string_view grid_variables_description;
+			const static std::string_view lookup_variables_description;
+			const static std::string_view grid_variables_name;
+			const static std::string_view lookup_variables_name;
+			using PerformanceMapBase::calculate_performance;
+			LookupVariablesCoolingAirStruct calculate_performance (double evaporator_liquid_volumetric_flow_rate, double evaporator_liquid_leaving_temperature, double condenser_air_entering_drybulb_temperature, double condenser_air_entering_relative_humidity, double ambient_pressure, double compressor_sequence_number, Btwxt::InterpolationMethod performance_interpolation_method = Btwxt::InterpolationMethod::linear);
+		};
+		class GridVariablesCoolingEvaporative  : public GridVariablesBase {
+		public:
+			void populate_performance_map (PerformanceMapBase* performance_map) override;
+			enum  {
+				evaporator_liquid_volumetric_flow_rate_index,
+				evaporator_liquid_leaving_temperature_index,
+				condenser_air_entering_drybulb_temperature_index,
+				condenser_air_entering_relative_humidity_index,
+				ambient_pressure_index,
+				compressor_sequence_number_index,
+				index_count
+			};
+			std::vector<double> evaporator_liquid_volumetric_flow_rate;
+			std::vector<double> evaporator_liquid_leaving_temperature;
+			std::vector<double> condenser_air_entering_drybulb_temperature;
+			std::vector<double> condenser_air_entering_relative_humidity;
+			std::vector<double> ambient_pressure;
+			std::vector<int> compressor_sequence_number;
+			bool evaporator_liquid_volumetric_flow_rate_is_set;
+			bool evaporator_liquid_leaving_temperature_is_set;
+			bool condenser_air_entering_drybulb_temperature_is_set;
+			bool condenser_air_entering_relative_humidity_is_set;
+			bool ambient_pressure_is_set;
+			bool compressor_sequence_number_is_set;
+			const static std::string_view evaporator_liquid_volumetric_flow_rate_units;
+			const static std::string_view evaporator_liquid_leaving_temperature_units;
+			const static std::string_view condenser_air_entering_drybulb_temperature_units;
+			const static std::string_view condenser_air_entering_relative_humidity_units;
+			const static std::string_view ambient_pressure_units;
+			const static std::string_view compressor_sequence_number_units;
+			const static std::string_view evaporator_liquid_volumetric_flow_rate_description;
+			const static std::string_view evaporator_liquid_leaving_temperature_description;
+			const static std::string_view condenser_air_entering_drybulb_temperature_description;
+			const static std::string_view condenser_air_entering_relative_humidity_description;
+			const static std::string_view ambient_pressure_description;
+			const static std::string_view compressor_sequence_number_description;
+			const static std::string_view evaporator_liquid_volumetric_flow_rate_name;
+			const static std::string_view evaporator_liquid_leaving_temperature_name;
+			const static std::string_view condenser_air_entering_drybulb_temperature_name;
+			const static std::string_view condenser_air_entering_relative_humidity_name;
+			const static std::string_view ambient_pressure_name;
+			const static std::string_view compressor_sequence_number_name;
+		};
+		struct LookupVariablesCoolingEvaporative  : public LookupVariablesBase {
+		
+			void populate_performance_map (PerformanceMapBase* performance_map) override;
+			enum  {
+				input_power_index,
+				net_evaporator_capacity_index,
+				net_condenser_capacity_index,
+				condenser_air_volumetric_flow_rate_index,
+				evaporation_rate_index,
+				oil_cooler_heat_index,
+				auxiliary_heat_index,
+				operation_state_index,
+				index_count
+			};
+			std::vector<double> input_power;
+			std::vector<double> net_evaporator_capacity;
+			std::vector<double> net_condenser_capacity;
+			std::vector<double> condenser_air_volumetric_flow_rate;
+			std::vector<double> evaporation_rate;
+			std::vector<double> oil_cooler_heat;
+			std::vector<double> auxiliary_heat;
+			std::vector<ashrae205_ns::OperationState> operation_state;
+			bool input_power_is_set;
+			bool net_evaporator_capacity_is_set;
+			bool net_condenser_capacity_is_set;
+			bool condenser_air_volumetric_flow_rate_is_set;
+			bool evaporation_rate_is_set;
+			bool oil_cooler_heat_is_set;
+			bool auxiliary_heat_is_set;
+			bool operation_state_is_set;
+			const static std::string_view input_power_units;
+			const static std::string_view net_evaporator_capacity_units;
+			const static std::string_view net_condenser_capacity_units;
+			const static std::string_view condenser_air_volumetric_flow_rate_units;
+			const static std::string_view evaporation_rate_units;
+			const static std::string_view oil_cooler_heat_units;
+			const static std::string_view auxiliary_heat_units;
+			const static std::string_view operation_state_units;
+			const static std::string_view input_power_description;
+			const static std::string_view net_evaporator_capacity_description;
+			const static std::string_view net_condenser_capacity_description;
+			const static std::string_view condenser_air_volumetric_flow_rate_description;
+			const static std::string_view evaporation_rate_description;
+			const static std::string_view oil_cooler_heat_description;
+			const static std::string_view auxiliary_heat_description;
+			const static std::string_view operation_state_description;
+			const static std::string_view input_power_name;
+			const static std::string_view net_evaporator_capacity_name;
+			const static std::string_view net_condenser_capacity_name;
+			const static std::string_view condenser_air_volumetric_flow_rate_name;
+			const static std::string_view evaporation_rate_name;
+			const static std::string_view oil_cooler_heat_name;
+			const static std::string_view auxiliary_heat_name;
+			const static std::string_view operation_state_name;
+		};
+		struct LookupVariablesCoolingEvaporativeStruct {
+			double input_power;
+			double net_evaporator_capacity;
+			double net_condenser_capacity;
+			double condenser_air_volumetric_flow_rate;
+			double evaporation_rate;
+			double oil_cooler_heat;
+			double auxiliary_heat;
+			double operation_state;
+		};
+		class PerformanceMapCoolingEvaporative  : public PerformanceMapBase {
+		public:
+			void initialize (const nlohmann::json& j) override;
+			rs0001_ns::GridVariablesCoolingEvaporative grid_variables;
+			rs0001_ns::LookupVariablesCoolingEvaporative lookup_variables;
+			bool grid_variables_is_set;
+			bool lookup_variables_is_set;
+			const static std::string_view grid_variables_units;
+			const static std::string_view lookup_variables_units;
+			const static std::string_view grid_variables_description;
+			const static std::string_view lookup_variables_description;
+			const static std::string_view grid_variables_name;
+			const static std::string_view lookup_variables_name;
+			using PerformanceMapBase::calculate_performance;
+			LookupVariablesCoolingEvaporativeStruct calculate_performance (double evaporator_liquid_volumetric_flow_rate, double evaporator_liquid_leaving_temperature, double condenser_air_entering_drybulb_temperature, double condenser_air_entering_relative_humidity, double ambient_pressure, double compressor_sequence_number, Btwxt::InterpolationMethod performance_interpolation_method = Btwxt::InterpolationMethod::linear);
+		};
 		NLOHMANN_JSON_SERIALIZE_ENUM (AHRI550590TestStandardYear, {
 			{AHRI550590TestStandardYear::UNKNOWN, "UNKNOWN"},
 			{AHRI550590TestStandardYear::IP_2015, "IP_2015"},
@@ -559,9 +805,15 @@ namespace tk205  {
 		void from_json (const nlohmann::json& j, RatingAHRI550590& x);
 		void from_json (const nlohmann::json& j, RatingAHRI551591& x);
 		void from_json (const nlohmann::json& j, Performance& x);
-		void from_json (const nlohmann::json& j, PerformanceMapCooling& x);
-		void from_json (const nlohmann::json& j, GridVariablesCooling& x);
-		void from_json (const nlohmann::json& j, LookupVariablesCooling& x);
+		void from_json (const nlohmann::json& j, PerformanceMapCoolingLiquid& x);
+		void from_json (const nlohmann::json& j, GridVariablesCoolingLiquid& x);
+		void from_json (const nlohmann::json& j, LookupVariablesCoolingLiquid& x);
+		void from_json (const nlohmann::json& j, PerformanceMapCoolingAir& x);
+		void from_json (const nlohmann::json& j, GridVariablesCoolingAir& x);
+		void from_json (const nlohmann::json& j, LookupVariablesCoolingAir& x);
+		void from_json (const nlohmann::json& j, PerformanceMapCoolingEvaporative& x);
+		void from_json (const nlohmann::json& j, GridVariablesCoolingEvaporative& x);
+		void from_json (const nlohmann::json& j, LookupVariablesCoolingEvaporative& x);
 		void from_json (const nlohmann::json& j, PerformanceMapStandby& x);
 		void from_json (const nlohmann::json& j, GridVariablesStandby& x);
 		void from_json (const nlohmann::json& j, LookupVariablesStandby& x);

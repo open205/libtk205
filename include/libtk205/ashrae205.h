@@ -28,7 +28,7 @@ namespace tk205  {
 			UNKNOWN
 		};
 		const static std::unordered_map<SchemaType, enum_info> SchemaType_info {
-			{SchemaType::RS0001, {"RS0001", "RS0001", "Liquid-Cooled Chiller"}},
+			{SchemaType::RS0001, {"RS0001", "RS0001", "Chiller"}},
 			{SchemaType::RS0002, {"RS0002", "RS0002", "Unitary Cooling Air-Conditioning Equipment"}},
 			{SchemaType::RS0003, {"RS0003", "RS0003", "Fan Assembly"}},
 			{SchemaType::RS0004, {"RS0004", "RS0004", "Air-to-Air Direct Expansion Refrigerant System"}},
