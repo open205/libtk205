@@ -69,7 +69,7 @@ protected:
     ASHRAEChillerFixture() : RSFixture()
     {
         RSInstanceFactory::register_factory("RS0001", std::make_shared<tk205::RS0001Factory>());
-        rs_ = RSInstanceFactory::create("RS0001", TEST205_INPUT_EXAMPLES_DIR "/examples/RS0001/ASHRAE90-1-2019-bd-Curve-Set-C.RS0001.a205.json", std::make_shared<Courierr::SimpleCourierr>());
+        rs_ = RSInstanceFactory::create("RS0001", TEST205_INPUT_EXAMPLES_DIR "/examples/RS0001/ASHRAE90-1-2022-AppJ-Curve-Set-C.RS0001.a205.json", std::make_shared<Courierr::SimpleCourierr>());
     }
 };
 
@@ -89,7 +89,7 @@ protected:
     RS0003Fixture() : RSFixture()
     {
         RSInstanceFactory::register_factory("RS0003", std::make_shared<tk205::RS0003Factory>());
-        rs_= RSInstanceFactory::create("RS0003", TEST205_INPUT_EXAMPLES_DIR "/examples/RS0003/Fan-Continuous.RS0003.a205.json", std::make_shared<Courierr::SimpleCourierr>());
+        rs_ = RSInstanceFactory::create("RS0003", TEST205_INPUT_EXAMPLES_DIR "/examples/RS0003/Fan-Continuous.RS0003.a205.json", std::make_shared<Courierr::SimpleCourierr>());
     }
 };
 
@@ -99,7 +99,7 @@ protected:
     RS0004Fixture() : RSFixture()
     {
         RSInstanceFactory::register_factory("RS0004", std::make_shared<tk205::RS0004Factory>());
-        rs_= RSInstanceFactory::create("RS0004", TEST205_INPUT_EXAMPLES_DIR "/examples/RS0004/DX-Constant-Efficiency.RS0004.a205.json", std::make_shared<Courierr::SimpleCourierr>());
+        rs_ = RSInstanceFactory::create("RS0004", TEST205_INPUT_EXAMPLES_DIR "/examples/RS0004/DX-Constant-Efficiency.RS0004.a205.json", std::make_shared<Courierr::SimpleCourierr>());
     }
 };
 
@@ -109,7 +109,7 @@ protected:
     RS0005Fixture() : RSFixture()
     {
         RSInstanceFactory::register_factory("RS0005", std::make_shared<tk205::RS0005Factory>());
-        rs_= RSInstanceFactory::create("RS0005", TEST205_INPUT_EXAMPLES_DIR "/examples/RS0005/Motor-Constant-Efficiency.RS0005.a205.json", std::make_shared<Courierr::SimpleCourierr>());
+        rs_ = RSInstanceFactory::create("RS0005", TEST205_INPUT_EXAMPLES_DIR "/examples/RS0005/Motor-Constant-Efficiency.RS0005.a205.json", std::make_shared<Courierr::SimpleCourierr>());
     }
 };
 

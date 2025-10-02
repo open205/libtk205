@@ -36,8 +36,9 @@ TEST_F(RS0001Fixture, Calculate_performance_cooling)
 {
     auto rs = dynamic_cast<rs0001_ns::RS0001 *>(rs_.get());
     EXPECT_TRUE(rs != nullptr);
-    std::vector<double> target {0.0755, 280.0, 0.0957, 295.0, 0.5}; //NOLINT : Magic numbers necessary!
-    auto result = rs->performance.performance_map_cooling.calculate_performance(target);
+    std::vector<double> target{0.0755, 280.0, 0.0957, 295.0, 0.5}; // NOLINT : Magic numbers necessary!
+    auto pm = dynamic_cast<rs0001_ns::PerformanceMapCoolingLiquid *>(rs->performance.performance_map_cooling.get());
+    auto result = pm->calculate_performance(target);
     EXPECT_EQ(result.size(), 6u);
 }
 
@@ -45,8 +46,9 @@ TEST_F(RS0001Fixture, Calculate_performance_cooling_2)
 {
     auto rs = dynamic_cast<rs0001_ns::RS0001 *>(rs_.get());
     EXPECT_TRUE(rs != nullptr);
-    std::vector<double> target {0.0755, 280.0, 0.0957, 295.0, 0.5}; //NOLINT : Magic numbers necessary!
-    auto result = rs->performance.performance_map_cooling.calculate_performance(target, rs->performance.performance_map_cooling.lookup_variables.net_condenser_capacity_index);
+    std::vector<double> target{0.0755, 280.0, 0.0957, 295.0, 0.5}; // NOLINT : Magic numbers necessary!
+    auto pm = dynamic_cast<rs0001_ns::PerformanceMapCoolingLiquid *>(rs->performance.performance_map_cooling.get());
+    auto result = pm->calculate_performance(target, pm->lookup_variables.net_condenser_capacity_index);
     EXPECT_NEAR(result, 411193.22, 0.001);
 }
 
@@ -54,7 +56,8 @@ TEST_F(RS0001Fixture, Calculate_performance_cooling_3)
 {
     auto rs = dynamic_cast<rs0001_ns::RS0001 *>(rs_.get());
     EXPECT_TRUE(rs != nullptr);
-    auto result = rs->performance.performance_map_cooling.calculate_performance(0.0755, 280.0, 0.0957, 295.0, 0.5, Btwxt::InterpolationMethod::linear).net_condenser_capacity;
+    auto pm = dynamic_cast<rs0001_ns::PerformanceMapCoolingLiquid *>(rs->performance.performance_map_cooling.get());
+    auto result = pm->calculate_performance(0.0755, 280.0, 0.0957, 295.0, 0.5, Btwxt::InterpolationMethod::linear).net_condenser_capacity;
     EXPECT_NEAR(result, 411193.22, 0.001);
 }
 
@@ -62,9 +65,10 @@ TEST_F(ASHRAEChillerFixture, Calculate_performance_cubic)
 {
     auto rs = dynamic_cast<rs0001_ns::RS0001 *>(rs_.get());
     EXPECT_TRUE(rs != nullptr);
-    std::vector<double> target {0.00565, 280.0, 0.00845, 297.0, 1.5}; //NOLINT : Magic numbers necessary!
-    auto result1 = rs->performance.performance_map_cooling.calculate_performance(target, Btwxt::InterpolationMethod::linear);
-    auto result2 = rs->performance.performance_map_cooling.calculate_performance(target, Btwxt::InterpolationMethod::cubic);
+    std::vector<double> target{0.00565, 280.0, 0.00845, 297.0, 1.5}; // NOLINT : Magic numbers necessary!
+    auto pm = dynamic_cast<rs0001_ns::PerformanceMapCoolingLiquid *>(rs->performance.performance_map_cooling.get());
+    auto result1 = pm->calculate_performance(target, Btwxt::InterpolationMethod::linear);
+    auto result2 = pm->calculate_performance(target, Btwxt::InterpolationMethod::cubic);
     EXPECT_NE(result1, result2);
 }
 
@@ -72,7 +76,7 @@ TEST_F(RS0005Fixture, Calculate_embedded_RS_performance)
 {
     auto rs = dynamic_cast<rs0005_ns::RS0005 *>(rs_.get());
     EXPECT_TRUE(rs != nullptr);
-    std::vector<double> target {5550.0, 10.0}; //NOLINT
+    std::vector<double> target{5550.0, 10.0}; // NOLINT
     auto result = rs->performance.drive_representation.performance.performance_map.calculate_performance(target);
     EXPECT_THAT(result, testing::ElementsAre(testing::DoubleEq(0.985), testing::DoubleEq(0.0)));
 }
